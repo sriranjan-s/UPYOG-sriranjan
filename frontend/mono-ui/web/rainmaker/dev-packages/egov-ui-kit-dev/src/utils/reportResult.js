@@ -486,7 +486,7 @@ class ShowField extends Component {
         footer: true,
         customize: function (doc) {
           doc.content[0].text = [];
-          doc.content[0].text.push({ text: "mSeva System Reports\n\n", bold: true, fontSize: 20 });
+          doc.content[0].text.push({ text: "UPYOG System Reports\n\n", bold: true, fontSize: 20 });
           doc.content[0].text.push({ text: reportTitle, fontSize: 18 });
           if (doc.content[1] && !doc.content[2]) {
             doc.content[1].margin = reportHeader.length > 6 ? null : reportHeader.length < 3 ? [180, 10, 10, 12] : [60, 10, 10, 12];
@@ -846,7 +846,7 @@ class ShowField extends Component {
             <Label className="report-header-row-label" labelStyle={{ wordWrap: "unset", wordBreak: "unset", fontWeight: "bold" }} label={"RT_SNO"} />
           </th>
           {metaData && metaData.reportDetails && metaData.reportDetails.selectiveDownload && (
-            <th key={"testKey"}>
+            <th key={"testKey"} >
               <input type="checkbox" onChange={checkAllRows} />
             </th>
           )}
@@ -1029,7 +1029,7 @@ class ShowField extends Component {
     return (
       <tbody>
         {reportResult.hasOwnProperty("reportData") &&
-          reportResult.reportData.map((dataItem, dataIndex) => {
+          reportResultArray.map((dataItem, dataIndex) => {
             //array of array
             let reportHeaderObj = reportResult.reportHeader;
             return (
@@ -1040,7 +1040,7 @@ class ShowField extends Component {
               >
                 <td>{dataIndex + 1}</td>
                 {metaData && metaData.reportDetails && metaData.reportDetails.selectiveDownload && (
-                  <td>
+                  <td >
                     <input
                       type="checkbox"
                       checked={this.state.ck[dataIndex] ? true : false}
