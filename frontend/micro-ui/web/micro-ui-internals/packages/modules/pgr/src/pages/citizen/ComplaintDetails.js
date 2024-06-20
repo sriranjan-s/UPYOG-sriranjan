@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LinkButton } from "@upyog/digit-ui-react-components";
-
+import { Redirect, Route, Switch, useHistory, useRouteMatch, useLocation } from "react-router-dom";
 import { LOCALIZATION_KEY } from "../../constants/Localization";
 
 import {
@@ -53,7 +53,8 @@ const WorkflowComponent = ({ complaintDetails, id, getWorkFlow, zoomImage }) => 
 const ComplaintDetailsPage = (props) => {
   let { t } = useTranslation();
   let { id } = useParams();
-
+  const match = useRouteMatch();
+  const history = useHistory();
   let tenantId = Digit.SessionStorage.get("CITIZEN.COMMON.HOME.CITY")?.code || Digit.ULBService.getCurrentTenantId(); // ToDo: fetch from state
   const { isLoading, error, isError, complaintDetails, revalidate } = Digit.Hooks.pgr.useComplaintDetails({ tenantId, id });
 
@@ -110,25 +111,6 @@ const ComplaintDetailsPage = (props) => {
     }
   };
 
-  const submitComment = async () => {
-    let detailsToSend = { ...complaintDetails };
-    delete detailsToSend.audit;
-    delete detailsToSend.details;
-    detailsToSend.workflow = { action: "COMMENT", comments: comment };
-    let tenantId = Digit.ULBService.getCurrentTenantId();
-    try {
-      setCommentError(null);
-      const res = await Digit.PGRService.update(detailsToSend, tenantId);
-      if (res.ServiceWrappers.length) setComment("");
-      else throw true;
-    } catch (er) {
-      setCommentError(true);
-    }
-    setToast(true);
-    setTimeout(() => {
-      setToast(false);
-    }, 30000);
-  };
 
   if (isLoading || loader) {
     return <Loader />;
@@ -137,6 +119,13 @@ const ComplaintDetailsPage = (props) => {
   if (isError) {
     return <h2>Error</h2>;
   }
+  const handleRedirect = (e) => {
+    e.preventDefault()
+    console.log("complaintDetailscomplaintDetails", complaintDetails)
+    Digit.SessionStorage.set("ComplaintDetails", complaintDetails)
+    history.push('/digit-ui/citizen/pgr/create-complaint/complaint-type');
+  }
+
 
   return (
     <React.Fragment>
@@ -145,19 +134,19 @@ const ComplaintDetailsPage = (props) => {
         <div style={{marginLeft:"500px", color:"#A52A2A"}}>
         <LinkButton label={t("VIEW_TIMELINE")}  onClick={handleViewTimeline} ></LinkButton>
         </div>
-        {Object.keys(complaintDetails).length > 0 ? (
+        {Object.keys(complaintDetails)?.length > 0 ? (
           <React.Fragment>
             <Card>
-              <CardSubHeader>{t(`SERVICEDEFS.${complaintDetails.audit.serviceCode.toUpperCase()}`)}</CardSubHeader>
+              <CardSubHeader>{t(`SERVICEDEFS.${complaintDetails?.audit?.serviceCode?.toUpperCase()}`)}</CardSubHeader>
               <StatusTable>
-                {Object.keys(complaintDetails.details).map((flag, index, arr) => (
+                {Object.keys(complaintDetails?.details).map((flag, index, arr) => (
                   <Row
                     key={index}
                     label={t(flag)}
                     text={
-                      Array.isArray(complaintDetails.details[flag])
-                        ? complaintDetails.details[flag].map((val) => (typeof val === "object" ? t(val?.code) : t(val)))
-                        : t(complaintDetails.details[flag]) || "N/A"
+                      Array.isArray(complaintDetails?.details[flag])
+                        ? complaintDetails?.details[flag]?.map((val) => (typeof val === "object" ? t(val?.code) : t(val)))
+                        : t(complaintDetails?.details?.[flag]) || "N/A"
                     }
                     last={index === arr.length - 1}
                   />
@@ -174,6 +163,7 @@ const ComplaintDetailsPage = (props) => {
                 <WorkflowComponent getWorkFlow={onWorkFlowChange} complaintDetails={complaintDetails} id={id} zoomImage={zoomImage} />
               )}
               </div>
+              <button onClick={(e)=>{handleRedirect(e)}}>Click Me</button>
             </Card>
             {/* <Card>
       <CardSubHeader>{t(`${LOCALIZATION_KEY.CS_COMMON}_COMMENTS`)}</CardSubHeader>

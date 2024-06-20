@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import merge from "lodash.merge";
-import { useDispatch } from "react-redux";
-import { createComplaint } from "../../../redux/actions/index";
+import { useDispatch,useSelector } from "react-redux";
+import  {createComplaint ,createComplaintFull} from "../../../redux/actions/index";
 import { PGR_CITIZEN_COMPLAINT_CONFIG, PGR_CITIZEN_CREATE_COMPLAINT } from "../../../constants/Citizen";
 import Response from "./Response";
 
@@ -29,6 +29,7 @@ export const CreateComplaint = () => {
 
   const [rerender, setRerender] = useState(0);
   const client = useQueryClient();
+  const appState = useSelector((state) => state["pgr"]);
   useEffect(() => {
     setCanSubmit(false);
   }, []);
@@ -36,6 +37,7 @@ export const CreateComplaint = () => {
   useEffect(() => {
     setParamState(params);
     if (nextStep === null) {
+      console.log("paramsparamsparams",params)
       wrapperSubmit();
     } else {
       history.push(`${match.path}/${nextStep}`);
@@ -65,42 +67,41 @@ export const CreateComplaint = () => {
     }
   };
   const submitComplaint = async () => {
-    if (paramState?.complaintType) {
-      const { city_complaint, locality_complaint, uploadedImages, complaintType, subType, prioritylevel, details, ...values } = paramState;
-      const { code: cityCode, name: city } = city_complaint;
-      const { code: localityCode, name: localityName } = locality_complaint;
-      const storedpropertyid =sessionStorage.getItem("propertyid")
+
+       const { uploadedImages } = paramState;
+      // const { code: cityCode, name: city } = city_complaint;
+      // const { code: localityCode, name: localityName } = locality_complaint;
+      // const storedpropertyid =sessionStorage.getItem("propertyid")
       const _uploadImages = uploadedImages?.map((url) => ({
         documentType: "PHOTO",
         fileStoreId: url,
         documentUid: "",
         additionalDetails: {},
       }));
+      let values = Digit.SessionStorage.get("appState")
 
+      let defaultdata = values?.complaints?.response?.ServiceWrappers?.[0]?.service
+      console.log("defaultdatadefaultdata",defaultdata)
       const data = {
-        ...values,
-        complaintType: subType.key,
-        cityCode,
-        city,
-        prioritylevel: prioritylevel ,
-        description: details,
-        district: city,
-        region: city,
-        localityCode,
-        localityName,
-        state: stateInfo.name,
-        uploadedImages: _uploadImages,
-        additionalDetails: {
-          propertyid: storedpropertyid,
+        ...defaultdata,
+        additionalDetail: {
+          ...defaultdata.additionalDetail,
+          _uploadImages,
         },
+        action:"APPLY"
       };
 
-      await dispatch(createComplaint(data));
+     let dataNew = await dispatch(createComplaintFull(data));
       await client.refetchQueries(["complaintsList"]);
+      
+      console.log("dataNewdataNew",dataNew,appState)
+      debugger
       history.push(`${match.path}/response`);
-    }
+    
   };
-
+useEffect(()=>{
+  console.log("updated appState",appState)
+},[appState])
   const handleSelect = (data) => {
     let c = JSON.parse(sessionStorage.getItem("complaintType"))
     if(data?.subType)
@@ -122,6 +123,8 @@ export const CreateComplaint = () => {
   };
 
   if (isLoading) return null;
+
+
 
   return (
     <Switch>

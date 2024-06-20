@@ -10,7 +10,7 @@ import {
 //import { LocalizationService } from "../../@egovernments/digit-utils/services/Localization/service";
 //import { LocationService } from "../../@egovernments/digit-utils/services/Location";
 //import { LocalityService } from "../../@egovernments/digit-utils/services/Localities";
-import createComplaint from "./complaint";
+import {createComplaint, updateComplaintAddress,createComplaintFull,createComplaintUpdate}from "./complaint";
 
 export const fetchLocalities = (city) => async (dispatch, getState) => {
   city = city.toLowerCase();
@@ -49,4 +49,4 @@ export const applyInboxFilters = (filters) => async (dispatch) => {
   });
 };
 
-export { createComplaint };
+export { createComplaint,updateComplaintAddress,createComplaintFull,createComplaintUpdate };

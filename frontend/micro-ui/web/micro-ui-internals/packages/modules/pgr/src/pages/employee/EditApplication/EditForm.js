@@ -293,7 +293,6 @@ const EditForm = ({ applicationData, details ,complaintDetails}) => {
 
   const onSubmit = async () => {
     delete complaintDetails.details;
-    complaintDetails.service.priority=priorityLevel.code;
     await dispatch(updateComplaints(complaintDetails));
     await client.refetchQueries(["fetchInboxData"]);
     let redirectingUrl=window.location.href.split("modify")[0]+"response";

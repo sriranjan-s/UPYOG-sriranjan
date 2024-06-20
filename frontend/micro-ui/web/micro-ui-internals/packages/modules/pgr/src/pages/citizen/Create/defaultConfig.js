@@ -17,7 +17,7 @@ export const config = {
         cardText: "CS_COMPLAINT_TYPE_TEXT",
         submitBarLabel: "CS_COMMON_NEXT",
       },
-      nextStep: "map",
+      nextStep: "address",
     },
     "sub-type": {
       component: SelectSubType,
@@ -63,7 +63,7 @@ export const config = {
         cardText: "CS_ADDCOMPLAINT_CITY_MOHALLA_TEXT",
         submitBarLabel: "CS_COMMON_NEXT",
       },
-      nextStep: "landmark",
+      nextStep: "upload-photos",
     },
     landmark: {
       component: SelectLandmark,
@@ -91,7 +91,7 @@ export const config = {
         submitBarLabel: "CS_COMMON_NEXT",
         skipText: "CORE_COMMON_SKIP_CONTINUE",
       },
-      nextStep: "additional-details",
+      nextStep: null,
     },
     "additional-details": {
       component: SelectDetails,

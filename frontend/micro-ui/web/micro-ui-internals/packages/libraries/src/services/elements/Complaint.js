@@ -2,7 +2,6 @@ export const Complaint = {
   create: async ({
     cityCode,
     complaintType,
-    priorityLevel,
     description,
     landmark,
     city,
@@ -14,17 +13,18 @@ export const Complaint = {
     localityName,
     uploadedImages,
     mobileNumber,
+    additionalDetail,
     emailId,
     name,
+    action
   }) => {
     const tenantId = Digit.ULBService.getCurrentTenantId();
     const defaultData = {
       service: {
-        tenantId: cityCode,
+        tenantId: "pg.citya",
         serviceCode: complaintType,
-        priority : priorityLevel.code,
         description: description,
-        additionalDetail: {},
+        additionalDetail: additionalDetail,
         source: Digit.Utils.browser.isWebview() ? "mobile" : "web",
         address: {
           landmark: landmark,
@@ -41,8 +41,7 @@ export const Complaint = {
         },
       },
       workflow: {
-        action: "APPLY",
-        verificationDocuments: uploadedImages,
+        action: action
       },
     };
 
@@ -66,7 +65,45 @@ export const Complaint = {
     const response = await Digit.PGRService.create(defaultData, cityCode);
     return response;
   },
+  update: async ({
+    accountId,
+    active,
+    auditDetails,
+    citizen,
+    description,
+    id,
+    serviceCode,
+    serviceRequestId,
+    source,
+    address,
+      additionalDetail,
+      action
 
+  }) => {
+    const tenantId = Digit.ULBService.getCurrentTenantId();
+    const defaultDataNew = {
+      service: {
+        accountId,
+    active,
+    auditDetails,
+    citizen,
+    description,
+    id,
+    serviceCode,
+    serviceRequestId,
+    source,
+    tenantId,
+        address,
+        additionalDetail
+      },
+      workflow: {
+        action: action
+      },
+    };
+console.log("dddddddddddd",defaultDataNew)
+    const response = await Digit.PGRService.update(defaultDataNew, "pg.citya");
+    return response;
+  },
   assign: async (complaintDetails, action, employeeData, comments, uploadedDocument, tenantId) => {
     complaintDetails.workflow.action = action;
     complaintDetails.workflow.assignes = employeeData ? [employeeData.uuid] : null;
