@@ -205,6 +205,10 @@ digiLocker:{
   uri:"/requester-services-dx/digilocker/file",
   oauth:"/user/digilocker/oauth/token"
 },
+eSign:{
+  pdfUrl:"/requester-services-dx/eSign/process",
+  fileStoreSearch:"/requester-services-dx/eSign/filestoreId/v1/_search"
+  },
   engagement: {
     document: {
       search: "/egov-document-uploader/egov-du/document/_search",
