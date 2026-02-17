@@ -90,7 +90,7 @@ public class PropertyRepository {
 	}
 
 	public List<Property> getProperties(PropertyCriteria criteria, Boolean isApiOpen, Boolean isPlainSearch) {
-		log.info("criteria in getProperties : "+criteria);
+		log.info("criteria in getProperties : "+criteria.toString());
 		List<Object> preparedStmtList = new ArrayList<>();
 		String query;
 		
@@ -183,7 +183,6 @@ public class PropertyRepository {
 	 * @return properties with owner information added from user service
 	 */
 	public List<Property> getPropertiesWithOwnerInfo(PropertyCriteria criteria, RequestInfo requestInfo, Boolean isInternal) {
-		log.info("criteria inside getPropertiesWithOwnerInfo"+criteria);
 		List<Property> properties;
 		
 		String stateLevelTenant=config.getStateLevelTenantId()!=null?config.getStateLevelTenantId():"pg";
