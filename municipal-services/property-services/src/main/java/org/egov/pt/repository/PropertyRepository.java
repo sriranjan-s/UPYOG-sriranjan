@@ -183,7 +183,6 @@ public class PropertyRepository {
 	 * @return properties with owner information added from user service
 	 */
 	public List<Property> getPropertiesWithOwnerInfo(PropertyCriteria criteria, RequestInfo requestInfo, Boolean isInternal) {
-		log.info("criteria inside getPropertiesWithOwnerInfo"+criteria);
 		List<Property> properties;
 		
 		String stateLevelTenant=config.getStateLevelTenantId()!=null?config.getStateLevelTenantId():"pg";
