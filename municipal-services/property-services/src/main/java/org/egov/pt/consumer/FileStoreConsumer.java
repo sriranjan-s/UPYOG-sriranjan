@@ -101,7 +101,7 @@ public class FileStoreConsumer {
     private Property searchProperty(String id, String tenantId){
 
         PropertyCriteria criteria = PropertyCriteria.builder().tenantId(tenantId).uuids(Collections.singleton(id)).build();
-
+        log.info("criteria inside searchProperty"+criteria);
         List<Property> properties = propertyRepository.getProperties(criteria, false, false);
 
         if(CollectionUtils.isEmpty(properties))
