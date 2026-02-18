@@ -90,7 +90,6 @@ public class PropertyRepository {
 	}
 
 	public List<Property> getProperties(PropertyCriteria criteria, Boolean isApiOpen, Boolean isPlainSearch) {
-		log.info("criteria in getProperties : "+criteria.toString());
 		List<Object> preparedStmtList = new ArrayList<>();
 		String query;
 		
