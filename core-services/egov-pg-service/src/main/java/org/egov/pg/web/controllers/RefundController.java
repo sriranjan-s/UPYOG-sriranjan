@@ -3,6 +3,10 @@ package org.egov.pg.web.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.egov.pg.models.CollectionPayment;
+import org.egov.pg.models.CollectionPaymentResponse;
+import org.egov.pg.models.PaymentRequest;
+import org.egov.pg.models.PaymentResponse;
 import org.egov.pg.models.Refund;
 import org.egov.pg.models.RefundRequest;
 import org.egov.pg.models.RefundResponse;
@@ -12,6 +16,7 @@ import org.egov.pg.web.models.RefundCriteria;
 import org.egov.pg.web.models.RefundInitiateResponse;
 import org.egov.pg.web.models.RequestInfoWrapper;
 import org.egov.pg.web.models.ResponseInfo;
+import org.egov.common.contract.request.RequestInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,6 +39,19 @@ public class RefundController {
 	public RefundController(RefundService refundService) {
 		this.refundService=refundService;
 	}
+	
+	 @RequestMapping(value = "/refund/v1/_create", method = RequestMethod.POST)
+	    public ResponseEntity<PaymentResponse> refundV1Initiate(@Valid @RequestBody PaymentRequest paymentRequest) {
+         
+		 CollectionPayment processRefund = refundService.processRefund(paymentRequest);
+	        ResponseInfo responseInfo = ResponseInfoFactory.createResponseInfoFromRequestInfo(paymentRequest
+	                .getRequestInfo(), true);
+	        PaymentResponse response = PaymentResponse.builder()
+	                .responseInfo(responseInfo)
+	                .payments(List.of(processRefund))
+	                .build();
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+	    }
 	 
 	  @RequestMapping(value = "/_search", method = RequestMethod.POST)
 	    public ResponseEntity<RefundResponse> refundV1SearchPost(@Valid @RequestBody RequestInfoWrapper

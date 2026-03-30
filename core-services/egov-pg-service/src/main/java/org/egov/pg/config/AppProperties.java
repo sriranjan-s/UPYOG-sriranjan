@@ -108,7 +108,7 @@ public class AppProperties {
     
     private final Integer earlyReconcileJobRunIntervalRefund;
     
-    private final String paymentCancelTopic;
+    private final String paymentRefundTopic;
     @Autowired
     public AppProperties(Environment environment){
         this.earlyReconcileJobRunInterval = Integer.valueOf(environment.getRequiredProperty("pg.earlyReconcileJobRunInterval.mins"));
@@ -158,7 +158,7 @@ public class AppProperties {
         this.idGenRefundFormat = environment.getRequiredProperty("egov.idgen.ref.format");
         this.saveRefundTxnsTopic = environment.getRequiredProperty("persister.save.pg.refund");
         this.updateRefundTxnsTopic = environment.getRequiredProperty("persister.update.pg.refund");
-        this.paymentCancelTopic=environment.getRequiredProperty("egov.collectionservice.payment.cancel");
+        this.paymentRefundTopic=environment.getRequiredProperty("egov.collectionservice.payment.refund");
     }
 
 }

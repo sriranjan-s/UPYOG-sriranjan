@@ -7,6 +7,7 @@ import java.util.Map;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.pg.config.AppProperties;
 import org.egov.pg.models.CollectionPayment;
+import org.egov.pg.models.CollectionPaymentResponse;
 import org.egov.pg.models.PaymentRequest;
 import org.egov.pg.models.Refund;
 import org.egov.pg.models.Refund.RefundStatusEnum;
@@ -17,6 +18,7 @@ import org.egov.pg.producer.Producer;
 import org.egov.pg.repository.RefundRepository;
 import org.egov.pg.repository.TransactionRepository;
 import org.egov.pg.validator.RefundValidator;
+import org.egov.pg.web.models.Payment;
 import org.egov.pg.web.models.RefundCriteria;
 import org.egov.pg.web.models.TransactionCriteria;
 import org.egov.pg.web.models.TransactionRequest;
@@ -73,7 +75,7 @@ public class RefundService {
 			List<Transaction> status = transactionRepository.fetchTransactions(criteria);
 			TransactionRequest TxnRequest = TransactionRequest.builder().requestInfo(requestInfo)
 					.transaction(status.get(0)).build();
-			paymentsService.cancelTransaction(TxnRequest);
+			paymentsService.refundTransaction(TxnRequest);
 		}
 
 		return gatewayResponse;
@@ -84,7 +86,7 @@ public class RefundService {
 		try {
 			return refundRepository.fetchRefundTransactions(refundCriteria);
 		} catch (DataAccessException e) {
-			log.error("Unable to fetch data from the database for criteria: " + refundCriteria.toString(), e);
+			log.error("Unable to fetch refund data: " + refundCriteria.toString(), e);
 			throw new CustomException("FETCH_REFUND_FAILED", "Unable to fetch refund transaction from store");
 		}
 
@@ -107,7 +109,7 @@ public class RefundService {
 				List<Transaction> status = transactionRepository.fetchTransactions(criteria);
 				TransactionRequest TxnRequest = TransactionRequest.builder().requestInfo(requestInfo)
 						.transaction(status.get(0)).build();
-				paymentsService.cancelTransaction(TxnRequest);
+				paymentsService.refundTransaction(TxnRequest);
 			}
 		}
 
@@ -116,10 +118,10 @@ public class RefundService {
 		return Collections.singletonList(newRefundTxn);
 	}
 
-	public void processRefund(PaymentRequest payment, String topic) {
+	public CollectionPayment processRefund(PaymentRequest payment) {
 		RequestInfo requestInfo = payment.getRequestInfo();
 		String transactionNumber = payment.getPayment().getTransactionNumber();
-
+		CollectionPayment collectionPayment = payment.getPayment();
 		if (!StringUtils.hasText(transactionNumber)) {
 			log.error("Transaction number is missing in collectionPayment: {}", payment.getPayment());
 			throw new CustomException("INVALID_TRANSACTION_NUMBER", "Transaction number cannot be null or empty");
@@ -129,6 +131,7 @@ public class RefundService {
 		refundValidator.validateTransaction(transactions);
 		RefundRequest refundRequest = enrichmentService.enrichRefundRequest(transactions, requestInfo);
 		this.initiateRefund(refundRequest);
+		return collectionPayment;
 	}
 
 }

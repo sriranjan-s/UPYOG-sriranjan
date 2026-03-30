@@ -2,8 +2,11 @@ package org.egov.pg.service;
 
 import static java.util.Collections.singletonMap;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,13 @@ import org.egov.pg.models.RefundRequest;
 import org.egov.pg.models.Transaction;
 import org.egov.pg.repository.BankAccountRepository;
 import org.egov.pg.repository.TransactionRepository;
+import org.egov.pg.service.gateways.nttdata.AtomSignature;
+import org.egov.pg.service.gateways.nttdata.HeadDetails;
+import org.egov.pg.service.gateways.nttdata.MerchDetails;
+import org.egov.pg.service.gateways.nttdata.PayDetails;
+import org.egov.pg.service.gateways.nttdata.PayInstrument;
+import org.egov.pg.service.gateways.nttdata.ProdDetails;
+import org.egov.pg.service.gateways.nttdata.RefundTransaction;
 import org.egov.pg.web.models.TransactionCriteria;
 import org.egov.pg.web.models.TransactionRequest;
 import org.egov.tracer.model.CustomException;
@@ -206,5 +216,130 @@ public class EnrichmentService {
 		return refundRequest;
 	}
 
+	
+	public RefundTransaction enrichRefundTransaction(Refund refundRequest,String merchantId) {
+	    String password = "Test@123";
+	    String currency = "INR";
+	    String api = "REFUNDINIT";
+	    String source = "OTS";
+
+	    String merchantTxnId = refundRequest.getOriginalTxnId();
+	    String atomTxnId = refundRequest.getAtomTxnId();
+
+	    // MerchDetails
+	    MerchDetails merchDetails = new MerchDetails();
+	    merchDetails.setMerchId(merchantId);
+	    merchDetails.setMerchTxnId(merchantTxnId);
+	    merchDetails.setPassword(password);
+
+	    // ProdDetails
+	    ProdDetails prodDetails = new ProdDetails();
+	    prodDetails.setProdRefundId(refundRequest.getRefundId());
+	    prodDetails.setProdName("NSE");
+	    prodDetails.setProdRefundAmount(Double.valueOf(refundRequest.getRefundAmount()));
+
+	    List<ProdDetails> prodDetailsList = new ArrayList();
+	    prodDetailsList.add(prodDetails);
+
+	    // PayDetails
+	    PayDetails payDetails = new PayDetails();
+	    payDetails.setTxnCurrency(currency);
+	    payDetails.setAtomTxnId(atomTxnId);
+	    payDetails.setProdDetails(prodDetailsList);
+
+	    double totalRefundAmount = calculateTotalRefundAmount(prodDetailsList);
+	    payDetails.setTotalRefundAmount(totalRefundAmount);
+
+	    // Signature (move to separate method ideally)
+	    String signature = generateSignature(merchantId, password, merchantTxnId,
+	            refundRequest.getRefundAmount(), currency, api);
+	    payDetails.setSignature(signature);
+
+	    // HeadDetails
+	    HeadDetails headDetails = new HeadDetails();
+	    headDetails.setApi(api);
+	    headDetails.setSource(source);
+
+	    // PayInstrument
+	    PayInstrument payInstrument = new PayInstrument();
+	    payInstrument.setMerchDetails(merchDetails);
+	    payInstrument.setPayDetails(payDetails);
+	    payInstrument.setHeadDetails(headDetails);
+
+	    RefundTransaction refundTxn = new RefundTransaction();
+	    refundTxn.setPayInstrument(payInstrument);
+
+	    return refundTxn;
+	}
+	
+	private String generateSignature(String merchantId, String password, String merchantTxnId, String amount,
+			String currency, String api) {
+		String reqHashKey = "KEY123657234";
+
+		String raw = merchantId + password + merchantTxnId + amount + currency + api;
+		return AtomSignature.generateSignature(reqHashKey, raw);
+	}
+
+	private double calculateTotalRefundAmount(List<ProdDetails> prodDetailsList) {
+
+		if (prodDetailsList == null || prodDetailsList.isEmpty()) {
+			throw new CustomException("TOTAL_REFUND_AMOUNT_ERROR", "Product refund details cannot be empty");
+		}
+		BigDecimal total = prodDetailsList.stream().map(ProdDetails::getProdRefundAmount).map(BigDecimal::valueOf)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		return total.doubleValue();
+	}
+	
+	
+	public RefundTransaction enrichRefundStatusTransaction(Refund refundRequest,String merchantId) {
+
+	    String api = "REFUNDSTATUS";
+	    String source = "OTS_ARS";
+
+	    String atomTxnId = refundRequest.getAtomTxnId();
+
+	    String password = "Test@123";
+	    String encodedPassword = generateBase64Password(password);
+
+	    // MerchDetails
+	    MerchDetails merchDetails = new MerchDetails();
+	    merchDetails.setMerchId(merchantId);
+	    merchDetails.setPassword(encodedPassword);
+
+	    // ProdDetails
+	    ProdDetails prodDetails = new ProdDetails();
+	    prodDetails.setProdName("NSE");
+
+	    List<ProdDetails> prodDetailsList = new ArrayList<>();
+	    prodDetailsList.add(prodDetails);
+
+	    // PayDetails
+	    PayDetails payDetails = new PayDetails();
+	    payDetails.setAtomTxnId(atomTxnId);
+	    payDetails.setProdDetails(prodDetailsList);
+
+	    // HeadDetails
+	    HeadDetails headDetails = new HeadDetails();
+	    headDetails.setApi(api);
+	    headDetails.setSource(source);
+
+	    // PayInstrument
+	    PayInstrument payInstrument = new PayInstrument();
+	    payInstrument.setHeadDetails(headDetails);
+	    payInstrument.setMerchDetails(merchDetails);
+	    payInstrument.setPayDetails(payDetails);
+
+	    // RefundTransaction
+	    RefundTransaction refundTxn = new RefundTransaction();
+	    refundTxn.setPayInstrument(payInstrument);
+
+	    return refundTxn;
+	}
+	
+	private String generateBase64Password(String password) {
+		return Base64.getEncoder()
+                .encodeToString(password.getBytes());
+	}
 
 }

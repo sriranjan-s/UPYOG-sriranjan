@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.egov.pg.models.Refund;
 import org.egov.pg.models.Transaction;
+import org.egov.pg.service.EnrichmentService;
 import org.egov.pg.service.Gateway;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,14 @@ public class NttdataGateway implements Gateway {
     private final String REDIRECT_URL;
     private final String REFUND_API;
     private final String REFUND_STATUS_API;
+    private final EnrichmentService enrichmentService;
     private RestTemplate restTemplate;
 
     @Autowired
-    public NttdataGateway(RestTemplate restTemplate, ObjectMapper objectMapper, Environment environment) {
+    public NttdataGateway(RestTemplate restTemplate, ObjectMapper objectMapper, Environment environment,EnrichmentService enrichmentService) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.enrichmentService = enrichmentService;
 
         ACTIVE = Boolean.valueOf(environment.getRequiredProperty("nttdata.active"));
         MERCHANT_ID =  environment.getRequiredProperty("nttdata.merchant.id");
@@ -361,52 +364,8 @@ public class NttdataGateway implements Gateway {
 	public Refund initiateRefund(Refund refundRequest) {
 		try {
 			Gson gson = new Gson();
-			String password = "Test@123";
-			String atomTxnId = refundRequest.getAtomTxnId();
 			String merchantId = MERCHANT_ID;
-			String currency = "INR";
-			String api = "REFUNDINIT";
-			String reqHashKey = "KEY123657234";
-			String source = "OTS";
-//			String merchantTxnId = refundRequest.getGatewayTxnId();
-			String merchantTxnId = refundRequest.getOriginalTxnId();
-
-			MerchDetails merchDetails = new MerchDetails();
-			merchDetails.setMerchId(merchantId);
-			merchDetails.setMerchTxnId(merchantTxnId);
-			merchDetails.setPassword(password);
-
-			PayDetails payDetails = new PayDetails();
-			payDetails.setTxnCurrency(currency);
-			List<ProdDetails> prodDetailsList = new ArrayList<>();
-			ProdDetails prodDetails = new ProdDetails();
-			prodDetails.setProdRefundId(refundRequest.getRefundId());
-//			prodDetails.setProdName(refundRequest.getConsumerCode());
-			prodDetails.setProdName("NSE");
-			payDetails.setAtomTxnId(atomTxnId);
-			prodDetails.setProdRefundAmount(Double.valueOf((refundRequest.getRefundAmount())));
-			prodDetailsList.add(prodDetails);
-			payDetails.setProdDetails(prodDetailsList);
-			double totalRefundAmount = calculateTotalRefundAmount(prodDetailsList);
-			payDetails.setTotalRefundAmount(totalRefundAmount);
-
-			// merchId + password + merchTxnId + total amount + txnCurrency + api
-			String signature = merchantId + password + merchantTxnId + refundRequest.getRefundAmount() + currency + api;
-			payDetails.setSignature(AtomSignature.generateSignature(reqHashKey, signature));
-
-			HeadDetails headDetails = new HeadDetails();
-			headDetails.setApi(api);
-			headDetails.setSource(source);
-
-			PayInstrument payInstrument = new PayInstrument();
-
-			payInstrument.setMerchDetails(merchDetails);
-			payInstrument.setPayDetails(payDetails);
-			payInstrument.setHeadDetails(headDetails);
-
-			RefundTransaction refundTxn = new RefundTransaction();
-			refundTxn.setPayInstrument(payInstrument);
-
+			RefundTransaction refundTxn = enrichmentService.enrichRefundTransaction(refundRequest,merchantId);
 			String refundJson = gson.toJson(refundTxn);
 			// Encrypt
 			String encryptedData, decryptedData = "";
@@ -479,88 +438,38 @@ public class NttdataGateway implements Gateway {
 	@Override
 	public Refund fetchRefundStatus(Refund refundRequest) {
 
-	    try {
-	        Gson gson = new Gson();
+		try {
+			Gson gson = new Gson();
 
-	        String merchantId = MERCHANT_ID;
-	        String api = "REFUNDSTATUS";
-	        String source = "OTS_ARS";
+			String merchantId = MERCHANT_ID;
+			RefundTransaction refundTxn = enrichmentService.enrichRefundStatusTransaction(refundRequest, merchantId);
 
-	        // Atom transaction id (original payment txn id)
-	        String atomTxnId = refundRequest.getAtomTxnId();
+			String statusRequestJson = gson.toJson(refundTxn);
+			log.info("Refund Status Request JSON: {}", statusRequestJson);
 
-	        
-	        String password = "Test@123";
-	        String encodedPassword = generateBase64Password(password);
+			String encryptedData = AuthEncryption.getAuthEncrypted(statusRequestJson,
+					"A4476C2062FFA58980DC8F79EB6A799E");
 
-	      
-	        MerchDetails merchDetails = new MerchDetails();
-	        merchDetails.setMerchId(merchantId);
-	        merchDetails.setPassword(encodedPassword);
+			String serverResp = AipayService.getTransactionStatus(merchantId, encryptedData, REFUND_STATUS_API);
 
-	        ProdDetails prodDetails = new ProdDetails();
-	        prodDetails.setProdName("NSE");
+			if (serverResp == null || !serverResp.startsWith("encData")) {
+				throw new CustomException(null, "Invalid response from Refund Status API");
+			}
 
-	        List<ProdDetails> prodDetailsList = new ArrayList<>();
-	        prodDetailsList.add(prodDetails);
+			String encData = serverResp.split("\\&merchId=")[0].replace("encData=", "");
 
-	        PayDetails payDetails = new PayDetails();
-	        payDetails.setAtomTxnId(atomTxnId);
-	        payDetails.setProdDetails(prodDetailsList);
-	       
-	        HeadDetails headDetails = new HeadDetails();
-	        headDetails.setApi(api);
-	        headDetails.setSource(source);
-	       
-	        PayInstrument payInstrument = new PayInstrument();
-	        payInstrument.setHeadDetails(headDetails);
-	        payInstrument.setMerchDetails(merchDetails);
-	        payInstrument.setPayDetails(payDetails);
-	       
-	        RefundTransaction refundTxn = new RefundTransaction();
-	        refundTxn.setPayInstrument(payInstrument);
+			String decryptedData = AuthEncryption.getAuthDecrypted(encData, "75AEF0FA1B94B3C10D4F5B268F757F11");
 
-	        String statusRequestJson = gson.toJson(refundTxn);
-	        log.info("Refund Status Request JSON: {}", statusRequestJson);
+			log.info("Refund Status Decrypted Response: {}", decryptedData);
 
-	        
-	        String encryptedData = AuthEncryption.getAuthEncrypted(
-	                statusRequestJson,
-	                "A4476C2062FFA58980DC8F79EB6A799E"
-	        );
+			ResponseParser response = objectMapper.readValue(decryptedData, ResponseParser.class);
 
-	       
-	        String serverResp = AipayService.getTransactionStatus(
-	                merchantId,
-	                encryptedData,
-	                REFUND_STATUS_API
-	        );
+			return transformRefundStatusResponse(response, refundRequest);
 
-	        if (serverResp == null || !serverResp.startsWith("encData")) {
-	            throw new CustomException(null, "Invalid response from Refund Status API");
-	        }
-
-	     
-	        String encData = serverResp.split("\\&merchId=")[0]
-	                .replace("encData=", "");
-
-	        String decryptedData = AuthEncryption.getAuthDecrypted(
-	                encData,
-	                "75AEF0FA1B94B3C10D4F5B268F757F11"
-	        );
-
-
-	        log.info("Refund Status Decrypted Response: {}", decryptedData);
-
-	        ResponseParser response =
-	                objectMapper.readValue(decryptedData, ResponseParser.class);
-
-	        return transformRefundStatusResponse(response, refundRequest);
-
-	    } catch (Exception e) {
-	        log.error("Refund status fetch failed", e);
-	        throw new CustomException("REFUND_STATUS_ERROR", "Failed to fetch refund status");
-	    }
+		} catch (Exception e) {
+			log.error("Refund status fetch failed", e);
+			throw new CustomException("REFUND_STATUS_ERROR", "Failed to fetch refund status");
+		}
 	}
 
 
@@ -631,21 +540,9 @@ public class NttdataGateway implements Gateway {
 	}
 
 
-	private String generateBase64Password(String password) {
-		return Base64.getEncoder()
-                .encodeToString(password.getBytes());
-	}
+	
 
-	private double calculateTotalRefundAmount(List<ProdDetails> prodDetailsList) {
-
-		if (prodDetailsList == null || prodDetailsList.isEmpty()) {
-			throw new CustomException("TOTAL_REFUND_AMOUNT_ERROR", "Product refund details cannot be empty");
-		}
-		BigDecimal total = prodDetailsList.stream().map(ProdDetails::getProdRefundAmount).map(BigDecimal::valueOf)
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
-
-		return total.doubleValue();
-	}
+	
 
 
 
