@@ -1,5 +1,5 @@
 import { getLocaleLabels } from "egov-ui-framework/ui-utils/commons.js";
-import msevaLogo from "egov-ui-kit/assets/images/pblogo.png";
+import msevaLogo from "egov-ui-kit/assets/images/upyog.png";
 import pdfMake from "pdfmake/build/pdfmake";
 //import pdfFonts from "pdfmake/build/vfs_fonts";
 import pdfFonts from "./vfs_fonts";
