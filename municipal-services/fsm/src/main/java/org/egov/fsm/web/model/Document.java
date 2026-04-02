@@ -18,19 +18,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Document   {
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("documentType")
   private String documentType = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("fileStore")
   private String fileStore = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("documentUid")
   private String documentUid = null;
 

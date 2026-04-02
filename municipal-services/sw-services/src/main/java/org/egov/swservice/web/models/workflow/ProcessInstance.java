@@ -40,36 +40,36 @@ import lombok.ToString;
 public class ProcessInstance {
 
 	@Size(max = 64)
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("id")
 	private String id;
 
 	@NotNull
-	@SafeHtml
+	//@SafeHtml
 	@Size(max = 128)
 	@JsonProperty("tenantId")
 	private String tenantId;
 
 	@NotNull
-	@SafeHtml
+	//@SafeHtml
 	@Size(max = 128)
 	@JsonProperty("businessService")
 	private String businessService;
 
 	@NotNull
-	@SafeHtml
+	//@SafeHtml
 	@Size(max = 128)
 	@JsonProperty("businessId")
 	private String businessId;
 
 	@NotNull
-	@SafeHtml
+	//@SafeHtml
 	@Size(max = 128)
 	@JsonProperty("action")
 	private String action;
 
 	@NotNull
-	@SafeHtml
+	//@SafeHtml
 	@Size(max = 64)
 	@JsonProperty("moduleName")
 	private String moduleName;
@@ -77,7 +77,7 @@ public class ProcessInstance {
 	@JsonProperty("state")
 	private State state;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("comment")
 	private String comment;
 

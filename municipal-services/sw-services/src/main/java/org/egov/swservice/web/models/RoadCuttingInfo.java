@@ -13,11 +13,11 @@ import org.hibernate.validator.constraints.SafeHtml;
 @Builder
 public class RoadCuttingInfo {
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("roadType")
   private String roadType = null;
 

@@ -42,17 +42,17 @@ import lombok.Setter;
 public class Address   {
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("id")
         private String id;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("tenantId")
         private String tenantId = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("doorNo")
         private String doorNo = null;
 
@@ -63,56 +63,56 @@ public class Address   {
         private Double longitude = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("addressId")
         private String addressId = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("addressNumber")
         private String addressNumber = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("type")
         private String type = null;
 
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("addressLine1")
         private String addressLine1 = null;
 
-        @SafeHtml
+        //@SafeHtml
         @Size(max=256)
         @JsonProperty("addressLine2")
         private String addressLine2 = null;
 
-        @SafeHtml
+        //@SafeHtml
         @Size(max=64)
         @JsonProperty("landmark")
         private String landmark = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("city")
         private String city = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("pincode")
         private String pincode = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("detail")
         private String detail = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("buildingName")
         private String buildingName = null;
 
         @Size(max=64)
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("street")
         private String street = null;
 
@@ -120,23 +120,23 @@ public class Address   {
         @JsonProperty("locality")
         private Boundary locality = null;
 
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("plotNo")
         private String plotNo = null;
 
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("district")
         private String district = null;
 
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("state")
         private String state = null;
 
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("country")
         private String country = null;
 
-        @SafeHtml
+        //@SafeHtml
         @JsonProperty("region")
         private String region = null;
 }

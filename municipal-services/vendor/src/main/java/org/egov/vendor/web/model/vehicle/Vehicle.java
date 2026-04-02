@@ -40,30 +40,30 @@ public class Vehicle {
 	@JsonProperty("owner")
 	private User owner = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("registrationNumber")
 	private String registrationNumber = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("model")
 	private String model = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("type")
 	private String type = null;
 
 	@JsonProperty("tankCapacity")
 	private Long tankCapicity = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("suctionType")
 	private String suctionType = null;
 
@@ -85,7 +85,7 @@ public class Vehicle {
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails = null;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("source")
 	private String source = null;
 

@@ -40,55 +40,55 @@ public class FSM   {
   @Valid
   private User citizen ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id ;
 
   @NotNull
-  @SafeHtml
+  //@SafeHtml
   @Size(min=2,max=64)
   @JsonProperty("tenantId")
   private String tenantId ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("applicationNo")
   private String applicationNo ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("description")
   private String description ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("accountId")
   private String accountId ;
 
   @JsonProperty("additionalDetails")
   private Object additionalDetails ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("applicationStatus")
   private String applicationStatus ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("source")
   private String source ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("sanitationtype")
   private String sanitationtype ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("propertyUsage")
   private String propertyUsage ;
   
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("vehicleType")
   private String vehicleType ;
  
   @JsonProperty("noOfTrips")
   private Integer noOfTrips ;
   
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("vehicleCapacity")
   private String vehicleCapacity ;
 
@@ -125,14 +125,14 @@ public class FSM   {
   @JsonProperty("status")
   private StatusEnum status ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("vehicleId")
   private String vehicleId ;
   
   @JsonProperty("vehicle")
   private Vehicle vehicle ;
   
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("dsoId")
   private String dsoId ;
   

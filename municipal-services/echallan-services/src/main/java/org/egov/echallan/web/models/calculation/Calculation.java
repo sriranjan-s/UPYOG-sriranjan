@@ -24,7 +24,7 @@ import java.util.List;
 @Builder
 public class Calculation {
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("challanNo")
 	private String challanNo = null;
 
@@ -32,7 +32,7 @@ public class Calculation {
 	private Challan challan = null;
 
 	@NotNull
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("tenantId")
 	@Size(min = 2, max = 256)
 	private String tenantId = null;

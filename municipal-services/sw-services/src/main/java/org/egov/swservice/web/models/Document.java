@@ -18,21 +18,21 @@ import org.hibernate.validator.constraints.SafeHtml;
 @EqualsAndHashCode(of= {"fileStoreId","documentUid","id"})
 public class Document {
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id ;
 
   @JsonProperty("documentType")
-  @SafeHtml
+  //@SafeHtml
   @NotNull
   private String documentType ;
 
   @JsonProperty("fileStoreId")
-  @SafeHtml
+  //@SafeHtml
   @NotNull
   private String fileStoreId ;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("documentUid")
   private String documentUid ;
 

@@ -31,39 +31,39 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class BPA   {
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("applicationNo")
   private String applicationNo = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("approvalNo")
   private String approvalNo = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("accountId")
   private String accountId = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("edcrNumber")
   private String edcrNumber = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("riskType")
   private String riskType = null;
   
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("businessService")
   private String businessService = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("landId")
   private String landId = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
@@ -73,7 +73,7 @@ public class BPA   {
   @JsonProperty("applicationDate")
   private Long applicationDate = null;
   
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("status")
   private String status = null;
 

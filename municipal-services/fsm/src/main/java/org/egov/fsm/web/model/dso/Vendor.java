@@ -30,15 +30,15 @@ import org.springframework.validation.annotation.Validated;
 @Setter
 public class Vendor {
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("id")
 	private String id;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("name")
 	private String name;
 
@@ -59,15 +59,15 @@ public class Vendor {
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("source")
 	private String source;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("description")
 	private String description;
 
-	@SafeHtml
+	//@SafeHtml
 	@JsonProperty("ownerId")
 	private String ownerId;
 

@@ -38,27 +38,27 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class UserInfo extends User {
 
   @JsonProperty("tenantId")
-  @SafeHtml
+  //@SafeHtml
   private String tenantId;
 
   @JsonProperty("uuid")
-  @SafeHtml
+  //@SafeHtml
   private String uuid;
 
   @JsonProperty("userName")
-  @SafeHtml
+  //@SafeHtml
   private String userName;
 
   @JsonProperty("password")
-  @SafeHtml
+  //@SafeHtml
   private String password;
 
   @JsonProperty("idToken")
-  @SafeHtml
+  //@SafeHtml
   private String idToken;
 
   @JsonProperty("email")
-  @SafeHtml
+  //@SafeHtml
   private String email;
 
   @JsonProperty("primaryrole")

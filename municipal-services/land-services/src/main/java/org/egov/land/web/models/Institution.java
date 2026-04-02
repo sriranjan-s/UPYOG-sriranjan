@@ -23,23 +23,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Institution   {
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("type")
   private String type = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("designation")
   private String designation = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("nameOfAuthorizedPerson")
   private String nameOfAuthorizedPerson = null;
 

@@ -23,11 +23,11 @@ public class FSMSearchCriteria {
     @JsonProperty("limit")
     private Integer limit;
 
-    @SafeHtml
+    //@SafeHtml
     @JsonProperty("tenantId")
     private String tenantId;
 
-    @SafeHtml
+    //@SafeHtml
     @JsonProperty("mobileNumber")
     private String mobileNumber; 
     

@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 @Setter
 public class Workflow {
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("action")
   private String action = null;
 
@@ -24,7 +24,7 @@ public class Workflow {
   @Valid
   private List<String> assignes = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("comments")
   private String comments = null;
 

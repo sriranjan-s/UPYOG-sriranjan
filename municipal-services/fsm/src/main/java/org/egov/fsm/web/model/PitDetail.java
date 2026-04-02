@@ -30,15 +30,15 @@ import lombok.ToString;
 @Setter
 public class PitDetail   {
  
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("type")
   private String type = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
   

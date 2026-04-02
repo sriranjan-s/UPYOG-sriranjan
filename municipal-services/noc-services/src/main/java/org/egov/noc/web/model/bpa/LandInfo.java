@@ -28,19 +28,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class LandInfo   {
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("landUId")
   private String landUId = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("landUniqueRegNo")
   private String landUniqueRegNo = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
@@ -50,7 +50,7 @@ public class LandInfo   {
   @JsonProperty("address")
   private Address address = null;
 
-  @SafeHtml
+  //@SafeHtml
   @JsonProperty("ownershipCategory")
   private String ownershipCategory = null;
 

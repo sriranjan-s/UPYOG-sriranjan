@@ -27,7 +27,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-08-10T16:46:24.044+05:30[Asia/Calcutta]")public class TenantRole {
 
   @JsonProperty("tenantId")
-  @SafeHtml
+  //@SafeHtml
   private String tenantId = null;
 
   @JsonProperty("roles")
