@@ -46,6 +46,14 @@ config:
       - work-dir: "egov-filestore/src/main/resources/db"
         image-name: "egov-filestore-db"
 
+  - name: "builds/core-services/egov-pg-service"
+    build:
+      - work-dir: "egov-pg-service"
+        image-name: "egov-pg-service"
+        dockerfile: "build/maven/Dockerfile"
+      - work-dir: "egov-pg-service/src/main/resources/db"
+        image-name: "egov-pg-service-db"      
+
   - name: "builds/core-services/egov-idgen"
     build:
       - work-dir: "egov-idgen"
