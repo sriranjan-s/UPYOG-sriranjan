@@ -27,15 +27,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Role   {
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("name")
   private String name = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("code")
   private String code = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("description")
   private String description = null;
 

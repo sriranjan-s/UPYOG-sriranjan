@@ -37,29 +37,29 @@ public class Service   {
         @JsonProperty("citizen")
         private User citizen = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("id")
         private String id = null;
 
         @NotNull
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("tenantId")
         private String tenantId = null;
 
         @NotNull
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("serviceCode")
         private String serviceCode = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("serviceRequestId")
         private String serviceRequestId = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("description")
         private String description = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("accountId")
         private String accountId = null;
 
@@ -72,12 +72,12 @@ public class Service   {
         @JsonProperty("additionalDetail")
         private Object additionalDetail = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("applicationStatus")
         private String applicationStatus = null;
 
         @NotNull
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("source")
         private String source = null;
 

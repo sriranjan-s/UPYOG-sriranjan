@@ -34,11 +34,11 @@ import lombok.Setter;
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-11-12T10:46:14.653+05:30[Asia/Kolkata]")
 public class MeterReading {
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("billingPeriod")
 	private String billingPeriod = null;
 
@@ -96,7 +96,7 @@ public class MeterReading {
 	@JsonProperty("currentReadingDate")
 	private Long currentReadingDate = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("connectionNo")
 	private String connectionNo = null;
 
@@ -109,11 +109,11 @@ public class MeterReading {
 	@JsonProperty("auditDetails")
 	private AuditDetails auditDetails = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 	
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("status")
 	private String status = null;
 

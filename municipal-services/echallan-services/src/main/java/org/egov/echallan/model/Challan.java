@@ -48,31 +48,31 @@ public class Challan {
   private UserInfo citizen = null;
 
   @JsonProperty("id")
-  //@SafeHtml
+  @SafeHtml
   private String id = null;
 
   @JsonProperty("tenantId")
-  //@SafeHtml
+  @SafeHtml
   private String tenantId = null;
 
   @JsonProperty("businessService")
-  //@SafeHtml
+  @SafeHtml
   private String businessService = null;
 
   @JsonProperty("challanNo")
-  //@SafeHtml
+  @SafeHtml
   private String challanNo = null;
 
   @JsonProperty("referenceId")
-  //@SafeHtml
+  @SafeHtml
   private String referenceId = null;
 
   @JsonProperty("description")
-  //@SafeHtml
+  @SafeHtml
   private String description = null;
 
   @JsonProperty("accountId")
-  //@SafeHtml
+  @SafeHtml
   private String accountId = null;
 
   @JsonProperty("additionalDetail")
@@ -80,7 +80,7 @@ public class Challan {
   private Object additionalDetail = null;
 
   @JsonProperty("source")
-  //@SafeHtml
+  @SafeHtml
   private String source = null;
   
   @JsonProperty("taxPeriodFrom")
@@ -100,7 +100,7 @@ public class Challan {
   private Address address = null;
   
   @JsonProperty("filestoreid")
-  //@SafeHtml
+  @SafeHtml
   private String filestoreid = null;
 
   @JsonProperty("auditDetails")

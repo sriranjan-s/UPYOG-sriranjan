@@ -28,19 +28,19 @@ import lombok.Builder;
 @NoArgsConstructor
 @Builder
 public class Document   {
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("id")
         private String id = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("documentType")
         private String documentType = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("fileStoreId")
         private String fileStoreId = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("documentUid")
         private String documentUid = null;
 

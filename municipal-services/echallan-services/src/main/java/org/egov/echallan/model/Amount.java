@@ -43,7 +43,7 @@ import javax.validation.constraints.Min;
 public class Amount {
 
   @JsonProperty("taxHeadCode")
-  //@SafeHtml
+  @SafeHtml
   private String taxHeadCode = null;
 
   @JsonProperty("amount")

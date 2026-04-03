@@ -22,7 +22,7 @@ public class AnomalySearchCriteria {
 	@JsonProperty("tenantId")
 	private String tenantId;
 	
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("mobileNumber")
 	private String mobileNumber;
 

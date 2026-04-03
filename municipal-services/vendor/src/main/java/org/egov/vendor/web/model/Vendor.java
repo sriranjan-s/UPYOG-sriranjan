@@ -37,17 +37,17 @@ import lombok.Setter;
 @Setter
 public class Vendor {
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
 	@JsonProperty("tenantId")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=64)
 	private String tenantId = null;
 
 	@JsonProperty("name")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=128)
 	private String name = null;
 
@@ -69,26 +69,26 @@ public class Vendor {
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("source")
 	private String source = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("description")
 	private String description = null;
 	
 	@JsonProperty("ownerId")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=64)
 	private String ownerId = null;
 
 	@JsonProperty("agencyType")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=128)
 	private String agencyType = null;
 	
 	@JsonProperty("paymentPreference")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=128)
 	private String paymentPreference = null;
 	

@@ -38,17 +38,17 @@ import lombok.ToString;
 public class State   {
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("uuid")
         private String uuid;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("tenantId")
         private String tenantId;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("businessServiceId")
         private String businessServiceId;
 
@@ -56,12 +56,12 @@ public class State   {
         private Long sla;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("state")
         private String state;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("applicationStatus")
         private String applicationStatus;
 

@@ -17,19 +17,19 @@ import javax.validation.constraints.*;
 @Validated
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 public class Document   {
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("documentType")
   private String documentType = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("fileStoreId")
   private String fileStoreId = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("documentUid")
   private String documentUid = null;
 

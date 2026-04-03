@@ -22,34 +22,34 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class NocSearchCriteria {
 
     @NotNull
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("tenantId")
     private String tenantId;
 
     @JsonProperty("ids")
     private List<String> ids;
 
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("applicationNo")
     private String applicationNo;
 
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("mobileNumber")
     private String mobileNumber;
 
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("nocNo")
     private String nocNo;
 
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("source")
     private String source;
 
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("nocType")
     private String nocType;
 
-    //@SafeHtml
+    @SafeHtml
     @JsonProperty("sourceRefId")
     private String sourceRefId;
 

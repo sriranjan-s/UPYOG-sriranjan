@@ -26,24 +26,24 @@ import org.hibernate.validator.constraints.SafeHtml;
 @NoArgsConstructor
 public class OwnerInfo extends User{
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("ownerInfoUuid")
 	private String ownerInfoUuid;
 	
 	@NotNull
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("mobileNumber")
 	private String mobileNumber;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("gender")
 	private String gender;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("fatherOrHusbandName")
 	private String fatherOrHusbandName;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("correspondenceAddress")
 	private String correspondenceAddress;
 
@@ -54,11 +54,11 @@ public class OwnerInfo extends User{
 	private Double ownerShipPercentage;
 
 	@NotNull
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("ownerType")
 	private String ownerType;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("institutionId")
 	private String institutionId;
 	

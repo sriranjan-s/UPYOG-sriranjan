@@ -34,23 +34,23 @@ import io.swagger.annotations.ApiModelProperty;
 @NoArgsConstructor
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-20T12:22:10.265+05:30[Asia/Kolkata]")
 public class Connection {
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("propertyId")
 	private String propertyId = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("applicationNo")
 	private String applicationNo = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("applicationStatus")
 	private String applicationStatus = null;
 
@@ -88,11 +88,11 @@ public class Connection {
 	@JsonProperty("status")
 	private StatusEnum status = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("connectionNo")
 	private String connectionNo = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("oldConnectionNo")
 	private String oldConnectionNo = null;
 
@@ -104,7 +104,7 @@ public class Connection {
 	@Valid
 	private List<PlumberInfo> plumberInfo = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("roadType")
 	private String roadType = null;
 
@@ -117,11 +117,11 @@ public class Connection {
 	@JsonProperty("connectionExecutionDate")
 	private Long connectionExecutionDate = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("connectionCategory")
 	private String connectionCategory = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("connectionType")
 	private String connectionType = null;
 
@@ -138,7 +138,7 @@ public class Connection {
 	@Valid
 	private List<OwnerInfo> connectionHolders;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("applicationType")
 	private String applicationType = null;
 
@@ -148,7 +148,7 @@ public class Connection {
 	@JsonProperty("oldApplication")
 	private Boolean oldApplication = false;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("channel")
 	private String channel = null;
 

@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class GeoLocation   {
 
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 

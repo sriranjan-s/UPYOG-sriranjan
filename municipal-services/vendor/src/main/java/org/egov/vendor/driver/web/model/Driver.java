@@ -34,17 +34,17 @@ import lombok.Setter;
 @Setter
 public class Driver {
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
 	@JsonProperty("tenantId")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=64)
 	private String tenantId = null;
 
 	@JsonProperty("name")
-	//@SafeHtml
+	@SafeHtml
 	@Size(max=128)
 	private String name = null;
 
@@ -53,18 +53,18 @@ public class Driver {
 	private User owner = null;
 	
 	@JsonProperty("ownerId")
-	//@SafeHtml  
+	@SafeHtml  
 	@Size(max=64)
 	private String ownerId = null;
 
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("description")
 	private String description = null;
 	
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("licenseNumber")
 	private String licenseNumber = null;
 	

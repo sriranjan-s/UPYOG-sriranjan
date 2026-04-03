@@ -30,23 +30,23 @@ import lombok.Builder;
 public class Boundary   {
 
         @NotNull
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("code")
         private String code = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("name")
         private String name = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("label")
         private String label = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("latitude")
         private String latitude = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("longitude")
         private String longitude = null;
 
@@ -54,7 +54,7 @@ public class Boundary   {
         @Valid
         private List<Boundary> children = null;
 
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("materializedPath")
         private String materializedPath = null;
 

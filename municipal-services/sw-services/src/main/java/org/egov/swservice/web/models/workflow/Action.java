@@ -38,27 +38,27 @@ import lombok.ToString;
 public class Action   {
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("uuid")
         private String uuid;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("tenantId")
         private String tenantId;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("currentState")
         private String currentState;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("action")
         private String action;
 
         @Size(max=256)
-        //@SafeHtml
+        @SafeHtml
         @JsonProperty("nextState")
         private String nextState;
 

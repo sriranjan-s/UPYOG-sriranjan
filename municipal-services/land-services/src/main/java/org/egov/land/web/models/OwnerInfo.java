@@ -30,31 +30,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OwnerInfo {
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("name")
 	private String name = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("ownerId")
 	private String ownerId = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("mobileNumber")
 	private String mobileNumber = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("gender")
 	private String gender = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("fatherOrHusbandName")
 	private String fatherOrHusbandName = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("correspondenceAddress")
 	private String correspondenceAddress = null;
 
@@ -64,11 +64,11 @@ public class OwnerInfo {
 	@JsonProperty("ownerShipPercentage")
 	private BigDecimal ownerShipPercentage = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("ownerType")
 	private String ownerType = null;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("institutionId")
 	private String institutionId = null;
 	
@@ -90,66 +90,66 @@ public class OwnerInfo {
     private Long id;
 	 
     @Size(max=64)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("uuid")
     private String uuid;
 
     @Size(max=64)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("userName")
     private String userName;
 
     @Size(max=64)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("password")
     private String password;
 
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("salutation")
     private String salutation;
 
     @Size(max=128)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("emailId")
     private String emailId;
 
     @Size(max=50)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("altContactNumber")
     private String altContactNumber;
 
     @Size(max=10)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("pan")
     private String pan;
 
     @Pattern(regexp = "^[0-9]{12}$", message = "AdharNumber should be 12 digit number")
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("aadhaarNumber")
     private String aadhaarNumber;
 
     @Size(max=300)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("permanentAddress")
     private String permanentAddress;
 
     @Size(max=300)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("permanentCity")
     private String permanentCity;
 
     @Size(max=10)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("permanentPinCode")
     private String permanentPincode;
 
     @Size(max=300)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("correspondenceCity")
     private String correspondenceCity;
 
     @Size(max=10)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("correspondencePinCode")
     private String correspondencePincode;
 
@@ -163,16 +163,16 @@ public class OwnerInfo {
     private Long pwdExpiryDate;
 
     @Size(max=16)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("locale")
     private String locale;
 
     @Size(max=50)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("type")
     private String type;
 
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("signature")
     private String signature;
 
@@ -184,15 +184,15 @@ public class OwnerInfo {
     private List<Role> roles;
 
     @Size(max=32)
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("bloodGroup")
     private String bloodGroup;
 
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("identificationMark")
     private String identificationMark;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("photo")
     private String photo;
 
@@ -210,7 +210,7 @@ public class OwnerInfo {
     @JsonProperty("lastModifiedDate")
     private Long lastModifiedDate;
 
-	//@SafeHtml
+	@SafeHtml
     @JsonProperty("otpReference")
     private String otpReference;
 

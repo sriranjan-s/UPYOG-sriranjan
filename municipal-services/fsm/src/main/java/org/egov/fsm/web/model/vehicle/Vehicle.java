@@ -29,33 +29,33 @@ import lombok.ToString;
 @Builder
 public class Vehicle {
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId;
 
 	@NonNull
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("registrationNumber")
 	private String registrationNumber;
 
 	@NonNull
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("model")
 	private String model;
 
 	@NonNull
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("type")
 	private String type;
 
 	@JsonProperty("tankCapacity")
 	private Double tankCapacity;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("suctionType")
 	private String suctionType;
 
@@ -77,11 +77,11 @@ public class Vehicle {
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails ;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("source")
 	private String source;
 
-	//@SafeHtml
+	@SafeHtml
 	@JsonProperty("ownerId")
 	private String ownerId;
 

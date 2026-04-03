@@ -30,19 +30,19 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @Builder
 public class Noc   {
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("applicationNo")
   private String applicationNo = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("nocNo")
   private String nocNo = null;
 
@@ -50,23 +50,23 @@ public class Noc   {
   @JsonProperty("applicationType")
   private ApplicationType applicationType = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("nocType")
   private String nocType = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("accountId")
   private String accountId = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("source")
   private String source = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("sourceRefId")
   private String sourceRefId = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("landId")
   private String landId = null;
 
@@ -74,7 +74,7 @@ public class Noc   {
   @JsonProperty("status")
   private Status status = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("applicationStatus")
   private String applicationStatus = null;
 

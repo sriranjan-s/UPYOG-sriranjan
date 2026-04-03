@@ -28,59 +28,59 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address   {
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("doorNo")
   private String doorNo = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("plotNo")
   private String plotNo = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("landmark")
   private String landmark = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("city")
   private String city = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("district")
   private String district = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("region")
   private String region = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("state")
   private String state = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("country")
   private String country = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("pincode")
   private String pincode = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("additionDetails")
   private String additionDetails = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("buildingName")
   private String buildingName = null;
 
-  //@SafeHtml
+  @SafeHtml
   @JsonProperty("street")
   private String street = null;
 
