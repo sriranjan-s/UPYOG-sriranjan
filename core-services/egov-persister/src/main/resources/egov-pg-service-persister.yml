@@ -119,3 +119,76 @@ serviceMaps:
            - jsonPath: $.TransactionDump.lastModifiedTime
 
            - jsonPath: $.TransactionDump.txnId
+
+ - version: 1.0
+   name: pg-service
+   description: Persists refund transactions
+   fromTopic: save-pg-refund-txns
+   isTransaction: true
+   queryMaps:
+    - query: INSERT INTO eg_pg_transaction_refund (refund_id, original_txn_id, service_code, original_amount, refund_amount, gateway_txn_id, gateway, gateway_status_code, gateway_status_msg, status, additional_details, created_by, created_time, last_updated_by, last_updated_time, tenant_id) VALUES (?, ?, ?, ?, ?::numeric, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+      basePath: TransactionRefund
+      jsonMaps:
+
+       - jsonPath: $.TransactionRefund.refundId
+
+       - jsonPath: $.TransactionRefund.originalTxnId
+
+       - jsonPath: $.TransactionRefund.serviceCode
+
+       - jsonPath: $.TransactionRefund.originalAmount
+
+       - jsonPath: $.TransactionRefund.refundAmount
+
+       - jsonPath: $.TransactionRefund.gatewayTxnId
+
+       - jsonPath: $.TransactionRefund.gateway
+
+       - jsonPath: $.TransactionRefund.gatewayStatusCode
+
+       - jsonPath: $.TransactionRefund.gatewayStatusMsg
+
+       - jsonPath: $.TransactionRefund.status
+
+       - jsonPath: $.TransactionRefund.additionalDetails
+         type: JSON
+         dbType: JSONB
+
+       - jsonPath: $.TransactionRefund.createdBy
+
+       - jsonPath: $.TransactionRefund.createdTime
+
+       - jsonPath: $.TransactionRefund.lastUpdatedBy
+
+       - jsonPath: $.TransactionRefund.lastUpdatedTime
+
+       - jsonPath: $.TransactionRefund.tenantId
+
+ - version: 1.0
+   description: Update refund transaction
+   fromTopic: update-pg-refund-txns
+   isTransaction: true
+   queryMaps:
+
+        - query: UPDATE eg_pg_transaction_refund SET gateway_status_code=?, gateway_status_msg=?, status=?, additional_details=?, last_updated_time=?, last_updated_by=? where refund_id=? AND tenant_id=?;
+          basePath: TransactionRefund
+          jsonMaps:
+
+           - jsonPath: $.TransactionRefund.gatewayStatusCode
+
+           - jsonPath: $.TransactionRefund.gatewayStatusMsg
+
+           - jsonPath: $.TransactionRefund.status
+
+           - jsonPath: $.TransactionRefund.additionalDetails
+             type: JSON
+             dbType: JSONB
+
+           - jsonPath: $.TransactionRefund.lastUpdatedTime
+
+           - jsonPath: $.TransactionRefund.lastUpdatedBy
+
+           - jsonPath: $.TransactionRefund.refundId
+
+           - jsonPath: $.TransactionRefund.tenantId
