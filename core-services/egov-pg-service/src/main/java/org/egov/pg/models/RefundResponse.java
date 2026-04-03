@@ -21,7 +21,7 @@ import lombok.Setter;
 public class RefundResponse {
 
 	
-	    @JsonProperty("ResponseInfo")
+	 @JsonProperty("ResponseInfo")
 	    @Valid
 	    private ResponseInfo responseInfo;
 
