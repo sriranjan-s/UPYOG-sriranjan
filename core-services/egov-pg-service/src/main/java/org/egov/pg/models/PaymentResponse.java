@@ -6,26 +6,21 @@ import org.egov.pg.web.models.ResponseInfo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class RefundResponse {
-
+public class PaymentResponse {
 	
-	    @JsonProperty("ResponseInfo")
-	    @Valid
+	  @JsonProperty("ResponseInfo")
 	    private ResponseInfo responseInfo;
 
-	    @JsonProperty("Refund")
-	    @Valid
-	    private List<Refund> refunds;
+	    @JsonProperty("Payments")
+	    private List<CollectionPayment> payments;
+
 }

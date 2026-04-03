@@ -122,7 +122,7 @@ public class PaymentsService {
 	}
 
 
-	public void cancelTransaction(TransactionRequest request) {
+	public void refundTransaction(TransactionRequest request) {
 		CollectionPayment payment = getPaymentFromTransaction(request);
 		payment.setInstrumentDate(request.getTransaction().getAuditDetails().getCreatedTime());
 		payment.setInstrumentNumber(request.getTransaction().getTxnId());
@@ -132,7 +132,7 @@ public class PaymentsService {
 		CollectionPaymentRequest paymentRequest = CollectionPaymentRequest.builder()
 				.requestInfo(request.getRequestInfo()).payment(payment).build();
 		
-		producer.push(props.getPaymentCancelTopic(), paymentRequest);
+		producer.push(props.getPaymentRefundTopic(), paymentRequest);
 	}
 
 }

@@ -6,39 +6,29 @@ import java.util.List;
 import java.util.Map;
 
 import org.egov.pg.models.Refund;
-import org.egov.pg.models.RefundRequest;
 import org.egov.pg.models.Transaction;
 import org.egov.pg.repository.RefundRepository;
-import org.egov.pg.repository.TransactionRepository;
-import org.egov.pg.service.GatewayService;
 import org.egov.pg.web.models.RefundCriteria;
-import org.egov.pg.web.models.TransactionCriteria;
 import org.egov.tracer.model.CustomException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
 public class RefundValidator {
 
-	private GatewayService gatewayService;
 	private RefundRepository repository;
-    private TransactionRepository transactionRepository;
     
-	public RefundValidator(GatewayService gatewayService, RefundRepository repository,TransactionRepository transactionRepository) {
-		this.gatewayService = gatewayService;
+	public RefundValidator(RefundRepository repository) {
 		this.repository = repository;
-        this.transactionRepository = transactionRepository;
 	}
 	
 	
 	public void validateTransaction(List<Transaction> transactions) {
 		Map<String, String> errorMap = new HashMap<>();
 		validateTxnId(transactions,errorMap);
-		validateRefundStatus(transactions.get(0),errorMap);
+		validateRefundNotAlreadyInitiated(transactions.get(0),errorMap);
 	}
 
 	private void validateTxnId(List<Transaction> transactions, Map<String, String> errorMap) {
@@ -66,12 +56,16 @@ public class RefundValidator {
 		
 	}
 
-	private void validateRefundStatus(Transaction txn, Map<String, String> errorMap) {
+	private void validateRefundNotAlreadyInitiated(Transaction txn, Map<String, String> errorMap) {
 		RefundCriteria criteria = RefundCriteria.builder().originalTxnId(txn.getTxnId()).build();
 		List<Refund> refundTransactions = repository.fetchRefundTransactions(criteria);
-		for (Refund refund : refundTransactions) {
-			if (refund.getStatus().equals(Refund.RefundStatusEnum.SUCCESS.toString())) {
-				errorMap.put("REFUND_ALREADY_PAID", "Refund has already been paid");
+		if (!refundTransactions.isEmpty()) {
+			for (Refund refund : refundTransactions) {
+				if (refund.getStatus().equals(Refund.RefundStatusEnum.SUCCESS.toString())) {
+					errorMap.put("REFUND_ALREADY_PAID", "Refund has already been paid");
+				} else if (refund.getStatus().equals(Refund.RefundStatusEnum.PENDING.toString())) {
+					errorMap.put("REFUND_ALREADY_INITIATED", "Already applied for refund for this payment");
+				}
 			}
 		}
 	}
