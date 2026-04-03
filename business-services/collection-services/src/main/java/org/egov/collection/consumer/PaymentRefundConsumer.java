@@ -15,18 +15,18 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class PaymentCancelConsumer {
+public class PaymentRefundConsumer {
 
 	private final PaymentService paymentService;
 	private final ObjectMapper mapper;
 
-	public PaymentCancelConsumer(PaymentService paymentService, ObjectMapper mapper) {
+	public PaymentRefundConsumer(PaymentService paymentService, ObjectMapper mapper) {
 		this.paymentService = paymentService;
 		this.mapper = mapper;
 	}
 
-	@KafkaListener(topics = ("${kafka.topic.cancel.refund.txn}"))
-	public void listen(final HashMap<String, Object> record, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+	@KafkaListener(topics = ("${kafka.topic.refund.txn}"))
+	public void refundPayment(final HashMap<String, Object> record, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		try {
 			PaymentRequest paymentrRequest = mapper.convertValue(record, PaymentRequest.class);
 			paymentService.cancelPayment(paymentrRequest);
