@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import lombok.*;
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.tracer.annotations.CustomSafeHtml;
 
 
 @Builder
@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 @Setter
 public class Workflow {
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("action")
   private String action = null;
 
@@ -24,7 +24,7 @@ public class Workflow {
   @Valid
   private List<String> assignes = null;
 
-  @SafeHtml
+  @CustomSafeHtml
   @JsonProperty("comments")
   private String comments = null;
 

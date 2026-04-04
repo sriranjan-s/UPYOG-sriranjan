@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.tracer.annotations.CustomSafeHtml;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 
@@ -29,7 +29,7 @@ import lombok.Builder;
 @NoArgsConstructor
 @Builder
 public class Workflow   {
-        @SafeHtml
+        @CustomSafeHtml
         @JsonProperty("action")
         private String action = null;
 
@@ -37,7 +37,7 @@ public class Workflow   {
         @Valid
         private List<String> assignes = null;
 
-        @SafeHtml
+        @CustomSafeHtml
         @JsonProperty("comments")
         private String comments = null;
 
