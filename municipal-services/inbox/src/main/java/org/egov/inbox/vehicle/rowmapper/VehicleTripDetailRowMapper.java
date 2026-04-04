@@ -42,14 +42,7 @@ public class VehicleTripDetailRowMapper implements ResultSetExtractor<List<Vehic
 			Long itemendtime = rs.getLong("itemendtime");
 			Double volume = rs.getDouble("volume");
 			
-//			String createdBy = rs.getString("createdby");
-//			String lastModifiedBy = rs.getString("lastmodifiedby");
-//			Long createdTime = rs.getLong("createdtime");
-//			Long lastModifiedTime = rs.getLong("lastmodifiedtime");
-			
-//			AuditDetails audit = AuditDetails.builder().createdBy(createdBy).lastModifiedBy(lastModifiedBy).createdTime(createdTime)
-//					.lastModifiedTime(lastModifiedTime).build();
-//			.auditDetails(audit)
+
 			tripDetailMap.put(id, VehicleTripDetail.builder().id(id).tenantId(tenantId).referenceNo(referenceno).referenceStatus(referencestatus)
 					.additionalDetails(additionaldetails).status(VehicleTripDetail.StatusEnum.fromValue(status)).itemStartTime(itemstarttime)
 					.itemEndTime(itemendtime).volume(volume).build());

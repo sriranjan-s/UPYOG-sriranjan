@@ -264,12 +264,6 @@ public class DataUploadUtils {
     	return expressionArray[expressionArray.length - 1];
 	}
 	
-//	private File getExcelFile(String path) throws Exception{
-//		File file = new File(path);
-//	    FileInputStream input = new FileInputStream(file);
-//
-//        return new File("");
-//	}
 	
 	public String createANewFile(String fileName) throws IOException{
 		String outputFile = internalFolderPath + File.separator + fileName;

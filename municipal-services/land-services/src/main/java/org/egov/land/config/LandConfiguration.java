@@ -69,27 +69,11 @@ public class LandConfiguration {
 	@Value("${egov.mdms.search.endpoint}")
 	private String mdmsEndPoint;
 
-	//landInfo
-//	
-//	@Value("${egov.landinfo.host}")
-//	private String landInfoHost;
-//	
-//	@Value("${egov.landinfo.create.endpoint}")
-//	private String landInfoCreate;
-//	
-//	@Value("${egov.landinfo.update.endpoint}")
-//	private String landInfoUpdate;
-//	
-//	@Value("${egov.landinfo.search.endpoint}")
-//	private String landInfoSearch;
 	
 	@Value("${persister.save.landinfo.topic}")
 	private String saveLandInfoTopic;
 	
 	@Value("${persister.update.landinfo.topic}")
 	private String updateLandInfoTopic;
-	
-//	@Value("#{${appSrvTypeBussSrvCode}}")
-//	private Map<String,Map<String,String>> appSrvTypeBussSrvCode;
 	
 }

@@ -274,20 +274,5 @@ export const searchApiResponse = async (request, next = {}) => {
   }
   return response;
 
-  // , async (err, dbRes) => {
-  //   if (err) {
-  //     console.log(err.stack);
-  //   } else {
-  //     // console.log(JSON.stringify(res.rows));
-  //     response.FireNOCs =
-  //       dbRes.rows && !isEmpty(dbRes.rows)
-  //         ? await mergeSearchResults(
-  //             dbRes.rows,
-  //             request.query,
-  //             request.body.RequestInfo
-  //           )
-  //         : [];
-  //    return (response);
-  //   }
-  // });
+
 };

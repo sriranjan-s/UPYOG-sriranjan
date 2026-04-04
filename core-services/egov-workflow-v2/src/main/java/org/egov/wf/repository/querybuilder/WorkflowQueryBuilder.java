@@ -539,12 +539,7 @@ public class WorkflowQueryBuilder {
             preparedStmtList.add(criteria.getTenantId());
         }
 
-//        List<String> businessIds = criteria.getBusinessIds();
-//        if(!CollectionUtils.isEmpty(criteria.getBusinessIds())){
-//            addClauseIfRequired(query, preparedStmtList);
-//            query.append(" businessid IN ( ").append(createQuery(businessIds)).append(" )");
-//            addToPreparedStatement(preparedStmtList, businessIds);
-//        }
+
 
         List<String> businessIds = criteria.getBusinessIds();
         if (!CollectionUtils.isEmpty(businessIds)) {
@@ -558,12 +553,7 @@ public class WorkflowQueryBuilder {
             }
         }
 
-//        List<String> uuidsOfAutoEscalationEmployees = criteria.getMultipleAssignees();
-//        if(!CollectionUtils.isEmpty(uuidsOfAutoEscalationEmployees)){
-//            addClauseIfRequired(query, preparedStmtList);
-//            query.append(" createdby IN ( ").append(createQuery(uuidsOfAutoEscalationEmployees)).append(" )");
-//            addToPreparedStatement(preparedStmtList, uuidsOfAutoEscalationEmployees);
-//        }
+
 
         if(!isNull(criteria.getBusinessService())){
             addClauseIfRequired(query, preparedStmtList);

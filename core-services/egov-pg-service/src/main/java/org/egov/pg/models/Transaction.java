@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 import org.egov.pg.constants.TransactionAdditionalFields;
 import org.egov.pg.web.models.User;
+import org.egov.tracer.annotations.CustomSafeHtml;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

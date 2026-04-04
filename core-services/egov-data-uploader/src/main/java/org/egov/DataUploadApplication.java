@@ -49,13 +49,5 @@ public class DataUploadApplication
 		return mapper;
     }
 	
-//	private static ObjectMapper getMapperConfig() {
-//		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-//		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//		mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-//		mapper.setSerializationInclusion(Include.NON_NULL);
-//		return mapper;
-//	}
-	
 	
 }

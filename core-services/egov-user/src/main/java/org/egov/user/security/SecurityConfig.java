@@ -26,11 +26,6 @@ public class SecurityConfig {
     @Qualifier("preAuthProvider")
     private AuthenticationProvider preAuthProvider;
 
-    // REMOVED: Duplicate bean - CustomAuthenticationManager class already provides this bean
-    // @Bean("customAuthenticationManager")
-    // public AuthenticationManager customAuthenticationManager() {
-    //     return new ProviderManager(Arrays.asList(customAuthProvider, preAuthProvider));
-    // }
 
     @Bean
     @Order(1)

@@ -51,10 +51,6 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 
-// REMOVED DEPRECATED IMPORTS:
-// import org.springframework.security.oauth2.common.OAuth2AccessToken;
-// import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-// import org.springframework.security.oauth2.provider.token.TokenStore;
 
 @Service
 @Slf4j
@@ -736,17 +732,6 @@ public class UserService {
         }
     }
 
-//    /**
-//     * this api will check user is exist or not, If not exist it will throw
-//     * exception.
-//     *
-//     * @param user
-//     */
-//    private void validateUserPresent(User user) {
-//        if (user == null) {
-//            throw new UserNotFoundException(null);
-//        }
-//    }
 
     /**
      * this api will validate, updating the profile for same logged-in user or

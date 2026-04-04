@@ -58,22 +58,4 @@ public class CalculationService {
  		serviceRequestRepository.fetchResult(url, propertyRequest);
  	}
 
-//     private CalculationReq createCalculationReq(PropertyRequest request){
-//         CalculationReq calculationReq = new CalculationReq();
-//         calculationReq.setRequestInfo(request.getRequestInfo());
-//
-//         request.getProperties().forEach(property -> {
-//             CalculationCriteria calculationCriteria = new CalculationCriteria();
-//             calculationCriteria.setProperty(property);
-//             calculationCriteria.setTenantId(property.getTenantId());
-//
-//             calculationReq.addCalulationCriteriaItem(calculationCriteria);
-//         });
-//       return calculationReq;
-//     }
-
-
-
-
-
 }

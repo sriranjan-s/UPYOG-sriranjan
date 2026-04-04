@@ -1,25 +1,4 @@
-// const Role = {
-//   type: "object",
-//   description:
-//     "minimal representation of the Roles in the system to be carried along in UserInfo with RequestInfo meta data. Actual authorization service to extend this to have more role related attributes\n",
-//   properties: {
-//     name: {
-//       type: "string",
-//       description: "Unique name of the role",
-//       maxLength: 64
-//     },
-//     code: {
-//       type: "string",
-//       description: "Unique code of the role",
-//       maxLength: 64
-//     },
-//     description: {
-//       type: "string",
-//       description: "brief description of the role"
-//     }
-//   },
-//   required: ["name"]
-// };
+
 
 const AuditDetails = {
   type: "object",
@@ -49,74 +28,7 @@ const AuditDetails = {
   }
 };
 
-// const TenantRole = {
-//   type: "object",
-//   description:
-//     "User role carries the tenant related role information for the user. A user can have multiple roles per tenant based on the need of the tenant. A user may also have multiple roles for multiple tenants.",
-//   properties: {
-//     tenantId: {
-//       type: "string",
-//       description: "tenantid for the tenant"
-//     },
-//     roles: {
-//       type: "array",
-//       description:
-//         "Roles assigned for a particular tenant - array of role codes/names",
-//       items: Role
-//     }
-//   },
-//   required: ["tenantId", "roles"]
-// };
 
-// const UserInfo = {
-//   type: "object",
-//   description:
-//     "This is acting ID token of the authenticated user on the server. Any value provided by the clients will be ignored and actual user based on authtoken will be used on the server.",
-//   readOnly: true,
-//   properties: {
-//     tenantId: {
-//       type: "string",
-//       description:
-//         "Unique Identifier of the tenant to which user primarily belongs"
-//     },
-//     uuid: {
-//       type: "string",
-//       description: "System Generated User id of the authenticated user."
-//     },
-//     userName: {
-//       type: "string",
-//       description: "Unique user name of the authenticated user"
-//     },
-//     password: {
-//       type: "string",
-//       description: "password of the user."
-//     },
-//     idToken: {
-//       type: "string",
-//       description: "This will be the OTP."
-//     },
-//     mobile: {
-//       type: "string",
-//       description: "mobile number of the autheticated user"
-//     },
-//     email: {
-//       type: "string",
-//       description: "email address of the authenticated user"
-//     },
-//     primaryrole: {
-//       type: "array",
-//       description: "List of all the roles for the primary tenant",
-//       items: Role
-//     },
-//     additionalroles: {
-//       type: "array",
-//       description:
-//         "array of additional tenantids authorized for the authenticated user",
-//       items: TenantRole
-//     }
-//   },
-//   required: ["tenantId", "userName", "primaryrole"]
-// };
 
 const Address = {
   type: "object",

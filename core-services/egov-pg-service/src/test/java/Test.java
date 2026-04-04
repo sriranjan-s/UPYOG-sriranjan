@@ -82,22 +82,6 @@ public class Test {
         System.out.println(redirectUri);
     }
 
-//    @org.junit.Test
-//    public void payUTest() {
-//        Transaction txn = Transaction.builder().txnAmount("100")
-//                .txnId("ABC231")
-//                .billId("ORDER001")
-//                .productInfo("Property Tax Payment")
-//                .gateway("AXIS")
-//                .callbackUrl("http://2a91377b.ngrok.io/egov-pay/payments/v1/_update")
-//                .user(user).build();
-//
-//
-//        Gateway gateway = new PayuGateway();
-//
-//        URI redirectUri = gateway.generateRedirectURI(txn);
-//        System.out.println(redirectUri);
-//    }
 
 
     @org.junit.Test

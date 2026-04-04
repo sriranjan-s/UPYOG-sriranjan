@@ -336,10 +336,6 @@ public class NotificationService {
 				mobileNumberToOwner.put(owner.getMobileNumber(), owner.getName());
 			    mobileNumbers.add(owner.getMobileNumber());
 		});		//EMAIL block TBD
-//			Map<String, String> mapOfPhnoAndEmail = notifUtil.fetchUserEmailIds(mobileNumbers, requestInfo, tenantId);
-//			String messageTemplate = fetchContentFromLocalization(request.getRequestInfo(), tenantId, "rainmaker-pt", "PT_NOTIFICATION_EMAIL");
-//			messageTemplate = messageTemplate.replace("{MESSAGE}",msg);
-//			messageTemplate = messageTemplate.replace(NOTIFICATION_OWNERNAME,NOTIFICATION_EMAIL);
 
 		List<SMSRequest> smsRequests = notifUtil.createSMSRequest(msg, mobileNumberToOwner);
 		notifUtil.sendSMS(smsRequests, property.getTenantId());
