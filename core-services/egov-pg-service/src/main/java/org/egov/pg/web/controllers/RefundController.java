@@ -40,7 +40,7 @@ public class RefundController {
 		this.refundService=refundService;
 	}
 	
-	 @RequestMapping(value = "/refund/v1/_create", method = RequestMethod.POST)
+	 @RequestMapping(value = "/_create", method = RequestMethod.POST)
 	    public ResponseEntity<PaymentResponse> refundV1Initiate(@Valid @RequestBody PaymentRequest paymentRequest) {
          
 		 CollectionPayment processRefund = refundService.processRefund(paymentRequest);
