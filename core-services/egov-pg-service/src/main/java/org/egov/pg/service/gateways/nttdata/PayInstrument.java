@@ -22,12 +22,7 @@ public class PayInstrument {
 	public ResponseDetails getResponseDetails() {
 		return responseDetails;
 	}
-//	public List<responseDeatails> getResponseDeatil() {
-//		return responseDeatil;
-//	}
-//	public void setResponseDeatil(List<responseDeatails> responseDeatil) {
-//		this.responseDeatil = responseDeatil;
-//	}
+
 	public void setResponseDetails(ResponseDetails responseDetails) {
 		this.responseDetails = responseDetails;
 	}

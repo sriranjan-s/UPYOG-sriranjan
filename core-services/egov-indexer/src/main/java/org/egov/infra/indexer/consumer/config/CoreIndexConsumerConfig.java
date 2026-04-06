@@ -78,8 +78,7 @@ public class CoreIndexConsumerConfig implements ApplicationRunner {
 	@Value("${egov.indexer.bpa.update.workflow.topic.name}")
 	private String bpaUpdateWorkflowTopic;
 	
-//    @Autowired
-//    private StoppingErrorHandler stoppingErrorHandler;
+
 
 	@Autowired
 	private KafkaConsumerErrorHandler kafkaConsumerErrorHandler;
@@ -157,8 +156,7 @@ public class CoreIndexConsumerConfig implements ApplicationRunner {
     public KafkaMessageListenerContainer<String, String> container() throws Exception { 
     	 setTopics();
     	 ContainerProperties properties = new ContainerProperties(this.topics); // set more properties
-//    	 properties.setPauseEnabled(true);
-//    	 properties.setPauseAfter(0);
+
     	 properties.setMessageListener(indexerMessageListener);
     	 
          log.info("Custom KafkaListenerContainer built...");

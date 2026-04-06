@@ -161,16 +161,6 @@ public class StreetVendingConfiguration {
 	@Value("${egov.url.shortner.endpoint}")
 	private String shortenerEndpoint;
 
-//	@Value("${chb.claculation.tax.applicable}")
-//	private String applicableTaxes;
-
-	// Billing-Service
-
-//	@Value("${egbs.host}")
-//	private String egbsHost;
-//
-//	@Value("${egbs.fetchbill.endpoint}")
-//	private String egbsFetchBill;
 
 	@Value("${egov.localization.statelevel}")
 	private Boolean isLocalizationStateLevel;

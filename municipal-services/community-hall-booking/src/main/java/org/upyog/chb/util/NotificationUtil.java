@@ -221,13 +221,7 @@ public class NotificationUtil {
 			//Fetch message template from localization message for localization code
 			messageTemplate = getMessageTemplate(notificationEventType, localizationMessage);
 			
-			//link = getActionLink(bookingDetail, actionStatus);
-			//Update placeholder in messages
-		//	message = populateDynamicValues(bookingDetail, messageTemplate);
-			//Shorten URL part of notification message
-		//	String shortUrl = getActionLink(bookingDetail, actionStatus);
-			//Update payment link placeholder in message
-		//	message = message.replace(CommunityHallBookingConstants.CHB_PAYMENT_LINK, shortUrl);
+
 			break;
 
 		case BOOKED:

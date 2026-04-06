@@ -53,8 +53,5 @@ public class BusinessCategoryConsumer {
 
 	private User getUserInfo(RequestInfo requestInfo) {
         return requestInfo.getUserInfo();
-		//User user = requestInfo.getUserInfo();
-		//return AuthenticatedUser.builder().id(user.getId()).anonymousUser(false).emailId(user.getEmailId())
-			//	.mobileNumber(user.getMobileNumber()).name(user.getName()).build();
-	}
+}
 }

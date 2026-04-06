@@ -122,8 +122,7 @@ public class ReindexConsumerConfig implements ApplicationRunner {
     public KafkaMessageListenerContainer<String, String> container() throws Exception { 
     	 setTopics();
     	 ContainerProperties properties = new ContainerProperties(this.topics); // set more properties
-//    	 properties.setPauseEnabled(true);
-//    	 properties.setPauseAfter(0);
+
     	 properties.setMessageListener(indexerMessageListener);
     	 
          log.info("Reindex KafkaListenerContainer built...");

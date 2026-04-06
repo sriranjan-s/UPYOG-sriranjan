@@ -2,7 +2,7 @@ package org.egov.pqm.anomaly.finder.web.model;
 
 import java.util.List;
 
-import org.hibernate.validator.constraints.SafeHtml;
+import org.egov.tracer.annotations.CustomSafeHtml;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,7 +22,7 @@ public class AnomalySearchCriteria {
 	@JsonProperty("tenantId")
 	private String tenantId;
 	
-	@SafeHtml
+	@CustomSafeHtml
 	@JsonProperty("mobileNumber")
 	private String mobileNumber;
 

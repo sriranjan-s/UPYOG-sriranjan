@@ -128,14 +128,7 @@ public class PayGovGateway implements Gateway {
 
     @Override
     public URI generateRedirectURI(Transaction transaction) {
-        //PgDetail pgDetail = pgDetailRepository.getPgDetailByTenantId(requestInfo, transaction.getTenantId());
 
-    	/*
-		 *
-		 messageType|merchantId|serviceId|orderId|customerId|transactionAmount|currencyCode|r
-		equestDateTime|successUrl|failUrl|additionalField1| additionalField2| additionalField3|
-		additionalField4| additionalField5
-		 */
         String urlData =null;
         HashMap<String, String> queryMap = new HashMap<>();
         queryMap.put(MESSAGE_TYPE_KEY, MESSAGE_TYPE);

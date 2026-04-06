@@ -12,10 +12,7 @@ public class StoppingErrorHandler implements CommonErrorHandler {
   @Autowired
   private KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
   
-//  @Override
-//  public void handle(Exception thrownException, ConsumerRecord<?, ?> record) {
-//    kafkaListenerEndpointRegistry.stop();
-//  }
+
 
 
 }

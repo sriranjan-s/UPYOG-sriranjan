@@ -1,8 +1,6 @@
 package org.egov.infra.indexer.custom.bpa;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-//import io.swagger.annotations.ApiModel;
-//import io.swagger.annotations.ApiModelProperty;
 import jakarta.validation.Valid;
 import lombok.*;
 import org.egov.common.contract.request.RequestInfo;

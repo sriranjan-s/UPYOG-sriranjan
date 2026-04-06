@@ -54,20 +54,6 @@ public class BPAResponse   {
     return this;
   }
 
-  /**
-   * Get BPA
-   * @return BPA
-  **/
-
-//    @Valid
-//    public List<BPA> getBPA() {
-//    return BPAR;
-//  }
-
-//  public void setBPA(List<BPA> BPA) {
-//    this.BPAR = BPA;
-//  }
-
 
   @Override
   public boolean equals(Object o) {

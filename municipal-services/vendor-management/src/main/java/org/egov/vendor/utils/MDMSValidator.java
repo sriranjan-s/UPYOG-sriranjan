@@ -23,12 +23,7 @@ public class MDMSValidator {
      * @param assetRequest
      */
     public void validateMdmsData(VendorAdditionalDetailsRequest assetRequest, Object mdmsData) {
-            //To Do for Vendor management
-            //        Map<String, List<String>> masterData = getAttributeValues(mdmsData);
-            //        String[] masterArray = {VendorConstants.VENDOR_CLASSIFICATION};
-            //        if (masterArray.length > 0) {
-            //            validateIfMasterPresent(masterArray, masterData);
-            //        }
+       
     }
 
 

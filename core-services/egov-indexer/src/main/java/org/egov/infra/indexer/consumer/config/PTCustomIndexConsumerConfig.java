@@ -53,8 +53,6 @@ public class PTCustomIndexConsumerConfig implements ApplicationRunner {
 	@Value("${egov.indexer.pt.legacyindex.topic.name}")
 	private String ptLegacyTopic;
         
-//    @Autowired
-//    private StoppingErrorHandler stoppingErrorHandler;
 
 	@Autowired
 	private KafkaConsumerErrorHandler kafkaConsumerErrorHandler;
@@ -124,8 +122,7 @@ public class PTCustomIndexConsumerConfig implements ApplicationRunner {
     public KafkaMessageListenerContainer<String, String> container() throws Exception { 
     	 setTopics();
     	 ContainerProperties properties = new ContainerProperties(this.topics); // set more properties
-//    	 properties.setPauseEnabled(true);
-//    	 properties.setPauseAfter(0);
+
     	 properties.setMessageListener(indexerMessageListener);
     	 
          log.info("PT KafkaListenerContainer built...");

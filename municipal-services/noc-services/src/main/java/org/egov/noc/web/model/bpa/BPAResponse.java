@@ -70,14 +70,6 @@ public class BPAResponse   {
   **/
   @ApiModelProperty(value = "")
   
-//    @Valid
-//    public List<BPA> getBPA() {
-//    return BPAR;
-//  }
-
-//  public void setBPA(List<BPA> BPA) {
-//    this.BPAR = BPA;
-//  }
 
 
   @Override

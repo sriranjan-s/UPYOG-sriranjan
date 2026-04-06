@@ -43,26 +43,4 @@ public class KafkaConfiguration {
     }
 
 
-//    @Bean
-//    public ConsumerFactory<String, VendorAdditionalDetailsRequest> consumerFactory() {
-//        JsonDeserializer<VendorAdditionalDetailsRequest> deserializer = new JsonDeserializer<>(VendorAdditionalDetailsRequest.class);
-//        deserializer.addTrustedPackages("*");
-//
-//        Map<String, Object> props = new HashMap<>();
-//        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-//        props.put(ConsumerConfig.GROUP_ID_CONFIG, "vendor-group");
-//        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, deserializer);
-//
-//        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
-//    }
-//
-//    @Bean
-//    public ConcurrentKafkaListenerContainerFactory<String, VendorAdditionalDetailsRequest> kafkaListenerContainerFactory() {
-//        ConcurrentKafkaListenerContainerFactory<String, VendorAdditionalDetailsRequest> factory =
-//                new ConcurrentKafkaListenerContainerFactory<>();
-//        factory.setConsumerFactory(consumerFactory());
-//        return factory;
-//    }
-
 }

@@ -223,22 +223,7 @@ public class TradeUtil {
      * @param license The create or update TradeLicense request
      * @return Map containing startTime and endTime
      */
-//    public Map<String,Long> getTaxPeriodsforRenewal(TradeLicense license,Object mdmsData){
-//        Map<String,Long> taxPeriods = new HashMap<>();
-//        try {
-//            String currentYearjsonPath = TLConstants.MDMS_FINACIALYEAR_PATH.replace("{}",license.getFinancialYear());
-//            List<Map<String,Object>> currentFinancialYear = JsonPath.read(mdmsData, currentYearjsonPath);
-//            Map<String,Object> currentFYObject = currentFinancialYear.get(0);
-//            Object startDate = currentFYObject.get(TLConstants.MDMS_STARTDATE);
-//            Object endDate = currentFYObject.get(TLConstants.MDMS_ENDDATE);
-//            taxPeriods.put(TLConstants.MDMS_STARTDATE,(Long) startDate);
-//            taxPeriods.put(TLConstants.MDMS_ENDDATE,(Long) endDate);
-//        } catch (Exception e) {
-//            log.error("Error while fetching MDMS data", e);
-//            throw new CustomException("INVALID FINANCIALYEAR", "No data found for the financialYear: "+license.getFinancialYear());
-//        }
-//        return taxPeriods;
-//    }
+
 
 
 

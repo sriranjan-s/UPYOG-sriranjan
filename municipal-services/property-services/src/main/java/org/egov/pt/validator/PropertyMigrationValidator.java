@@ -429,9 +429,7 @@ public class PropertyMigrationValidator {
 
 		}
 
-//		if (!CollectionUtils.isEmpty(errorMap.keySet())) {
-//			throw new CustomException(errorMap);
-//		}
+
 
 	}
 

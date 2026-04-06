@@ -99,11 +99,7 @@ public class ElasticSearchRepository {
     }
 
     public void pushDataToKafkaConnector(Map<String, List<JsonNode>> indexNameVsDocumentsToBeIndexed) {
-//        indexNameVsDocumentsToBeIndexed.keySet().forEach(indexName -> {
-//            for(JsonNode record : indexNameVsDocumentsToBeIndexed.get(indexName)) {
-//                producer.push("persist-national-records", record);
-//            }
-//        });
+
         
     	List<List<JsonNode>> chunkList = new ArrayList<>();
 
