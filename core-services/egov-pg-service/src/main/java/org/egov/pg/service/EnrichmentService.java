@@ -168,10 +168,14 @@ public class EnrichmentService {
 //
 //	}
 
-	private void setIdFromIdGen(@Valid RefundRequest refundRequest) {
+	private void setIdFromIdGen(Refund refund) {
 //		String refundId = idGenService.generateRefundId(refundRequest);
-		String refundId = "PG-1212-refund";
-		refundRequest.getRefund().setRefundId(refundId);
+		int min = 1000;
+		int max = 10000;
+		int randomNum = (int)(Math.random() * (max - min + 1) + min);
+
+		String refundId = "PG-"+randomNum+"-refund";
+		refund.setRefundId(refundId);
 	}
 
 	public void enrichupdateRefundTransaction(Refund currentRefund) {
@@ -189,13 +193,16 @@ public class EnrichmentService {
 	}
 
 	public RefundRequest enrichRefundRequest(List<Transaction> transactions, RequestInfo requestInfo) {
-		  RefundRequest refundRequest = new RefundRequest();
-		  Transaction transaction = transactions.get(0);
-		  Refund refund = refundRequest.getRefund();
+		 RefundRequest refundRequest = new RefundRequest();
+		    refundRequest.setRequestInfo(requestInfo);
+
+		    Transaction transaction = transactions.get(0);
+
+		    Refund refund = new Refund();
 		  refundRequest.setRequestInfo(requestInfo);
 		  
 		  refund.setId(UUID.randomUUID().toString());
-		  setIdFromIdGen(refundRequest);
+		  setIdFromIdGen(refund);
 		  
 		  refund.setOriginalTxnId(transaction.getTxnId());
 		  refund.setRefundAmount(transaction.getTxnAmount());
@@ -212,7 +219,7 @@ public class EnrichmentService {
 		                .createdTime(System.currentTimeMillis())
 		                .build();
 		        refund.setAuditDetails(auditDetails);
-		  
+		  refundRequest.setRefund(refund);
 		return refundRequest;
 	}
 
@@ -250,7 +257,7 @@ public class EnrichmentService {
 	    double totalRefundAmount = calculateTotalRefundAmount(prodDetailsList);
 	    payDetails.setTotalRefundAmount(totalRefundAmount);
 
-	    // Signature (move to separate method ideally)
+	    // Signature 
 	    String signature = generateSignature(merchantId, password, merchantTxnId,
 	            refundRequest.getRefundAmount(), currency, api);
 	    payDetails.setSignature(signature);

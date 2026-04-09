@@ -23,7 +23,7 @@ public class PaymentRequest {
 	@Valid
 	private RequestInfo requestInfo;
 
-	@JsonProperty("payment")
+	@JsonProperty("Payment")
 	@Valid
 	private CollectionPayment payment;
 
