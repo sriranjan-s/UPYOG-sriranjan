@@ -170,7 +170,11 @@ public class EnrichmentService {
 
 	private void setIdFromIdGen(Refund refund) {
 //		String refundId = idGenService.generateRefundId(refundRequest);
-		String refundId = "PG-431652-refund";
+		int min = 1000;
+		int max = 10000;
+		int randomNum = (int)(Math.random() * (max - min + 1) + min);
+
+		String refundId = "PG-"+randomNum+"-refund";
 		refund.setRefundId(refundId);
 	}
 
@@ -253,7 +257,7 @@ public class EnrichmentService {
 	    double totalRefundAmount = calculateTotalRefundAmount(prodDetailsList);
 	    payDetails.setTotalRefundAmount(totalRefundAmount);
 
-	    // Signature (move to separate method ideally)
+	    // Signature 
 	    String signature = generateSignature(merchantId, password, merchantTxnId,
 	            refundRequest.getRefundAmount(), currency, api);
 	    payDetails.setSignature(signature);
