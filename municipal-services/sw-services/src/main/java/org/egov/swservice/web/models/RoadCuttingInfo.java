@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Data
 @AllArgsConstructor
@@ -13,11 +13,11 @@ import org.egov.tracer.annotations.CustomSafeHtml;
 @Builder
 public class RoadCuttingInfo {
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id ;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("roadType")
   private String roadType = null;
 

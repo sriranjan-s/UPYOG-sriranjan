@@ -155,7 +155,15 @@ public class TLValidator {
                     owner -> {
                         if (owner.getGender() == null)
                             throw new CustomException("NULL_USERGENDER", " User gender cannot be null");
+//
+//                        if (owner.getEmailId() == null)
+//                            throw new CustomException("NULL_USEREMAIL", " User EmailId cannot be null");
 
+//                        if (owner.getPermanentAddress() == null)
+//                            throw new CustomException("NULL_PERMANENTADDRESS", " User Permanent Address cannot be null");
+//
+//                        if (owner.getCorrespondenceAddress() == null)
+//                            throw new CustomException("NULL_CORRESPONDANCEADDRESS", " User Correspondance address cannot be null");
                     }
             );
         });
@@ -169,7 +177,11 @@ public class TLValidator {
             Map<String,Long> taxPeriods = null;
             if(license.getValidTo()==null)
                 throw new CustomException("INVALID VALIDTO DATE"," Validto cannot be null");
-
+//            if(license.getApplicationType() != null && license.getApplicationType().toString().equals(TLConstants.APPLICATION_TYPE_RENEWAL)){
+//                taxPeriods = tradeUtil.getTaxPeriods(license,mdmsData);
+//            }else{
+//                taxPeriods = tradeUtil.getTaxPeriods(license,mdmsData);
+//            }
             taxPeriods = tradeUtil.getTaxPeriods(license,mdmsData);                
             if(license.getValidTo()!=null && license.getValidTo()>taxPeriods.get(TLConstants.MDMS_ENDDATE)){
                 Date expiry = new Date(license.getValidTo());

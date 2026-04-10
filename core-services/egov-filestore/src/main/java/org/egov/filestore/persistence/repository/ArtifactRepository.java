@@ -62,7 +62,10 @@ public class ArtifactRepository {
 				.fileName(fileLocation.getFileName()).contentType(artifact.getMultipartFile().getContentType())
 				.module(fileLocation.getModule()).tag(fileLocation.getTag()).tenantId(fileLocation.getTenantId())
 				.fileSource(fileLocation.getFileSource())
-			
+				//.createdBy(requestInfo.getUserInfo().getUuid())
+				//.lastModifiedBy(requestInfo.getUserInfo().getUuid())
+				//.createdTime(System.currentTimeMillis())
+				//.lastModifiedTime(System.currentTimeMillis())
 				.build();
 		if (isAzureStorageEnabled)
 			entityArtifact.setFileSource(azureBlobSource);
@@ -71,6 +74,23 @@ public class ArtifactRepository {
 		return entityArtifact;
 	}
 
+	/*
+	 * private List<Artifact>
+	 * mapArtifactsListToEntitiesList(List<org.egov.filestore.domain.model.
+	 * Artifact> artifacts) { return artifacts.stream() .map(this::mapToEntity)
+	 * .collect(Collectors.toList()); }
+	 * 
+	 * private Artifact mapToEntity(org.egov.filestore.domain.model.Artifact
+	 * artifact) {
+	 * 
+	 * FileLocation fileLocation = artifact.getFileLocation(); return
+	 * Artifact.builder().fileStoreId(fileLocation.getFileStoreId()).fileName(
+	 * fileLocation.getFileName())
+	 * .contentType(artifact.getMultipartFile().getContentType()).module(
+	 * fileLocation.getModule())
+	 * .tag(fileLocation.getTag()).tenantId(fileLocation.getTenantId()).build();
+	 * }
+	 */
 /**
  * 
  * @param fileStoreId

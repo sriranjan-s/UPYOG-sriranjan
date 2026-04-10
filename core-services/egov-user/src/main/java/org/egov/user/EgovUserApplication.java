@@ -43,6 +43,10 @@ import java.util.TimeZone;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// REMOVE THESE DEPRECATED IMPORTS:
+// import org.springframework.security.oauth2.provider.token.TokenStore;
+// import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+// import org.egov.user.security.CustomAuthenticationKeyGenerator;
 
 @SpringBootApplication(exclude = {org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration.class})
 @Slf4j
@@ -57,6 +61,9 @@ public class EgovUserApplication {
     @Value("${spring.redis.host}")
     private String host;
 
+    // REMOVE THIS DEPRECATED DEPENDENCY:
+    // @Autowired
+    // private CustomAuthenticationKeyGenerator customAuthenticationKeyGenerator;
 
     @PostConstruct
     public void initialize() {

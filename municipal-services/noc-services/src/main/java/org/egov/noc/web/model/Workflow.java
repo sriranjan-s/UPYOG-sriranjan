@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 @Validated
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-30T05:26:25.138Z[GMT]")
 public class Workflow   {
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("action")
   private String action = null;
 
@@ -28,7 +28,7 @@ public class Workflow   {
   @Valid
   private List<String> assignes = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("comment")
   private String comment = null;
 

@@ -82,6 +82,58 @@ public class DataUploadController {
 	}
 
 
+//    @PostMapping(value = "upload-definitions/_test",produces = "application/json")
+//    public ResponseEntity<?> definitionTest(@RequestBody @Valid DefinitionTestRequest definitionTestRequest) throws Exception {
+//        try {
+//            logger.info("Inside controller");
+//            DefinitionTestResponse response = new DefinitionTestResponse();
+//            response.results = new ArrayList<>();
+//
+//            List<?> results = response.results;
+//
+//
+//
+//            List<Object> headers = definitionTestRequest.getHeaders();
+//            List<List<Object>> data = definitionTestRequest.getData();
+//            Definition uploadDefinition = definitionTestRequest.getDefinition();
+//            UploaderRequest uploaderRequest = new UploaderRequest();
+//            uploaderRequest.uploadJobs = new ArrayList<UploadJob>();
+//            UploadJob uploadJob = new UploadJob();
+//            uploadJob.setTenantId("default");
+//            uploaderRequest.uploadJobs.add(uploadJob);
+//
+//			ObjectMapper objectMapper = new ObjectMapper();
+//
+//            if (null != uploadDefinition.getIsParentChild() && uploadDefinition.getIsParentChild()) {
+//
+//                DocumentContext documentContext = dataUploadUtils.getDocumentContext(uploadDefinition);
+//                DocumentContext bulkApiRequest = dataUploadUtils.getBulkApiRequestContext(uploadDefinition);
+//                List<Integer> indexes = dataUploadUtils.getIndexes(uploadDefinition, headers);
+//
+//                for (int i = 0; i < data.size(); i++) {
+//                    List<List<Object>> filteredList = dataUploadUtils.filter(data, indexes, data.get(i));
+//                    String request = dataUploadService.buildRequestForParentChild(i, filteredList, headers, 0, uploadDefinition, documentContext, uploaderRequest, bulkApiRequest);
+//                    results.add(objectMapper.readValue(request, new TypeReference<Map<String, Object>>(){}));
+//                    i +=  (filteredList.size() - 1);
+//                }
+//            } else {
+//
+//                DocumentContext documentContext = JsonPath.parse(uploadDefinition.getApiRequest());
+//
+//                for (int i = 0; i < data.size(); i++) {
+//                    String request = dataUploadService.buildRequest(headers, 0, uploadDefinition, documentContext, uploaderRequest, data.get(i));
+//                    results.add(objectMapper.readValue(request, new TypeReference<Map<String, Object>>(){}));
+//                }
+//            }
+//
+////            return "[" + String.join(",",results) + "]";
+//
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//    }
+
 }
 
 		

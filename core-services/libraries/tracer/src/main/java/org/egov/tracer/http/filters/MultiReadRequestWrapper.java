@@ -29,7 +29,15 @@ public class MultiReadRequestWrapper extends HttpServletRequestWrapper {
         this.cachedBytes = newBytes;
     }
 
-
+//    @Override
+//    public int getContentLength() {
+//        return this.cachedBytes.size();
+//    }
+//
+//    @Override
+//    public long getContentLengthLong() {
+//        return this.cachedBytes.size();
+//    }
 
     @Override
     public BufferedReader getReader() throws IOException{

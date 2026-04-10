@@ -755,7 +755,53 @@ public class InboxService {
 				moduleSearchCriteria.put("isPropertyDetailsRequired", true);
 				processCriteria.setModuleName(BS_SW_MODULENAME);
 			}
-		
+			/*
+			 * if(!ObjectUtils.isEmpty(processCriteria.getModuleName()) &&
+			 * processCriteria.getModuleName().equals(PT)){ Boolean isMobileNumberPresent =
+			 * false; if(moduleSearchCriteria.containsKey(MOBILE_NUMBER_PARAM)){
+			 * isMobileNumberPresent = true; } Boolean isUserPresentForGivenMobileNumber =
+			 * false; if(isMobileNumberPresent) { String tenantId = criteria.getTenantId();
+			 * String mobileNumber = (String) moduleSearchCriteria.get(MOBILE_NUMBER_PARAM);
+			 * String userUUID = fetchUserUUID(mobileNumber, requestInfo, tenantId);
+			 * isUserPresentForGivenMobileNumber = ObjectUtils.isEmpty(userUUID) ? true :
+			 * false; } if(isMobileNumberPresent && isUserPresentForGivenMobileNumber){
+			 * isSearchResultEmpty = true; } if(!isSearchResultEmpty){ Object result = null;
+			 * Map<String, Object> searcherRequest = new HashMap<>(); Map<String, Object>
+			 * searchCriteria = new HashMap<>();
+			 * searchCriteria.put(TENANT_ID_PARAM,criteria.getTenantId()); // Accomodating
+			 * module search criteria in searcher request
+			 * if(moduleSearchCriteria.containsKey(MOBILE_NUMBER_PARAM)){
+			 * searchCriteria.put(MOBILE_NUMBER_PARAM,
+			 * moduleSearchCriteria.get(MOBILE_NUMBER_PARAM)); }
+			 * if(moduleSearchCriteria.containsKey(LOCALITY_PARAM)){
+			 * searchCriteria.put(LOCALITY_PARAM, moduleSearchCriteria.get(LOCALITY_PARAM));
+			 * } if(moduleSearchCriteria.containsKey(PROPERTY_ID_PARAM)){
+			 * searchCriteria.put(PROPERTY_ID_PARAM,
+			 * moduleSearchCriteria.get(PROPERTY_ID_PARAM)); }
+			 * if(moduleSearchCriteria.containsKey(APPLICATION_NUMBER_PARAM)) {
+			 * searchCriteria.put(APPLICATION_NUMBER_PARAM,
+			 * moduleSearchCriteria.get(APPLICATION_NUMBER_PARAM)); } // Accomodating
+			 * process search criteria in searcher request
+			 * if(!ObjectUtils.isEmpty(processCriteria.getAssignee())){
+			 * searchCriteria.put(ASSIGNEE_PARAM, processCriteria.getAssignee()); }
+			 * if(!ObjectUtils.isEmpty(processCriteria.getStatus())){
+			 * searchCriteria.put(STATUS_PARAM, processCriteria.getStatus()); }else{
+			 * if(StatusIdNameMap.values().size() > 0) {
+			 * if(CollectionUtils.isEmpty(processCriteria.getStatus())) {
+			 * searchCriteria.put(STATUS_PARAM, StatusIdNameMap.keySet()); } } } //
+			 * Paginating searcher results searchCriteria.put(OFFSET_PARAM,
+			 * criteria.getOffset()); searchCriteria.put(NO_OF_RECORDS_PARAM,
+			 * criteria.getLimit()); searcherRequest.put(REQUESTINFO_PARAM, requestInfo);
+			 * searcherRequest.put(SEARCH_CRITERIA_PARAM, searchCriteria); result =
+			 * restTemplate.postForObject(PT_INBOX_SEARCHER_URL, searcherRequest,
+			 * Map.class); List<String> acknowledgementNumbers = JsonPath.read(result,
+			 * "$.Properties.*.acknowldgementnumber");
+			 * if(!CollectionUtils.isEmpty(acknowledgementNumbers)) {
+			 * moduleSearchCriteria.put(ACKNOWLEDGEMENT_IDS_PARAM, acknowledgementNumbers);
+			 * moduleSearchCriteria.remove(OFFSET_PARAM);
+			 * moduleSearchCriteria.remove(LIMIT_PARAM); }else{ isSearchResultEmpty = true;
+			 * } } }
+			 */
 			businessObjects = new JSONArray();
 			// Search module specific data from respective modules. Works for all modules
 			// except WS and SW

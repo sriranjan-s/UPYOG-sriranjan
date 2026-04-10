@@ -123,6 +123,18 @@ public class WorkflowIntegrator {
 					" Exception occured while integrating with workflow : " + e.getMessage());
 		}
 
+		/*
+		 * on success result from work-flow read the data and set the status back to pqm
+		 * object
+		 */
+//		DocumentContext responseContext = JsonPath.parse(response);
+//		List<Map<String, Object>> responseArray = responseContext.read(PROCESS_INSTANCES_JOSN_KEY);
+//		Map<String, String> idStatusMap = new HashMap<>();
+//		responseArray.forEach(object -> {
+//
+//			DocumentContext instanceContext = JsonPath.parse(object);
+//			idStatusMap.put(instanceContext.read(BUSINESS_ID_JOSN_KEY), instanceContext.read(STATUS_JSON_KEY));
+//		});
 		// setting the status back to pqm object from wf response
 		test.setWfStatus(processInstanceResponse.getProcessInstances().get(0).getState().getApplicationStatus());
 		test.setProcessInstance(processInstanceResponse.getProcessInstances().get(0));

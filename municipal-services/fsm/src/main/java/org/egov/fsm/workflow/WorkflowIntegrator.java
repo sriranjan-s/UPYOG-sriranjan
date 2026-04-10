@@ -152,6 +152,18 @@ public class WorkflowIntegrator {
 					" Exception occured while integrating with workflow : " + e.getMessage());
 		}
 
+		/*
+		 * on success result from work-flow read the data and set the status back to fsm
+		 * object
+		 */
+//		DocumentContext responseContext = JsonPath.parse(response);
+//		List<Map<String, Object>> responseArray = responseContext.read(PROCESSINSTANCESJOSNKEY);
+//		Map<String, String> idStatusMap = new HashMap<>();
+//		responseArray.forEach(object -> {
+//
+//			DocumentContext instanceContext = JsonPath.parse(object);
+//			idStatusMap.put(instanceContext.read(BUSINESSIDJOSNKEY), instanceContext.read(STATUSJSONKEY));
+//		});
 		// setting the status back to fsm object from wf response
 		fsm.setApplicationStatus(processInstanceResponse.getProcessInstances().get(0).getState().getApplicationStatus());
 		fsm.setProcessInstance(processInstanceResponse.getProcessInstances().get(0));

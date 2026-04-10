@@ -15,7 +15,7 @@ package org.egov.echallan.model;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,17 +42,17 @@ import lombok.Setter;
 public class Address   {
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("id")
         private String id;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("tenantId")
         private String tenantId = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("doorNo")
         private String doorNo = null;
 
@@ -63,56 +63,56 @@ public class Address   {
         private Double longitude = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("addressId")
         private String addressId = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("addressNumber")
         private String addressNumber = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("type")
         private String type = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("addressLine1")
         private String addressLine1 = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @Size(max=256)
         @JsonProperty("addressLine2")
         private String addressLine2 = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @Size(max=64)
         @JsonProperty("landmark")
         private String landmark = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("city")
         private String city = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("pincode")
         private String pincode = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("detail")
         private String detail = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("buildingName")
         private String buildingName = null;
 
         @Size(max=64)
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("street")
         private String street = null;
 
@@ -120,23 +120,23 @@ public class Address   {
         @JsonProperty("locality")
         private Boundary locality = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("plotNo")
         private String plotNo = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("district")
         private String district = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("state")
         private String state = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("country")
         private String country = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("region")
         private String region = null;
 }

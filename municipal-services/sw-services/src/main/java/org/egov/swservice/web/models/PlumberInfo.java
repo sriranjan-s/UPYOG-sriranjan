@@ -5,7 +5,7 @@ import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -20,31 +20,31 @@ import io.swagger.annotations.ApiModelProperty;
 @Validated
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-01-22T12:39:45.543+05:30[Asia/Kolkata]")
 public class PlumberInfo {
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("name")
 	private String name = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("licenseNo")
 	private String licenseNo = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("mobileNumber")
 	private String mobileNumber = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("gender")
 	private String gender = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("fatherOrHusbandName")
 	private String fatherOrHusbandName = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("correspondenceAddress")
 	private String correspondenceAddress = null;
 
@@ -79,7 +79,7 @@ public class PlumberInfo {
 		}
 	}
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("relationship")
 	private String relationship = null;
 

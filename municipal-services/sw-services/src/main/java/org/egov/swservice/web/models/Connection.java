@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 import lombok.*;
 import org.egov.swservice.web.models.workflow.ProcessInstance;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,23 +34,23 @@ import io.swagger.annotations.ApiModelProperty;
 @NoArgsConstructor
 @jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-20T12:22:10.265+05:30[Asia/Kolkata]")
 public class Connection {
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("propertyId")
 	private String propertyId = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("applicationNo")
 	private String applicationNo = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("applicationStatus")
 	private String applicationStatus = null;
 
@@ -88,11 +88,11 @@ public class Connection {
 	@JsonProperty("status")
 	private StatusEnum status = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("connectionNo")
 	private String connectionNo = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("oldConnectionNo")
 	private String oldConnectionNo = null;
 
@@ -104,7 +104,7 @@ public class Connection {
 	@Valid
 	private List<PlumberInfo> plumberInfo = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("roadType")
 	private String roadType = null;
 
@@ -117,11 +117,11 @@ public class Connection {
 	@JsonProperty("connectionExecutionDate")
 	private Long connectionExecutionDate = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("connectionCategory")
 	private String connectionCategory = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("connectionType")
 	private String connectionType = null;
 
@@ -138,7 +138,7 @@ public class Connection {
 	@Valid
 	private List<OwnerInfo> connectionHolders;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("applicationType")
 	private String applicationType = null;
 
@@ -148,7 +148,7 @@ public class Connection {
 	@JsonProperty("oldApplication")
 	private Boolean oldApplication = false;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("channel")
 	private String channel = null;
 

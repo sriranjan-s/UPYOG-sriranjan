@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,31 +30,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OwnerInfo {
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("name")
 	private String name = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("ownerId")
 	private String ownerId = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("mobileNumber")
 	private String mobileNumber = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("gender")
 	private String gender = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("fatherOrHusbandName")
 	private String fatherOrHusbandName = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("correspondenceAddress")
 	private String correspondenceAddress = null;
 
@@ -64,11 +64,11 @@ public class OwnerInfo {
 	@JsonProperty("ownerShipPercentage")
 	private BigDecimal ownerShipPercentage = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("ownerType")
 	private String ownerType = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("institutionId")
 	private String institutionId = null;
 	
@@ -90,66 +90,66 @@ public class OwnerInfo {
     private Long id;
 	 
     @Size(max=64)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("uuid")
     private String uuid;
 
     @Size(max=64)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("userName")
     private String userName;
 
     @Size(max=64)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("password")
     private String password;
 
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("salutation")
     private String salutation;
 
     @Size(max=128)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("emailId")
     private String emailId;
 
     @Size(max=50)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("altContactNumber")
     private String altContactNumber;
 
     @Size(max=10)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("pan")
     private String pan;
 
     @Pattern(regexp = "^[0-9]{12}$", message = "AdharNumber should be 12 digit number")
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("aadhaarNumber")
     private String aadhaarNumber;
 
     @Size(max=300)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("permanentAddress")
     private String permanentAddress;
 
     @Size(max=300)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("permanentCity")
     private String permanentCity;
 
     @Size(max=10)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("permanentPinCode")
     private String permanentPincode;
 
     @Size(max=300)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("correspondenceCity")
     private String correspondenceCity;
 
     @Size(max=10)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("correspondencePinCode")
     private String correspondencePincode;
 
@@ -163,16 +163,16 @@ public class OwnerInfo {
     private Long pwdExpiryDate;
 
     @Size(max=16)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("locale")
     private String locale;
 
     @Size(max=50)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("type")
     private String type;
 
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("signature")
     private String signature;
 
@@ -184,15 +184,15 @@ public class OwnerInfo {
     private List<Role> roles;
 
     @Size(max=32)
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("bloodGroup")
     private String bloodGroup;
 
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("identificationMark")
     private String identificationMark;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("photo")
     private String photo;
 
@@ -210,7 +210,7 @@ public class OwnerInfo {
     @JsonProperty("lastModifiedDate")
     private Long lastModifiedDate;
 
-	@CustomSafeHtml
+	@SafeHtml
     @JsonProperty("otpReference")
     private String otpReference;
 

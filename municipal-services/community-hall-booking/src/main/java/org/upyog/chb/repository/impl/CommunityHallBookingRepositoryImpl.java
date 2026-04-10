@@ -232,6 +232,15 @@ public class CommunityHallBookingRepositoryImpl implements CommunityHallBookingR
 		LocalDate startDate = LocalDate.parse(criteria.getBookingStartDate());
 		LocalDate endDate = LocalDate.parse(criteria.getBookingEndDate());
 
+//		// Log the information at the beginning of the method
+//		log.info("Executing Insert Query with the following details: ");
+//		log.info("Booking ID: {}", bookingId);
+//		log.info("Created By: {}", createdBy);
+//		log.info("Created Time: {}", createdTime);
+//
+//		// Query execution
+//		String query = CommunityHallBookingQueryBuilder.PAYMENT_TIMER_INSERT_QUERY;
+//		jdbcTemplate.update(query, bookingId, createdBy, createdTime, "ACTIVE", null, communitycode, hallcode, lastModifiedBy, lastModifiedTime);
 
 		// Log the information
 		log.info("Executing Insert Query with the following details: ");
@@ -264,7 +273,16 @@ public class CommunityHallBookingRepositoryImpl implements CommunityHallBookingR
 
 	}
 	
-
+//	@Override
+//	public void deleteBookingTimer(String bookingId, boolean updateBookingStatus) {
+//		log.info("Deleting booking timer query : {} booking id : {} ", CommunityHallBookingQueryBuilder.PAYMENT_TIMER_DELETE_FOR_BOOKING_ID_QUERY, bookingId);
+//		jdbcTemplate.update(CommunityHallBookingQueryBuilder.PAYMENT_TIMER_DELETE_FOR_BOOKING_ID_QUERY, bookingId);
+//		if(updateBookingStatus) {
+//			log.info("updating booking status of booking ids : {} ", bookingId);
+//			updateBookingSynchronously(bookingId, "SYSTEM_USER", null, BookingStatusEnum.EXPIRED.toString());
+//		}
+//
+//	}
 	
 	@Override
 	public void deleteBookingTimer(String bookingIds, boolean updateBookingStatus) {

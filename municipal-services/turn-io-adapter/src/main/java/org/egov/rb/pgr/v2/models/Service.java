@@ -3,7 +3,7 @@ package org.egov.rb.pgr.v2.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import org.egov.rb.pgr.v2.models.CharacterConstraint;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,29 +37,29 @@ public class Service   {
         @JsonProperty("citizen")
         private User citizen = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("id")
         private String id = null;
 
         @NotNull
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("tenantId")
         private String tenantId = null;
 
         @NotNull
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("serviceCode")
         private String serviceCode = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("serviceRequestId")
         private String serviceRequestId = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("description")
         private String description = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("accountId")
         private String accountId = null;
 
@@ -72,12 +72,12 @@ public class Service   {
         @JsonProperty("additionalDetail")
         private Object additionalDetail = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("applicationStatus")
         private String applicationStatus = null;
 
         @NotNull
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("source")
         private String source = null;
 

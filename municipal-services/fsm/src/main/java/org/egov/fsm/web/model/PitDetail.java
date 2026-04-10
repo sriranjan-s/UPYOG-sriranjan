@@ -2,7 +2,7 @@ package org.egov.fsm.web.model;
 
 import javax.validation.constraints.DecimalMax;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,15 +30,15 @@ import lombok.ToString;
 @Setter
 public class PitDetail   {
  
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("type")
   private String type = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
   

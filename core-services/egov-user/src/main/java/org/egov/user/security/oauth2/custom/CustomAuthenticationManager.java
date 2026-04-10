@@ -8,6 +8,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.stereotype.Service;
 
+// REMOVED DEPRECATED IMPORT:
+// import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+
 import java.util.List;
 
 @Service("customAuthenticationManager") // Added explicit name for better autowiring

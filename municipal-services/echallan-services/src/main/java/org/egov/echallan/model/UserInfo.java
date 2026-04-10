@@ -25,7 +25,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import org.egov.common.contract.request.Role;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 
 /**
  * This is acting ID token of the authenticated user on the server. Any value provided by the clients will be ignored and actual user based on authtoken will be used on the server.
@@ -38,27 +38,27 @@ import org.egov.tracer.annotations.CustomSafeHtml;
 public class UserInfo extends User {
 
   @JsonProperty("tenantId")
-  @CustomSafeHtml
+  @SafeHtml
   private String tenantId;
 
   @JsonProperty("uuid")
-  @CustomSafeHtml
+  @SafeHtml
   private String uuid;
 
   @JsonProperty("userName")
-  @CustomSafeHtml
+  @SafeHtml
   private String userName;
 
   @JsonProperty("password")
-  @CustomSafeHtml
+  @SafeHtml
   private String password;
 
   @JsonProperty("idToken")
-  @CustomSafeHtml
+  @SafeHtml
   private String idToken;
 
   @JsonProperty("email")
-  @CustomSafeHtml
+  @SafeHtml
   private String email;
 
   @JsonProperty("primaryrole")

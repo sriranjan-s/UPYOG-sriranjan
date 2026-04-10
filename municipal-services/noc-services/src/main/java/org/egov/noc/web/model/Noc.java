@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.egov.noc.web.model.enums.ApplicationType;
 import org.egov.noc.web.model.enums.Status;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -30,19 +30,19 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @Builder
 public class Noc   {
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("applicationNo")
   private String applicationNo = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("nocNo")
   private String nocNo = null;
 
@@ -50,23 +50,23 @@ public class Noc   {
   @JsonProperty("applicationType")
   private ApplicationType applicationType = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("nocType")
   private String nocType = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("accountId")
   private String accountId = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("source")
   private String source = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("sourceRefId")
   private String sourceRefId = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("landId")
   private String landId = null;
 
@@ -74,7 +74,7 @@ public class Noc   {
   @JsonProperty("status")
   private Status status = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("applicationStatus")
   private String applicationStatus = null;
 

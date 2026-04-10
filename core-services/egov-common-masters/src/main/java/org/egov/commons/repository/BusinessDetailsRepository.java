@@ -104,7 +104,13 @@ public class BusinessDetailsRepository {
                         .addValue("chartOfAccount", businessAccountDetails.getChartOfAccount()).addValue("amount", businessAccountDetails.getAmount())
                         .addValue("tenantId", businessAccountDetails.getTenantId()).getValues());
                 accountDetailsSize++;
-               
+                //TO DO : When subledger is enabled on UI FIX IT
+                /*for(BusinessAccountSubLedgerDetails subLedgerDetails : businessAccountDetails.getSubledgerDetails()) {
+                    accountSubLedgerDetailsBatchValues.add(new MapSqlParameterSource("amount", subLedgerDetails.getAmount())
+                            .addValue("businessAccountDetail", accountdetailsId).addValue("accountDetailKey", subLedgerDetails.getAccountDetailKey())
+                            .addValue("accountDetailType",subLedgerDetails.getAccountDetailKey()).addValue("tenantId",subLedgerDetails.getTenantId())
+                            .getValues());
+                }*/
             }
         }
 

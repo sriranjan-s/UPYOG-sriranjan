@@ -58,7 +58,18 @@ const run = async () => {
             topic: topic,
             messages: JSON.stringify(requestPayload)
           });
-        
+          // httpRequest({
+          //   hostURL: envVariables.EGOV_EVENT_HOST,
+          //   endPoint: `${envVariables.EGOV_EVENT_CONTEXT_PATH}${envVariables.EGOV_EVENT_CREATE_ENPOINT}`,
+          //   requestPayload
+          // }).then(
+          //   function(response) {
+          //     console.log(response);
+          //   },
+          //   function(error) {
+          //     console.log(error);
+          //   }
+          // );
         };
 
         const sendFireNOCSMSRequest = async FireNOCs => {

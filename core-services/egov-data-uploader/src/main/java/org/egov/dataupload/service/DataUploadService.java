@@ -189,7 +189,15 @@ public class DataUploadService {
             throw new CustomException(HttpStatus.BAD_REQUEST.toString(),
                     "There's no Upload Definition provided for this upload feature");
         }
-
+//        Definition uploadDefinition = null;
+//        try {
+//            UploadDefinition definition = objectMapper.readValue(new FileInputStream
+//                    ("C:\\Users\\Nithin\\Documents\\eGov\\data-upload\\egov-data-uploader\\src\\main\\resources" +
+//                            "\\employee_create.json"), UploadDefinition.class);
+//            uploadDefinition = definition.getDefinitions().get(0);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         Definition uploadDefinition = definitionOptional.get();
         logger.info("Definition to be used: " + uploadDefinition);

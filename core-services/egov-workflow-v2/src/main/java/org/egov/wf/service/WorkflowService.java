@@ -176,7 +176,16 @@ public class WorkflowService {
             result = workflowRepository.getInboxStatusCount(criteria);
         }
         else {
-
+//        	List<String> origCriteriaStatuses = criteria.getStatus();
+        	// enrichSearchCriteriaFromUser(requestInfo, criteria);
+//        	String tenantId = (criteria.getTenantId() == null ? (requestInfo.getUserInfo().getTenantId()) :(criteria.getTenantId()));
+//        	List<String> finalCriteriaStatuses = new ArrayList<String>();
+//        	if(origCriteriaStatuses != null && !origCriteriaStatuses.isEmpty()) {
+//        		origCriteriaStatuses.forEach((status) ->{
+//        			finalCriteriaStatuses.add(tenantId+":"+status);
+//        		});
+//        		criteria.setStatus(finalCriteriaStatuses);
+//        	}
         	result = workflowRepository.getProcessInstancesStatusCount(criteria);
         }
 
@@ -190,7 +199,23 @@ public class WorkflowService {
      */
     private void enrichSearchCriteriaFromUser(RequestInfo requestInfo,ProcessInstanceSearchCriteria criteria){
 
-    
+        /*BusinessServiceSearchCriteria businessServiceSearchCriteria = new BusinessServiceSearchCriteria();
+
+        *//*
+         * If tenantId is sent in query param processInstances only for that tenantId is returned
+         * else all tenantIds for which the user has roles are returned
+         * *//*
+        if(criteria.getTenantId()!=null)
+            businessServiceSearchCriteria.setTenantIds(Collections.singletonList(criteria.getTenantId()));
+        else
+            businessServiceSearchCriteria.setTenantIds(util.getTenantIds(requestInfo.getUserInfo()));
+
+        Map<String, Boolean> stateLevelMapping = stat
+
+        List<BusinessService> businessServices = businessServiceRepository.getAllBusinessService();
+        List<String> actionableStatuses = util.getActionableStatusesForRole(requestInfo,businessServices,criteria);
+        criteria.setAssignee(requestInfo.getUserInfo().getUuid());
+        criteria.setStatus(actionableStatuses);*/
 
         util.enrichStatusesInSearchCriteria(requestInfo, criteria);
         criteria.setAssignee(requestInfo.getUserInfo().getUuid());
@@ -217,7 +242,36 @@ public class WorkflowService {
 //        searchCriteria.setHistory(true);
         escalatedApplications = search(requestInfo, searchCriteria);
 
-  
+        // Only last but one applications in history needs to show up where the employee failed to take action
+
+//        HashMap<String, List<ProcessInstance>> businessIdsVsProcessInstancesMap = new HashMap<>();
+//        HashMap<String, Integer> occurenceMap = new HashMap<>();
+//        for(ProcessInstance processInstance : escalatedApplicationsWithHistory){
+//            if(businessIdsVsProcessInstancesMap.containsKey(processInstance.getBusinessId())){
+//                occurenceMap.put(processInstance.getBusinessId(), occurenceMap.get(processInstance.getBusinessId()) + 1);
+//                businessIdsVsProcessInstancesMap.get(processInstance.getBusinessId()).add(processInstance);
+//            }else{
+//                occurenceMap.put(processInstance.getBusinessId(), 1);
+//                List<ProcessInstance> processInstanceList = new ArrayList<>();
+//                processInstanceList.add(processInstance);
+//                businessIdsVsProcessInstancesMap.put(processInstance.getBusinessId(), processInstanceList);
+//            }
+//        }
+//        criteria.setAssignee(requestInfo.getUserInfo().getUuid());
+//        for(String businessId : occurenceMap.keySet()){
+//            if(occurenceMap.get(businessId) >= 2){
+//                Set<String> uuidsOfAssignees = new HashSet<>();
+//                if(!CollectionUtils.isEmpty(businessIdsVsProcessInstancesMap.get(businessId).get(1).getAssignes())) {
+//                    businessIdsVsProcessInstancesMap.get(businessId).get(1).getAssignes().forEach(user -> {
+//                        uuidsOfAssignees.add(user.getUuid());
+//                    });
+//                }
+//                if(autoEscalationEmployeesUuids.contains(businessIdsVsProcessInstancesMap.get(businessId).get(0).getAuditDetails().getCreatedBy()) && uuidsOfAssignees.contains(criteria.getAssignee())){
+                   //if(!statesToIgnore.contains(businessIdsVsProcessInstancesMap.get(businessId).get(1).getState().getState()))
+//                        escalatedApplications.add(businessIdsVsProcessInstancesMap.get(businessId).get(0));
+//                }
+//            }
+//        }
         return escalatedApplications;
     }
 

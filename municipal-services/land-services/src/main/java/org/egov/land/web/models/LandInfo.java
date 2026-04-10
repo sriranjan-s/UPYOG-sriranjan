@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,19 +28,19 @@ import net.minidev.json.annotate.JsonIgnore;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LandInfo   {
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("landUId")
   private String landUId = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("landUniqueRegNo")
   private String landUniqueRegNo = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
@@ -50,7 +50,7 @@ public class LandInfo   {
   @JsonProperty("address")
   private Address address = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("ownershipCategory")
   private String ownershipCategory = null;
 
