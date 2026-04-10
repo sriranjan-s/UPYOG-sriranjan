@@ -47,4 +47,12 @@ export const validateBillReq = data => {
   return errors;
 };
 
-
+// export const validateFireNOCSearchModel = data => {
+//   let validate = ajv.compile(fireNOCSearchSchema);
+//   var valid = validate(data);
+//   let errors = [];
+//   if (!valid) {
+//     errors = validate.errors;
+//   }
+//   return errors;
+// };

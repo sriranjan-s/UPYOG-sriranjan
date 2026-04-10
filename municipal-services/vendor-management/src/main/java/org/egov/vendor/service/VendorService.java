@@ -137,7 +137,17 @@ public class VendorService {
         List<VendorDetailsDTO> vendorDetailsDTOList = vendorAdditionalDetailsRepository
                 .findVendorAndAdditionalDetailsJPQL(searchCriteria.getTenantId(), searchCriteria.getVendorId());
 
+        // Fetch address separately using the repository method
+        //List<Address> addresses = vendorRepository.findAddressByVendorId(searchCriteria.getVendorId());
 
+//        // Ensure the address is available and update the DTO list
+//        if (addresses != null && !addresses.isEmpty()) {
+//            Address vendorAddress = addresses.get(0); // Assuming one vendor has one address
+//
+//            for (VendorDetailsDTO dto : vendorDetailsDTOList) {
+//                dto.setAddress(vendorAddress); // ✅ Set the address manually
+//            }
+//        }
 
         // Return the result
         return vendorDetailsDTOList;

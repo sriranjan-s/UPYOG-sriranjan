@@ -179,7 +179,16 @@ public class PropertyController {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+//	@RequestMapping(value = "/_cancel", method = RequestMethod.POST)
+//	public ResponseEntity<PropertyResponse> cancel(@Valid @RequestBody RequestInfoWrapper requestInfoWrapper,
+//												   @Valid @ModelAttribute PropertyCancelCriteria propertyCancelCriteria) {
+//
+//		List<Property> properties = propertyService.cancelProperty(propertyCancelCriteria,requestInfoWrapper.getRequestInfo());
+//		PropertyResponse response = PropertyResponse.builder().properties(properties).responseInfo(
+//				responseInfoFactory.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true))
+//				.build();
+//		return new ResponseEntity<>(response, HttpStatus.OK);
+//	}
 
     @PostMapping("/_addAlternateNumber")
     public ResponseEntity<PropertyResponse> _addAlternateNumber(@Valid @RequestBody PropertyRequest propertyRequest) {
@@ -218,7 +227,12 @@ public class PropertyController {
         throw new CustomException("EG_PT_ENC_OLD_DATA_ERROR", "The encryption of old data is disabled");
         /* Un-comment the below code to enable Privacy */
 
-
+//        propertyCriteria.setIsRequestForOldDataEncryption(Boolean.TRUE);
+//        List<Property> properties = propertyEncryptionService.updateOldData(propertyCriteria, requestInfoWrapper.getRequestInfo());
+//        PropertyResponse response = PropertyResponse.builder().properties(properties).responseInfo(
+//                        responseInfoFactory.createResponseInfoFromRequestInfo(requestInfoWrapper.getRequestInfo(), true))
+//                .build();
+//        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

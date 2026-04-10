@@ -21,7 +21,17 @@ export const validateFireNOCModel = (data, mdmsData) => {
   const buildingType = get(mdmsData, "MdmsRes.firenoc.BuildingType", []);
   const financialYear = get(mdmsData, "MdmsRes.egf-master.FinancialYear", []);
   const boundary = get(mdmsData, "MdmsRes.firenoc.boundary", []);
- 
+  // const gender = [
+  //   {
+  //     code: "MALE"
+  //   },
+  //   {
+  //     code: "FEMALE"
+  //   },
+  //   {
+  //     code: "TRANSGENDER"
+  //   }
+  // ];
   const ajv = getAjvInstance();
   // console.log(financialYear);
 
@@ -77,7 +87,12 @@ export const validateFireNOCModel = (data, mdmsData) => {
     errors: false
   });
 
-
+  // ajv.addKeyword("valid_gender", {
+  //   validate: function(schema, data) {
+  //     return some(gender, { code: data });
+  //   },
+  //   errors: false
+  // });
   
   let validate = ajv.compile(fireNOCSchema);
   var valid = validate(data);

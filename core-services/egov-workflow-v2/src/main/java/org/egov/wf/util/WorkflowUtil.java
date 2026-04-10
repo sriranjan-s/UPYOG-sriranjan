@@ -193,6 +193,45 @@ public class WorkflowUtil {
 
 
 
+    /**
+     * Gets the list of status on which user from requestInfo can take action upon
+     * @param requestInfo The RequestInfo Object of the request
+     * @param businessServices List of all businessServices
+     * @return List of status on which user from requestInfo can take action upon
+     */
+
+/*    public List<String> getActionableStatusesForRole(RequestInfo requestInfo, List<BusinessService> businessServices,ProcessInstanceSearchCriteria criteria){
+
+        String tenantId;
+        List<String> userRoleCodes;
+        Map<String,List<String>> tenantIdToUserRolesMap = getTenantIdToUserRolesMap(requestInfo);
+        Map<String,List<BusinessService>> tenantIdToBuisnessSevicesMap =  getTenantIdToBuisnessSevicesMap(businessServices);
+        Map<String,Set<String>> stateToRoleMap = getStateToRoleMap(businessServices);
+        List<String> actionableStatuses = new LinkedList<>();
+        
+        for(Map.Entry<String,List<String>> entry : tenantIdToUserRolesMap.entrySet()){
+            if(entry.getKey().equals(criteria.getTenantId())){
+                List<BusinessService> businessServicesByTenantId ;
+                if(config.getIsStateLevel()){
+                    businessServicesByTenantId = tenantIdToBuisnessSevicesMap.get(entry.getKey().split("\\.")[0]);
+                }else{
+                    businessServicesByTenantId = tenantIdToBuisnessSevicesMap.get(entry.getKey());
+                }
+                businessServicesByTenantId.forEach(service -> {
+                    List<State> states = service.getStates();
+                    states.forEach(state -> {
+                        Set<String> stateRoles = stateToRoleMap.get(state.getUuid());
+                        if(!CollectionUtils.isEmpty(stateRoles) && !Collections.disjoint(stateRoles,entry.getValue())){
+                            actionableStatuses.add(entry.getKey() + ':' + state.getUuid());
+                        }
+
+                    });
+                });
+            }         
+        }
+        return actionableStatuses;
+    }*/
+
 
     /**
      * Have to find statuses on which the user can take action
@@ -299,6 +338,30 @@ public class WorkflowUtil {
 
 
     }
+    
+     
+     
+//    public List<String> getActionableStatusesForRole(RequestInfo requestInfo, List<BusinessService> businessServices){
+//
+//        String tenantId;
+//        List<String> userRoleCodes;
+//        Map<String,String> stateUuidToTenantIdMap = getStateUuidToTenantIdMap(businessServices);
+//        Map<String,List<String>> tenantIdToUserRolesMap = getTenantIdToUserRolesMap(requestInfo);
+//        Map<String,Set<String>> stateToRoleMap = getStateToRoleMap(businessServices);
+//        List<String> actionableStatuses = new LinkedList<>();
+//
+//        for(Map.Entry<String,Set<String>> entry : stateToRoleMap.entrySet()){
+//            tenantId = stateUuidToTenantIdMap.get(entry.getKey());
+//            userRoleCodes = tenantIdToUserRolesMap.get(tenantId);
+//            if(CollectionUtils.isEmpty(userRoleCodes)){
+//                userRoleCodes = tenantIdToUserRolesMap.get(tenantId.split("\\.")[0]);
+//            }
+//            if(!CollectionUtils.isEmpty(userRoleCodes) && !Collections.disjoint(userRoleCodes,entry.getValue())){
+//                actionableStatuses.add(entry.getKey());
+//            }
+//        }
+//        return actionableStatuses;
+//    }
 
 
     /**

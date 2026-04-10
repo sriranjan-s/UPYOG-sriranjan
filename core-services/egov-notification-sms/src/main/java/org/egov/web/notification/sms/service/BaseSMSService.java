@@ -99,6 +99,20 @@ abstract public class BaseSMSService implements SMSService, SMSBodyBuilder {
 
         String responseString = res.getBody().toString();
 
+        //String dummyResponse = "Message Accepted For Request ID=1231457859641254687954~code=API00 & info=Sms platform accepted & Time = 2007/10/04/09/58";
+
+        /*
+         * if (!isResponseValidated(res)) { log.error("Response from API - " +
+         * responseString); throw new RuntimeException(SMS_RESPONSE_NOT_SUCCESSFUL); }
+         *
+         * if (smsProperties.getSmsErrorCodes().size() > 0 &&
+         * isResponseCodeInKnownErrorCodeList(res)) { throw new
+         * RuntimeException(SMS_RESPONSE_NOT_SUCCESSFUL); }
+         *
+         * if (smsProperties.getSmsSuccessCodes().size() > 0 &&
+         * !isResponseCodeInKnownSuccessCodeList(res)) { throw new
+         * RuntimeException(SMS_RESPONSE_NOT_SUCCESSFUL); }
+         */
 
         StringTokenizer tokenizer = new StringTokenizer(responseString, "&");
         HashMap<String,String> responseMap = new HashMap<String, String>();

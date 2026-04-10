@@ -3,7 +3,7 @@ package org.egov.vendor.web.model.vehicle;
 
 import org.egov.vendor.web.model.AuditDetails;
 import org.egov.vendor.web.model.user.User;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -40,30 +40,30 @@ public class Vehicle {
 	@JsonProperty("owner")
 	private User owner = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("tenantId")
 	private String tenantId = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("registrationNumber")
 	private String registrationNumber = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("model")
 	private String model = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("type")
 	private String type = null;
 
 	@JsonProperty("tankCapacity")
 	private Long tankCapicity = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("suctionType")
 	private String suctionType = null;
 
@@ -85,7 +85,7 @@ public class Vehicle {
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("source")
 	private String source = null;
 

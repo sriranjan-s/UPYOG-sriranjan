@@ -245,6 +245,34 @@ public class FSMService {
 		return fsmRequest.getFsm();
 	}
 
+//	private void createOrUpdateFsmApplicationWorkers(FSMRequest fsmRequest) {
+//		List<Worker> existingWorkers = fsmWorkerRepository.getWorkersData(WorkerSearchCriteria.builder()
+//				.tenantId(fsmRequest.getFsm().getTenantId())
+//				.applicationIds(Collections.singletonList(fsmRequest.getFsm().getId()))
+//				.status(Arrays.asList(WorkerStatus.ACTIVE.toString(), WorkerStatus.INACTIVE.toString()))
+//				.build());
+//
+//		List<Worker> workersToBeInserted = new ArrayList<>();
+//		List<Worker> workersToBeUpdate = new ArrayList<>();
+//		Set<String> existingWorkerIds = existingWorkers.stream().map(Worker::getId)
+//				.collect(Collectors.toSet());
+//		for (Worker worker : fsmRequest.getFsm().getWorkers()) {
+//			if (existingWorkerIds.contains(worker.getId())) {
+//				workersToBeUpdate.add(worker);
+//			} else {
+//				workersToBeInserted.add(worker);
+//			}
+//		}
+//
+//		if(!CollectionUtils.isEmpty(workersToBeInserted)){
+//			fsmWorkerRepository.create(workersToBeInserted);
+//		}
+//
+//		if(!CollectionUtils.isEmpty(workersToBeUpdate)){
+//			fsmWorkerRepository.update(workersToBeUpdate);
+//		}
+//	}
+
 
 	private void callDSORejectCompleteFeedBackPaySend(FSMRequest fsmRequest, Object mdmsData) {
 		if (fsmRequest.getWorkflow().getAction().equalsIgnoreCase(FSMConstants.WF_ACTION_DSO_REJECT)) {
@@ -373,6 +401,32 @@ public class FSMService {
 		}
 	}
 
+//	private void validateDSOWorkers(FSM fsm, Vendor vendor, FSMRequest fsmRequest) {
+//		if(CollectionUtils.isEmpty(fsm.getWorkers()) || fsm.getWorkers().stream()
+//				.filter(worker -> worker.getStatus().equals(WorkerStatus.ACTIVE))
+//				.filter(worker -> worker.getWorkerType().equals(WorkerType.DRIVER)).count() != 1){
+//			log.info("Invalid worker error ::: {}", fsm.getWorkers());
+//			throw new CustomException(FSMErrorConstants.INVALID_DSO_WORKERS,
+//					"Valid workers should be assigned to accept the Request !");
+//		} else {
+//
+//			if(CollectionUtils.isEmpty(vendor.getWorkers())){
+//				throw new CustomException(FSMErrorConstants.INVALID_DSO_WORKERS, " Worker(s) Does not belong to DSO!");
+//			}
+//
+//			List<Worker> filteredList = fsm.getWorkers().stream()
+//					.filter(worker -> worker.getStatus().equals(WorkerStatus.ACTIVE))
+//					.filter(worker -> vendor.getWorkers().stream()
+//							.anyMatch(w -> w.getIndividualId().equals(worker.getIndividualId())))
+//					.collect(Collectors.toList());
+//
+//			if (filteredList.size() != fsm.getWorkers().stream()
+//					.filter(worker -> worker.getStatus().equals(WorkerStatus.ACTIVE)).count()) {
+//				throw new CustomException(FSMErrorConstants.INVALID_DSO_WORKERS,
+//						" Worker(s) Does not belong to DSO!");
+//			}
+//		}
+//	}
 
 	private void callVehicleTripService(FSMRequest fsmRequest, FSM fsm, FSM oldFSM) {
 		if (fsmRequest.getWorkflow().getAction().equalsIgnoreCase(FSMConstants.WF_ACTION_DSO_ACCEPT)) {
@@ -580,6 +634,14 @@ public class FSMService {
 			}
 		}
 
+//		if (!Objects.isNull(criteria.getIndividualIds()) && !criteria.getIndividualIds().isEmpty()) {
+//			List<String> applicationIds = setApplicationIdsWithWorkers(criteria);
+//			if (applicationIds.isEmpty()) {
+//				return FSMResponse.builder().fsm(Collections.emptyList()).totalCount(0).build();
+//			}
+//			criteria.setOwnerIds(Collections.emptyList());
+//			criteria.setIds(applicationIds);
+//		}
 
 		fsmResponse = repository.getFSMData(criteria, dsoId);
 		fsmList = fsmResponse.getFsm();
@@ -589,6 +651,16 @@ public class FSMService {
 
 		return fsmResponse;
 	}
+
+//	private List<String> setApplicationIdsWithWorkers(FSMSearchCriteria criteria) {
+//		List<Worker> workers = fsmWorkerRepository.getWorkersData(WorkerSearchCriteria.builder()
+//				.workerTypes(Collections.singletonList(WorkerType.DRIVER.toString()))
+//				.individualIds(criteria.getIndividualIds())
+//				.status(Collections.singletonList(WorkerStatus.ACTIVE.toString()))
+//				.tenantId(criteria.getTenantId())
+//				.build());
+//		return workers.stream().map(Worker::getApplicationId).collect(Collectors.toList());
+//	}
 
 	private void checkRoleInValidateSearch(RequestInfo requestInfo, FSMSearchCriteria criteria) {
 		List<Role> roles = requestInfo.getUserInfo().getRoles();

@@ -26,7 +26,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -48,31 +48,31 @@ public class Challan {
   private UserInfo citizen = null;
 
   @JsonProperty("id")
-  @CustomSafeHtml
+  @SafeHtml
   private String id = null;
 
   @JsonProperty("tenantId")
-  @CustomSafeHtml
+  @SafeHtml
   private String tenantId = null;
 
   @JsonProperty("businessService")
-  @CustomSafeHtml
+  @SafeHtml
   private String businessService = null;
 
   @JsonProperty("challanNo")
-  @CustomSafeHtml
+  @SafeHtml
   private String challanNo = null;
 
   @JsonProperty("referenceId")
-  @CustomSafeHtml
+  @SafeHtml
   private String referenceId = null;
 
   @JsonProperty("description")
-  @CustomSafeHtml
+  @SafeHtml
   private String description = null;
 
   @JsonProperty("accountId")
-  @CustomSafeHtml
+  @SafeHtml
   private String accountId = null;
 
   @JsonProperty("additionalDetail")
@@ -80,7 +80,7 @@ public class Challan {
   private Object additionalDetail = null;
 
   @JsonProperty("source")
-  @CustomSafeHtml
+  @SafeHtml
   private String source = null;
   
   @JsonProperty("taxPeriodFrom")
@@ -100,7 +100,7 @@ public class Challan {
   private Address address = null;
   
   @JsonProperty("filestoreid")
-  @CustomSafeHtml
+  @SafeHtml
   private String filestoreid = null;
 
   @JsonProperty("auditDetails")

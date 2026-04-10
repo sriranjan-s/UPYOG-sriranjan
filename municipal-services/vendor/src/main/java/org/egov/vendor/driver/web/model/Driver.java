@@ -7,7 +7,7 @@ import org.egov.vendor.web.model.AuditDetails;
 import org.egov.vendor.web.model.Vendor;
 import org.egov.vendor.web.model.user.User;
 import org.egov.vendor.web.model.vehicle.Vehicle.StatusEnum;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,17 +34,17 @@ import lombok.Setter;
 @Setter
 public class Driver {
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id = null;
 
 	@JsonProperty("tenantId")
-	@CustomSafeHtml
+	@SafeHtml
 	@Size(max=64)
 	private String tenantId = null;
 
 	@JsonProperty("name")
-	@CustomSafeHtml
+	@SafeHtml
 	@Size(max=128)
 	private String name = null;
 
@@ -53,18 +53,18 @@ public class Driver {
 	private User owner = null;
 	
 	@JsonProperty("ownerId")
-	@CustomSafeHtml  
+	@SafeHtml  
 	@Size(max=64)
 	private String ownerId = null;
 
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails = null;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("description")
 	private String description = null;
 	
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("licenseNumber")
 	private String licenseNumber = null;
 	

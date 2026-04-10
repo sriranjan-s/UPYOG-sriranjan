@@ -65,7 +65,14 @@ public class PasswordControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(content().json(resources.getFileContents("updatePasswordResponse.json")));
 
-
+//		final LoggedInUserUpdatePasswordRequest expectedRequest = LoggedInUserUpdatePasswordRequest.builder()
+//				.existingPassword("oldPassword")
+//				.newPassword("newPassword")
+//				.userName("greenfish424")
+//				.tenantId("foo")
+//				.build();
+//
+//		verify(userService).updatePasswordForLoggedInUser(expectedRequest);
     }
 
 //    @Test

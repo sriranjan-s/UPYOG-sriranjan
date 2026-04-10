@@ -347,6 +347,22 @@ public class User {
         user.setActive(u.active);
         user.setAlternateMobileNumber(u.alternateMobileNumber);
  
+        // Address mappings
+//        if (u.permanentAddress != null || u.permanentCity != null || u.permanentPinCode != null) {
+//            Address permanentAddress = new Address();
+//            permanentAddress.setAddress(u.permanentAddress);
+//            permanentAddress.setCity(u.permanentCity);
+//            permanentAddress.setPinCode(u.permanentPinCode);
+//            user.setPermanentAddress(permanentAddress);
+//        }
+ 
+//        if (u.correspondenceAddress != null || u.correspondenceCity != null || u.correspondencePinCode != null) {
+//            Address correspondenceAddress = new Address();
+//            correspondenceAddress.setAddress(u.correspondenceAddress);
+//            correspondenceAddress.setCity(u.correspondenceCity);
+//            correspondenceAddress.setPinCode(u.correspondencePinCode);
+//            user.setCorrespondenceAddress(correspondenceAddress);
+//        }
  
         user.setAddresses(u.addresses);
  

@@ -18,7 +18,7 @@ public class TaxAndPayment {
 	@NotNull
 	private BigDecimal amountPaid;
 
-	@CustomSafeHtml
+	//@SafeHtml
 	@NotNull
 	private String billId;
 }

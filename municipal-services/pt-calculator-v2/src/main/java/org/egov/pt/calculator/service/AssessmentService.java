@@ -196,7 +196,18 @@ public class AssessmentService {
 		//Map<String, Map<String, Object>> scheduledTenants = fetchScheduledTenants(assessmentRequest.getRequestInfo());
 		//User user = userService.fetchPTAsseessmentUser();
 		RequestInfo requestInfo = assessmentRequest.getRequestInfo();
-
+		//requestInfo.setUserInfo(user);
+		
+		//for (Entry<String, Map<String, Object>> tenantConfig : scheduledTenants.entrySet()) {
+			//Map<String, Object> configData = tenantConfig.getValue();
+			//List<String> locality = (List<String>) configData.get(CalculatorConstants.LOCALITY_KEY);
+			//List<String> propertyType = (List<String>) configData.get(CalculatorConstants.PROPERTYTYPE_KEY);
+			//assessmentRequest.setTenantId(tenantConfig.getKey());
+			//assessmentRequest.setAssessmentYear(configData.get(CalculatorConstants.FINANCIALYEAR_KEY).toString());
+			//assessmentRequest.setLocality(locality);
+			//assessmentRequest.setPropertyType(propertyType);
+			//assessmentRequest.setIsRented(configData.get(CalculatorConstants.IS_RENTED) == null ? true
+			//		: (Boolean) configData.get(CalculatorConstants.IS_RENTED));
 			List<Property> properties = repository.fetchAllActiveProperties(assessmentRequest);
 			List<Assessment> assessedProperties=new ArrayList<Assessment>();
 			for (Property property : properties) {

@@ -33,5 +33,8 @@ public class IndividualBulkRequestTestBuilder {
         return this;
     }
 
-
+//    public IndividualBulkRequestTestBuilder withApiOperation(ApiOperation apiOperation) {
+//        this.builder.apiOperation(apiOperation);
+//        return this;
+//    }
 }

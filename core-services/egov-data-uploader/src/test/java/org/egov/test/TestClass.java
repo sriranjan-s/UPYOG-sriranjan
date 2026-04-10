@@ -8,6 +8,8 @@ import org.egov.dataupload.model.Document;
 import org.egov.dataupload.model.UploadDefinition;
 import org.egov.dataupload.utils.DataUploadUtils;
 import org.junit.jupiter.api.Disabled;
+//import org.junit.Ignore;
+//import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
@@ -48,7 +50,10 @@ public class TestClass {
         String json = "{\"RequestInfo\": null,\"Asset\":{\"anticipatedLife\":15,\"orderNumber\":\"\"," +
                 "\"orderDate\":\"\",\"wipReferenceNo\":\"\",\"acquiredFrom\":\"\",\"warrantyAvailable\":false,\"securityDepositRetained\":0,\"securityDepositRealized\":0,\"acquisitionDate\":1417153591000,\"originalValue\":0,\"address\":\"\",\"longitude\":\"\",\"latitude\":\"\",\"tenantId\":\"default\",\"name\":\"corpoaration land\",\"oldCode\":\"oldCodecorpland\",\"department\":{\"id\":null,\"name\":null,\"code\":\"TP\"},\"assetCategory\":{\"name\":\"Open Land\",\"code\":\"043\"},\"modeOfAcquisition\":{\"code\":\"ACQUIRED\"},\"grossValue\":7000000,\"accumulatedDepreciationAccount\":45653245,\"revaluationReserveAccount\":\"\",\"depreciationExpenseAccount\":\"\",\"assetAccount\":\"\",\"description\":\"trucks\",\"dateOfCreation\":13112017,\"defectLiabilityPeriod\":{\"year\":\"1\",\"month\":\"2\",\"day\":\"3\"},\"location\":null,\"fundSource\":null,\"openingDate\":123455656,\"landDetails\":[{}]}}\n";
         System.out.println( JsonPath.read(json, "$.155").toString());
-
+//        JsonNode tree = mapper.readTree(json);
+//        StringBuilder builder = new StringBuilder();
+//        process(tree, new Object(), builder);
+//        System.out.println(builder.toString());
     }
 
 

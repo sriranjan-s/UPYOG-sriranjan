@@ -11,6 +11,9 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.web.bind.annotation.*;
 
+// REMOVED DEPRECATED IMPORTS:
+// import org.springframework.security.oauth2.core.OAuth2AccessToken;
+// import org.springframework.security.oauth2.provider.token.TokenStore;
 
 import java.util.Date;
 

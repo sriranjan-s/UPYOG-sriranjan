@@ -340,6 +340,13 @@ public class UserRepository {
         params.put("user_uuid", uuid);
         params.put("attempt_date", attemptStartDate);
 
+//		RowMapper<FailedLoginAttempt> rowMapper = (rs, rowNum) -> {
+//			FailedLoginAttempt failedLoginAttempt = new FailedLoginAttempt();
+//			failedLoginAttempt.setUserUuid(rs.getString("user_uuid"));
+//			failedLoginAttempt.setIp(rs.getString("ip"));
+//			failedLoginAttempt.setAttemptDate(rs.getLong("attempt_date"));
+//			return failedLoginAttempt;
+//		};
 
         return namedParameterJdbcTemplate.query(SELECT_FAILED_ATTEMPTS_BY_USER_SQL, params,
                 new BeanPropertyRowMapper<>(FailedLoginAttempt.class));

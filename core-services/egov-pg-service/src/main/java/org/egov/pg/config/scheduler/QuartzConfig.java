@@ -45,6 +45,11 @@ public class QuartzConfig {
         log.debug("QuartzConfig initialized.");
     }
     
+//    @Autowired
+//    @Bean(name = "quartzDataSource")
+//    public DataSource quartzDataSource(DataSource dataSource) {
+//        return dataSource;
+//    }
     
     @Bean
     @ConfigurationProperties(prefix = "spring.quartz.datasource")

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import javax.validation.constraints.Size;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,23 +23,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Institution   {
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("type")
   private String type = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("designation")
   private String designation = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("nameOfAuthorizedPerson")
   private String nameOfAuthorizedPerson = null;
 

@@ -300,7 +300,25 @@ public class UserRepositoryTest {
         assertThat(actualList.size() == 7);
     }
 
-
+//	@Test
+//	@Sql(scripts = { "/sql/clearUserRoles.sql", "/sql/clearUsers.sql", "/sql/clearRoles.sql", "/sql/createRoles.sql",
+//			"/sql/clearAddresses.sql", "/sql/createUsers.sql" })
+//	public void test_search_user_byadharnumberumber() {
+//
+//		UserSearchCriteria userSearch = UserSearchCriteria.builder().tenantId("ap.public").aadhaarNumber("12346789011").build();
+//		List<User> actualList = userRepository.findAll(userSearch);
+//		assertThat(actualList.size() == 7);
+//	}
+//
+//	@Test
+//	@Sql(scripts = { "/sql/clearUserRoles.sql", "/sql/clearUsers.sql", "/sql/clearRoles.sql", "/sql/createRoles.sql",
+//			"/sql/clearAddresses.sql", "/sql/createUsers.sql" })
+//	public void test_search_user_bypan() {
+//
+//		UserSearchCriteria userSearch = UserSearchCriteria.builder().tenantId("ap.public").pan("ABCDE1234F").build();
+//		List<User> actualList = userRepository.findAll(userSearch);
+//		assertThat(actualList.size() == 7);
+//	}
 
     @Disabled
     @Sql(scripts = {"/sql/clearUserRoles.sql", "/sql/clearUsers.sql", "/sql/clearRoles.sql", "/sql/createRoles.sql",

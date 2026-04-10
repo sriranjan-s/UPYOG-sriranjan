@@ -59,7 +59,23 @@ public class UserRequestControllerTest {
     @MockBean
     private CustomAuthenticationKeyGenerator authenticationKeyGenerator;
 
+/*
+    @Test
+    @WithMockUser
+    public void testShouldThrowErrorWhileRegisteringWithInvalidCitizen() throws Exception {
+        InvalidUserCreateException exception = new InvalidUserCreateException(org.egov.user.domain.model.User.builder().build());
+        when(userService.createCitizen(any(org.egov.user.domain.model.User.class))).thenThrow(exception);
 
+        String fileContents = getFileContents("createCitizenUnsuccessfulRequest.json");
+        mockMvc.perform(post("/citizen/_create/")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(fileContents)
+        )
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().json(getFileContents("createCitizenUnsuccessfulResponse.json")));
+    }
+*/
 
     @Disabled
 //    @Test

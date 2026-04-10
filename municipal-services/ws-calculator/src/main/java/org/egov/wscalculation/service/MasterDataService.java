@@ -351,6 +351,24 @@ public class MasterDataService {
 		return objToBeReturned;
 	}
 
+	/**
+	 * Converts startDay to epoch
+	 * 
+	 * @param startDay
+	 *            StartDay of applicable
+	 * @return Returns the start date in milli seconds
+	 */
+//	private Long getStartDayInMillis(String startDay) {
+//		Date date;
+//		try {
+//			SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+//			 date = df.parse(startDay);
+//		} catch (ParseException e) {
+//			throw new CustomException("INVALID_START_DAY", "The startDate of the penalty cannot be parsed");
+//		}
+//
+//		return date.getTime();
+//	}
 	
 	private Long getStartDayInMillis(Demand demand,String startDay) {
 		Date date;

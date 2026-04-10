@@ -188,7 +188,12 @@ public class TLQueryBuilder {
                 builder.append(" LOWER(tl.licensenumber) IN (").append(createQuery(licenseNumbers)).append(")");
                 addToPreparedStatement(preparedStmtList, licenseNumbers);
             }
-
+            
+//            if (criteria.getLicenseNumber() != null) {
+//                addClauseIfRequired(preparedStmtList, builder);
+//                builder.append("  tl.licensenumber = ? ");
+//                preparedStmtList.add(criteria.getLicenseNumber());
+//            }
 
             if (criteria.getOldLicenseNumber() != null) {
                 addClauseIfRequired(preparedStmtList, builder);

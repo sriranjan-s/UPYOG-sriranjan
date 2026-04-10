@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.egov.noc.web.model.AuditDetails;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,27 +25,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Unit   {
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("id")
   private String id = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("floorNo")
   private String floorNo = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("unitType")
   private String unitType = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("usageCategory")
   private String usageCategory = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("occupancyType")
   private String occupancyType = null;
 

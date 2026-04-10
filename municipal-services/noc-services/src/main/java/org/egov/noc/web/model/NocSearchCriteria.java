@@ -12,7 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Getter
 @Setter
@@ -22,34 +22,34 @@ import org.egov.tracer.annotations.CustomSafeHtml;
 public class NocSearchCriteria {
 
     @NotNull
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("tenantId")
     private String tenantId;
 
     @JsonProperty("ids")
     private List<String> ids;
 
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("applicationNo")
     private String applicationNo;
 
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("mobileNumber")
     private String mobileNumber;
 
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("nocNo")
     private String nocNo;
 
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("source")
     private String source;
 
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("nocType")
     private String nocType;
 
-    @CustomSafeHtml
+    @SafeHtml
     @JsonProperty("sourceRefId")
     private String sourceRefId;
 

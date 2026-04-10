@@ -125,10 +125,16 @@ public class DataUploadServiceImpl {
     }
 
     public void processExcel(UploaderRequest uploaderRequest) {
-
+//        if (runner.getUploadDefinitionMap() == null || runner.getUploadDefinitionMap().isEmpty())
+//            runner.readFiles();
 
         UploadJob uploadJob = uploaderRequest.getUploadJobs().get(0);
-
+//        Optional<Definition> definitionOptional = runner.getUploadDefinition(uploadJob.getModuleName(), uploadJob.getDefName());
+//        if (!definitionOptional.isPresent()) {
+//            logger.error("There's no Upload Definition provided for this upload feature");
+//            throw new CustomException(HttpStatus.BAD_REQUEST.toString(),
+//                    "There's no Upload Definition provided for this upload feature");
+//        }
         Definition uploadDefinition = null;
         try {
             UploadDefinition definition = objectMapper.readValue(new FileInputStream
@@ -154,6 +160,11 @@ public class DataUploadServiceImpl {
             uploadJob.setTotalRows(document.getRows().size());
             uploadRegistryRepository.updateJob(uploadJob);
 
+//            if (null != uploadDefinition.getIsParentChild() && uploadDefinition.getIsParentChild()) {
+//                uploadParentChildData(document, uploadDefinition, uploaderRequest);
+//            } else {
+//                uploadFlatData(document, uploadDefinition, uploaderRequest);
+//            }
 
         }  catch (IOException e) {
             logger.error("Unable to open file or invalid format provided.", e);

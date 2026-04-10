@@ -201,6 +201,23 @@ public class EnrichmentService {
 //		}
 	}
 
+//	public void enrichFsmWorkers(FSMRequest fsmRequest) {
+//		fsmRequest.getFsm().getWorkers().forEach(worker -> {
+//			if (StringUtils.isEmpty(worker.getId())) {
+//				Long time = System.currentTimeMillis();
+//				worker.setId(UUID.randomUUID().toString());
+//				worker.setAuditDetails(AuditDetails.builder()
+//						.createdBy(fsmRequest.getRequestInfo().getUserInfo().getUuid())
+//						.lastModifiedBy(fsmRequest.getRequestInfo().getUserInfo().getUuid())
+//						.createdTime(time)
+//						.lastModifiedTime(time)
+//						.build());
+//			} else {
+//				worker.setAuditDetails(fsmRequest.getFsm().getAuditDetails());
+//			}
+//		});
+//	}
+
 	/**
 	 * 
 	 * @param fsms
@@ -256,5 +273,14 @@ public class EnrichmentService {
 		return comparisionUtility.compareData(sourceObject, targetObjects);
 	}
 
-
+//	public void enrichFsmWorkersSearch(List<FSM> fsmApplications) {
+//		fsmApplications.forEach(fsm -> {
+//			List<Worker> workers = fsmWorkerRepository.getWorkersData(WorkerSearchCriteria.builder()
+//					.tenantId(fsm.getTenantId())
+//					.applicationIds(Collections.singletonList(fsm.getId()))
+//					.status(Arrays.asList(WorkerStatus.ACTIVE.toString(), WorkerStatus.INACTIVE.toString()))
+//					.build());
+//			fsm.setWorkers(workers);
+//		});
+//	}
 }

@@ -109,7 +109,10 @@ public class PersisterBatchConsumerConfig {
     @Bean("batchContainer")
     public KafkaMessageListenerContainer<String, String> container() throws Exception {
         ContainerProperties properties = new ContainerProperties(this.topics.toArray(new String[topics.size()]));
-  
+        // set more properties
+   //     properties.setPauseEnabled(true);
+   //     properties.setPauseAfter(0);
+        // properties.setGenericErrorHandler(kafkaConsumerErrorHandler);
         properties.setMessageListener(indexerMessageListener);
 
         log.info("Custom KafkaListenerContainer built...");

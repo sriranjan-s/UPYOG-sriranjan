@@ -159,7 +159,20 @@ public class InboxServiceV2 {
         if(CollectionUtils.isEmpty(inboxRequest.getInbox().getProcessSearchCriteria().getStatus())){
             return new ArrayList<>();
         }
-     
+//        Map<String, Object> finalQueryBody = queryBuilder.getESQuery(inboxRequest, Boolean.TRUE);
+//        try {
+//            String q = mapper.writeValueAsString(finalQueryBody);
+//            log.info("Query: "+q);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        StringBuilder uri = getURI(indexName, SEARCH_PATH);
+//        HttpHeaders headers = elasticSearchUtil.getHttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        HttpEntity<String> requestEntity = new HttpEntity<>(finalQueryBody, headers);
+//        Object result = serviceRequestRepository.fetchResult(uri, finalQueryBody);
+//        
         Map<String, Object> finalQueryBody = queryBuilder.getESQuery(inboxRequest, Boolean.TRUE);
         String q = null;
         try {
@@ -230,9 +243,36 @@ public class InboxServiceV2 {
     
         
         Map<String, Object> response = (Map<String, Object>) serviceRequestRepository.fetchResult(uri, requestEntity);
-
+//        ---------------------------------------------
+//        Map<String, Object> response = (Map<String, Object>) serviceRequestRepository.fetchResult(uri, finalQueryBody);
+//        log.info("response: " + response);
+//        Integer totalCount = 0;
+//        if(response.containsKey("total")){
+//            totalCount = (Integer) response.get("total");
+//        }else{
+//            throw new CustomException("INBOX_COUNT_ERR", "Error occurred while executing ES count query");
+//        }
+//        return totalCount;
         Integer currentCount = 0;
-
+//        if (response.containsKey("total")) {
+//            Object totalValue = response.get("total");
+//
+//            if (totalValue instanceof Integer) {
+//                currentCount = (Integer) totalValue;
+//            } else if (totalValue instanceof Long) {
+//                currentCount = ((Long) totalValue).intValue();  // Convert Long to Integer
+//            } else if (totalValue instanceof String) {
+//                try {
+//                    currentCount = Integer.parseInt((String) totalValue);
+//                } catch (NumberFormatException e) {
+//                    throw new CustomException("INBOX_COUNT_ERR", "Invalid format for 'total': " + totalValue);
+//                }
+//            } else {
+//                throw new CustomException("INBOX_COUNT_ERR", "'total' has an unsupported type: " + totalValue.getClass());
+//            }
+//        } else {
+//            throw new CustomException("INBOX_COUNT_ERR", "Error occurred while executing ES count query - 'total' key missing.");
+//        }
         if (response.containsKey("hits") && response.get("hits") instanceof Map &&
         	    ((Map<String, Object>) response.get("hits")).containsKey("total")) {
 
@@ -447,9 +487,36 @@ public class InboxServiceV2 {
         
             
             Map<String, Object> response = (Map<String, Object>) serviceRequestRepository.fetchResult(uri, requestEntity);
-
+//    ------------------------------------------------------------------        
+//            Map<String, Object> response = (Map<String, Object>) serviceRequestRepository.fetchResult(uri, finalQueryBody);
+//            Integer currentCount = 0;
+//            if(response.containsKey("total")){
+//                currentCount = (Integer) response.get("total");
+//            }else{
+//                throw new CustomException("INBOX_COUNT_ERR", "Error occurred while executing ES count query");
+//            }
+//            totalCount += currentCount;
+//        }
             Integer currentCount = 0;
-
+//            if (response.containsKey("total")) {
+//                Object totalValue = response.get("total");
+//
+//                if (totalValue instanceof Integer) {
+//                    currentCount = (Integer) totalValue;
+//                } else if (totalValue instanceof Long) {
+//                    currentCount = ((Long) totalValue).intValue();  // Convert Long to Integer
+//                } else if (totalValue instanceof String) {
+//                    try {
+//                        currentCount = Integer.parseInt((String) totalValue);
+//                    } catch (NumberFormatException e) {
+//                        throw new CustomException("INBOX_COUNT_ERR", "Invalid format for 'total': " + totalValue);
+//                    }
+//                } else {
+//                    throw new CustomException("INBOX_COUNT_ERR", "'total' has an unsupported type: " + totalValue.getClass());
+//                }
+//            } else {
+//                throw new CustomException("INBOX_COUNT_ERR", "Error occurred while executing ES count query - 'total' key missing.");
+//            }
 
             if (response.containsKey("hits") && response.get("hits") instanceof Map &&
             	    ((Map<String, Object>) response.get("hits")).containsKey("total")) {
@@ -497,7 +564,15 @@ public class InboxServiceV2 {
 
     private List<Data> getDataFromSimpleSearch(SearchRequest searchRequest, String index) {
         Map<String, Object> finalQueryBody = queryBuilder.getESQueryForSimpleSearch(searchRequest, Boolean.TRUE);
-
+//        try {
+//            String q = mapper.writeValueAsString(finalQueryBody);
+//            log.info("Query: "+q);
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        StringBuilder uri = getURI(index, SEARCH_PATH);
+        //-----------------------------------------------
         String q = null;
         try {
             q = mapper.writeValueAsString(finalQueryBody);  // Convert Map to JSON string

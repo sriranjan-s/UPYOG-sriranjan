@@ -12,6 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.stereotype.Component;
 
+// REMOVE THESE DEPRECATED IMPORTS:
+// import org.springframework.security.oauth2.common.util.OAuth2Utils;
+// import org.springframework.security.oauth2.provider.OAuth2Authentication;
+// import org.springframework.security.oauth2.provider.OAuth2Request;
+// import org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;
 
 @Component
 public class CustomAuthenticationKeyGenerator {

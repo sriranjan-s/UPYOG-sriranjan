@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 import org.egov.fsm.web.model.AuditDetails;
 import org.egov.fsm.web.model.user.User;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,17 +30,17 @@ import lombok.Setter;
 @Setter
 public class Driver {
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("id")
 	private String id;
 
 	@JsonProperty("tenantId")
-	@CustomSafeHtml
+	@SafeHtml
 	@Size(max = 64)
 	private String tenantId;
 
 	@JsonProperty("name")
-	@CustomSafeHtml
+	@SafeHtml
 	@Size(max = 128)
 	private String name;
 
@@ -49,18 +49,18 @@ public class Driver {
 	private User owner;
 
 	@JsonProperty("ownerId")
-	@CustomSafeHtml
+	@SafeHtml
 	@Size(max = 64)
 	private String ownerId;
 
 	@JsonProperty("additionalDetails")
 	private Object additionalDetails;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("description")
 	private String description;
 
-	@CustomSafeHtml
+	@SafeHtml
 	@JsonProperty("licenseNumber")
 	private String licenseNumber;
 

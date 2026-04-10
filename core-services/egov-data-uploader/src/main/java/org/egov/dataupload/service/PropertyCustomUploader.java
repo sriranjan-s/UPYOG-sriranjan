@@ -91,7 +91,13 @@ public class PropertyCustomUploader {
 		job.setStatus(StatusEnum.INPROGRESS);
 
 		dataUploadService.updateJobsWithPersister(auditDetails,job,false);
+//		uploadRegistryRepository.updateJob(job);
 
+		/*
+		 * Resulting map from 'propFileReader.parseExcel' is a linkedhashmap to preserve
+		 * the order of insertion so that results can be written back in to excel with
+		 * ease
+		 */
 		try {
 			map = propFileReader.parseExcel(loc);
 		} catch (Exception e) {

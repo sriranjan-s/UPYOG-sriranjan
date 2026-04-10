@@ -47,7 +47,6 @@ import java.util.Set;
 import org.egov.boundary.web.contract.BoundaryType;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.egov.tracer.annotations.CustomSafeHtml;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -85,7 +84,7 @@ public class Boundary {
 	private Date toDate;
 	private boolean isHistory;
 	private Long bndryId;
-	@CustomSafeHtml
+//	@SafeHtml
 	private String localName;
 	private Float longitude;
 	private Float latitude;
