@@ -21,18 +21,18 @@ public class ResponseParser
     this.payInstrument = payInstrument;
   }
   
-//   @JsonProperty("payInstrument")
-//   private PayInstrument refundPayInstrument;
+  // @JsonProperty("payInstruments")
+  private PayInstrument refundPayInstrument;
   
  
 
-//   public PayInstrument getRefundPayInstrument() {
-// 	return refundPayInstrument;
-// }
+  public PayInstrument getRefundPayInstrument() {
+	return refundPayInstrument;
+}
 
-//   public void setRefundPayInstrument(PayInstrument refundPayInstrument) {
-// 	this.refundPayInstrument = refundPayInstrument;
-//   }
+  public void setRefundPayInstrument(PayInstrument refundPayInstrument) {
+	this.refundPayInstrument = refundPayInstrument;
+  }
 
   public String toString()
   {
