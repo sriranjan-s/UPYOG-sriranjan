@@ -3,7 +3,8 @@ package org.egov.pg.models;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.math.BigDecimal;
-//import org.egov.tracer.annotations.CustomSafeHtml;
+
+import org.egov.tracer.annotations.CustomSafeHtml;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class TaxAndPayment {
 	@NotNull
 	private BigDecimal amountPaid;
 
-//	@CustomSafeHtml
+	@CustomSafeHtml
 	@NotNull
 	private String billId;
 }

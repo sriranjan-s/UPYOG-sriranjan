@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 import org.egov.pg.constants.TransactionAdditionalFields;
 import org.egov.pg.web.models.User;
-//import org.egov.tracer.annotations.CustomSafeHtml;
+import org.egov.tracer.annotations.CustomSafeHtml;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,7 +26,7 @@ import java.util.Map;
 @ToString
 public class Transaction {
 
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("tenantId")
     @NotNull
     @Size(min = 2, max = 50)
@@ -35,7 +35,7 @@ public class Transaction {
     /**
      * Transaction Amount, preferably rounded off to two decimal places
      */
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("txnAmount")
     @NotNull
     @Size(min = 1)
@@ -44,7 +44,7 @@ public class Transaction {
     /**
      * Unique bill ID associated with the transaction
      */
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("billId")
     @NotNull
     @Size(min = 1)
@@ -54,7 +54,7 @@ public class Transaction {
     /**
      * Backward compatibility
      */
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("module")
     @Size(min = 1)
     private String module;
@@ -62,7 +62,7 @@ public class Transaction {
     /**
      * Backward compatibility
      */
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("consumerCode")
     @NotNull
     @Size(min = 1, max = 128)
@@ -82,7 +82,7 @@ public class Transaction {
      * Brief description for which the payment is being made
      * ex, Property Tax Payment for FY-YYYY
      */
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("productInfo")
     @NotNull
     @Size(min = 1, max = 512)
@@ -92,7 +92,7 @@ public class Transaction {
      * Gateway to be used to perform this transaction
      * Should be among the list of valid & active gateways returned by API
      */
-    //@CustomSafeHtml
+    @CustomSafeHtml
     @JsonProperty("gateway")
     @NotNull
     @Size(min = 2)

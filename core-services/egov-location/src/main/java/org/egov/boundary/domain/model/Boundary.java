@@ -45,6 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.egov.boundary.web.contract.BoundaryType;
+import org.egov.tracer.annotations.CustomSafeHtml;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
