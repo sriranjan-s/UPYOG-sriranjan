@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Builder
 @AllArgsConstructor
@@ -15,7 +15,7 @@ import org.egov.tracer.annotations.CustomSafeHtml;
 @Data
 public class Workflow {
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("action")
   private String action = null;
 
@@ -23,7 +23,7 @@ public class Workflow {
   @Valid
   private List<String> assignes = null;
 
-  @CustomSafeHtml
+  @SafeHtml
   @JsonProperty("comments")
   private String comments = null;
 
