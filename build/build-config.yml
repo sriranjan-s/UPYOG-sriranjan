@@ -133,6 +133,15 @@ config:
       - work-dir: "core-services/egov-filestore/src/main/resources/db"
         image-name: "egov-filestore-db"
 
+
+  - name: "builds/upyog/core-services/egov-location"
+    build:
+      - work-dir: "core-services/egov-location"
+        image-name: "egov-location"
+        dockerfile: "build/maven/Dockerfile"
+      - work-dir: "core-services/egov-location/src/main/resources/db"
+        image-name: "egov-location-db"      
+
   - name: "builds/upyog/core-services/egov-idgen"
     build:
       - work-dir: "core-services/egov-idgen"
@@ -175,8 +184,7 @@ config:
       - work-dir: "municipal-services/pqm"
         image-name: "pqm-service"
         dockerfile: "build/maven/Dockerfile"
-      - work-dir: "municipal-services/pqm/src/main/resources/db"
-        image-name: "pqm-service-db"
+
 
   - name: "builds/upyog/municipal-services/pqm-anomaly-finder"
     build:

@@ -2,7 +2,7 @@ package org.egov.rb.pgr.v2.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
-import org.egov.tracer.annotations.CustomSafeHtml;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.validation.annotation.Validated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,58 +25,58 @@ import javax.validation.Valid;
 @NoArgsConstructor
 @Builder
 public class Address   {
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("tenantId")
         private String tenantId = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("doorNo")
         private String doorNo = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("plotNo")
         private String plotNo = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("id")
         private String id = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("landmark")
         private String landmark = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("city")
         private String city = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("district")
         private String district = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("region")
         private String region = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("state")
         private String state = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("country")
         private String country = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("pincode")
         private String pincode = null;
 
         @JsonProperty("additionDetails")
         private Object additionDetails = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("buildingName")
         private String buildingName = null;
 
-        @CustomSafeHtml
+        @SafeHtml
         @JsonProperty("street")
         private String street = null;
 
