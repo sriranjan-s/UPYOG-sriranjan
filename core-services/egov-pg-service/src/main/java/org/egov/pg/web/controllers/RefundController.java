@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.egov.pg.models.CollectionPayment;
 import org.egov.pg.models.CollectionPaymentResponse;
+import org.egov.pg.models.PaymentRefund;
+import org.egov.pg.models.PaymentRefundResponse;
 import org.egov.pg.models.PaymentRequest;
 import org.egov.pg.models.PaymentResponse;
 import org.egov.pg.models.Refund;
@@ -41,14 +43,14 @@ public class RefundController {
 	}
 	
 	 @RequestMapping(value = "/_create", method = RequestMethod.POST)
-	    public ResponseEntity<PaymentResponse> refundV1Initiate(@Valid @RequestBody PaymentRequest paymentRequest) {
+	    public ResponseEntity<PaymentRefundResponse> refundV1Initiate(@Valid @RequestBody PaymentRequest paymentRequest) {
          
-		 CollectionPayment processRefund = refundService.processRefund(paymentRequest);
+		 PaymentRefund processRefund = refundService.processRefund(paymentRequest);
 	        ResponseInfo responseInfo = ResponseInfoFactory.createResponseInfoFromRequestInfo(paymentRequest
 	                .getRequestInfo(), true);
-	        PaymentResponse response = PaymentResponse.builder()
+	        PaymentRefundResponse response = PaymentRefundResponse.builder()
 	                .responseInfo(responseInfo)
-	                .payments(List.of(processRefund))
+	                .paymentRefund(processRefund)
 	                .build();
 	        return new ResponseEntity<>(response, HttpStatus.OK);
 	    }

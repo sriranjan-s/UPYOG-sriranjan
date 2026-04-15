@@ -29,7 +29,7 @@ public class PaymentRefundConsumer {
 	public void refundPayment(final HashMap<String, Object> record, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
 		try {
 			PaymentRequest paymentrRequest = mapper.convertValue(record, PaymentRequest.class);
-			paymentService.cancelPayment(paymentrRequest);
+			paymentService.updatePaymentStatus(paymentrRequest);
 		} catch (Exception ex) {
 			StringBuilder builder = new StringBuilder("Error while listening to value: ").append(record)
 					.append("on topic: ").append(topic);

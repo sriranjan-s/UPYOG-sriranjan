@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.egov.pg.config.AppProperties;
+import org.egov.pg.models.Bill;
 import org.egov.pg.models.CollectionPayment;
 import org.egov.pg.models.CollectionPaymentDetail;
 import org.egov.pg.models.CollectionPaymentRequest;
 import org.egov.pg.models.CollectionPaymentResponse;
+import org.egov.pg.models.PaymentRefund;
+import org.egov.pg.models.Refund;
 import org.egov.pg.models.TaxAndPayment;
 import org.egov.pg.models.enums.CollectionPaymentModeEnum;
 import org.egov.pg.producer.Producer;
@@ -128,7 +131,11 @@ public class PaymentsService {
 		payment.setInstrumentNumber(request.getTransaction().getTxnId());
 		payment.setTransactionNumber(request.getTransaction().getTxnId());
 		payment.setAdditionalDetails((JsonNode) request.getTransaction().getAdditionalDetails());
-
+		payment.getPaymentDetails().get(0).setAuditDetails(request.getTransaction().getAuditDetails());
+		payment.setAuditDetails(request.getTransaction().getAuditDetails());
+        Bill bill = new Bill();
+        bill.setAuditDetails(request.getTransaction().getAuditDetails());
+        payment.getPaymentDetails().get(0).setBill(bill);
 		CollectionPaymentRequest paymentRequest = CollectionPaymentRequest.builder()
 				.requestInfo(request.getRequestInfo()).payment(payment).build();
 		

@@ -18,6 +18,8 @@ import org.egov.pg.constants.PgConstants;
 import org.egov.pg.constants.TransactionAdditionalFields;
 import org.egov.pg.models.AuditDetails;
 import org.egov.pg.models.BankAccount;
+import org.egov.pg.models.CollectionPayment;
+import org.egov.pg.models.PaymentRefund;
 import org.egov.pg.models.Refund;
 import org.egov.pg.models.Refund.RefundStatusEnum;
 import org.egov.pg.models.RefundRequest;
@@ -136,45 +138,13 @@ public class EnrichmentService {
 
     }
 
-//	public void enrichInitiateRefundRequest(@Valid RefundRequest refundRequest) {
-//		 RequestInfo requestInfo = refundRequest.getRequestInfo();
-//		 Refund refund = refundRequest.getRefund();
-//		 
-//		 refund.setId(UUID.randomUUID().toString());
-//		 // Generate ID from ID Gen service and assign to refund object
-//		 setIdFromIdGen(refundRequest);
-//		 attachOriginalTransactionDetails(refund);
-//		 refund.setStatus(Refund.RefundStatusEnum.INITIATED);
-//		 
-//		 AuditDetails auditDetails = AuditDetails.builder()
-//	                .createdBy(requestInfo.getUserInfo() != null ? requestInfo.getUserInfo().getUuid() : null)
-//	                .createdTime(System.currentTimeMillis())
-//	                .build();
-//	        refund.setAuditDetails(auditDetails);
-//	}
-//
-//	private void attachOriginalTransactionDetails(Refund refund) {
-//		TransactionCriteria criteria = TransactionCriteria.builder().txnId(refund.getOriginalTxnId()).build();
-//		List<Transaction> statuses = transactionRepository.fetchTransactions(criteria);
-//
-//		if (statuses == null || statuses.isEmpty()) {
-//		    throw new CustomException("TXN_NOT_FOUND", "No transaction found for given criteria");
-//		}
-//
-//		String atomTxnId = statuses.get(0).getAtomTxnId();
-//		String consumerCode = statuses.get(0).getConsumerCode();
-//		refund.setAtomTxnId(atomTxnId);
-//        refund.setConsumerCode(consumerCode);
-//
-//	}
 
 	private void setIdFromIdGen(Refund refund) {
 //		String refundId = idGenService.generateRefundId(refundRequest);
 		int min = 1000;
 		int max = 10000;
 		int randomNum = (int)(Math.random() * (max - min + 1) + min);
-
-		String refundId = "PG-"+randomNum+"-refund";
+		String refundId = "PG_RF_"+randomNum+"_TEST";
 		refund.setRefundId(refundId);
 	}
 
@@ -347,6 +317,15 @@ public class EnrichmentService {
 	private String generateBase64Password(String password) {
 		return Base64.getEncoder()
                 .encodeToString(password.getBytes());
+	}
+
+	public void paymentRefundResponse(Refund initiateRefund, PaymentRefund paymentRefund, CollectionPayment collectionPayment) {
+		paymentRefund.setTenantId(collectionPayment.getTenantId());
+		paymentRefund.setRefundId(initiateRefund.getRefundId());
+		paymentRefund.setRefundStatus(initiateRefund.getStatus().toString());
+		paymentRefund.setTransactionId(initiateRefund.getOriginalTxnId());
+		paymentRefund.setGatewayStausMsg(initiateRefund.getGatewayStatusMsg());
+		
 	}
 
 }

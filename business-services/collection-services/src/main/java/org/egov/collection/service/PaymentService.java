@@ -213,30 +213,21 @@ public class PaymentService {
     }
 
     
-     public Payment cancelPayment(PaymentRequest paymentRequest) {
+	public Payment updatePaymentStatus(PaymentRequest paymentRequest) {
 		Payment payment = paymentRequest.getPayment();
-	    RequestInfo requestInfo = paymentRequest.getRequestInfo();
-         PaymentSearchCriteria paymentSearchCriteria = PaymentSearchCriteria.builder().tenantId(payment.getTenantId()).transactionNumber(payment.getTransactionNumber()).build();
+		RequestInfo requestInfo = paymentRequest.getRequestInfo();
+		PaymentSearchCriteria paymentSearchCriteria = PaymentSearchCriteria.builder().tenantId(payment.getTenantId())
+				.transactionNumber(payment.getTransactionNumber()).build();
 		List<Payment> payments = paymentRepository.fetchPayments(paymentSearchCriteria);
-		
-		for(Payment paymentToBeCancel : payments) {
-			paymentToBeCancel.setInstrumentStatus(InstrumentStatusEnum.CANCELLED);
-			paymentToBeCancel.setPaymentStatus(PaymentStatusEnum.CANCELLED);
-			paymentToBeCancel.getPaymentDetails().forEach(paymentDetail -> {
-                Bill bill = paymentDetail.getBill();
-                bill.setStatus(Bill.StatusEnum.CANCELLED);
-                bill.setIsCancelled(true);
-            });
-            PaymentWorkflowService.updateAuditDetails(payment, requestInfo);
-        }
 
+		for (Payment paymentToBeCancel : payments) {
+			paymentToBeCancel.setInstrumentStatus(InstrumentStatusEnum.REFUNDED);
 
-        paymentRepository.updateStatus(payments);
+			PaymentWorkflowService.updateAuditDetails(payment, requestInfo);
+		}
 
-        payments.forEach(paymentToBeCancel -> {
-            producer.producer(applicationProperties.getCancelPaymentTopicName(), new PaymentRequest(requestInfo, payment));
-        });
-        
+		paymentRepository.updateStatus(payments);
+
 		return payment;
 	}
 
