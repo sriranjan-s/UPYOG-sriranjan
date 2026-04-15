@@ -262,8 +262,6 @@ public class ApplicationProperties {
     private String razorPayUrl;
 
     // Refund    
-    @Value("${kafka.topic.initiate.refund.name}")
-    private String initiateRefundTopic;
     
     @Value("${egov.pg.service.hostname}")
     private String pgServiceHost;
@@ -271,7 +269,5 @@ public class ApplicationProperties {
     @Value("${egov.refund.create.endpoint}")
     private String initiateRefundEndPoint;
     
-//    @Value("${egov.refund.payment.txn}")
-//    private String paymentRefundTxn;
 
 }

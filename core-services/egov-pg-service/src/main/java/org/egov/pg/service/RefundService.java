@@ -7,18 +7,16 @@ import java.util.Map;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.pg.config.AppProperties;
 import org.egov.pg.models.CollectionPayment;
-import org.egov.pg.models.CollectionPaymentResponse;
+import org.egov.pg.models.PaymentRefund;
 import org.egov.pg.models.PaymentRequest;
 import org.egov.pg.models.Refund;
 import org.egov.pg.models.Refund.RefundStatusEnum;
-import org.egov.pg.models.RefundDump;
 import org.egov.pg.models.RefundRequest;
 import org.egov.pg.models.Transaction;
 import org.egov.pg.producer.Producer;
 import org.egov.pg.repository.RefundRepository;
 import org.egov.pg.repository.TransactionRepository;
 import org.egov.pg.validator.RefundValidator;
-import org.egov.pg.web.models.Payment;
 import org.egov.pg.web.models.RefundCriteria;
 import org.egov.pg.web.models.TransactionCriteria;
 import org.egov.pg.web.models.TransactionRequest;
@@ -118,7 +116,7 @@ public class RefundService {
 		return Collections.singletonList(newRefundTxn);
 	}
 
-	public CollectionPayment processRefund(PaymentRequest payment) {
+	public PaymentRefund processRefund(PaymentRequest payment) {
 		RequestInfo requestInfo = payment.getRequestInfo();
 		String transactionNumber = payment.getPayment().getTransactionNumber();
 		CollectionPayment collectionPayment = payment.getPayment();
@@ -130,8 +128,10 @@ public class RefundService {
 		List<Transaction> transactions = transactionRepository.fetchTransactions(criteria);
 		refundValidator.validateTransaction(transactions);
 		RefundRequest refundRequest = enrichmentService.enrichRefundRequest(transactions, requestInfo);
-		this.initiateRefund(refundRequest);
-		return collectionPayment;
+		Refund initiateRefund = this.initiateRefund(refundRequest);
+		PaymentRefund paymentRefund = new PaymentRefund();
+		enrichmentService.paymentRefundResponse(initiateRefund,paymentRefund,collectionPayment);
+		return paymentRefund;
 	}
 
 }
