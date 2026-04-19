@@ -27,59 +27,60 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address   {
-   @CustomSafeHtml
+  
+  @CustomSafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("doorNo")
   private String doorNo = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("plotNo")
   private String plotNo = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("id")
   private String id = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("landmark")
   private String landmark = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("city")
   private String city = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("district")
   private String district = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("region")
   private String region = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("state")
   private String state = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("country")
   private String country = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("pincode")
   private String pincode = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("additionDetails")
   private String additionDetails = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("buildingName")
   private String buildingName = null;
 
-   @CustomSafeHtml
+  @CustomSafeHtml
   @JsonProperty("street")
   private String street = null;
 

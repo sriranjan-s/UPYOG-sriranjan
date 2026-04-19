@@ -81,8 +81,16 @@ config:
     build:
       - work-dir: "core-services/egov-accesscontrol"
         image-name: "egov-accesscontrol"
+        dockerfile: "core-services/build/maven/Dockerfile"
+
+  - name: "builds/upyog/core-services/egov-pg-service"
+    build:
+      - work-dir: "core-services/egov-pg-service"
+        image-name: "egov-pg-service"
         dockerfile: "build/maven/Dockerfile"
-# Core Services
+      - work-dir: "core-services/egov-pg-service/src/main/resources/db"
+        image-name: "egov-pg-service-db"      
+
   - name: "builds/upyog/core-services/audit-service"
     build:
       - work-dir: "core-services/audit-service"
@@ -121,6 +129,15 @@ config:
         dockerfile: "build/maven/Dockerfile"
       - work-dir: "core-services/egov-filestore/src/main/resources/db"
         image-name: "egov-filestore-db"
+
+
+  - name: "builds/upyog/core-services/egov-location"
+    build:
+      - work-dir: "core-services/egov-location"
+        image-name: "egov-location"
+        dockerfile: "build/maven/Dockerfile"
+      - work-dir: "core-services/egov-location/src/main/resources/db"
+        image-name: "egov-location-db"      
 
   - name: "builds/upyog/core-services/egov-idgen"
     build:
