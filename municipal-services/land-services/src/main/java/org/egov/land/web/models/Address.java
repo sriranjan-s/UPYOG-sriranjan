@@ -27,6 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address   {
+  
   @CustomSafeHtml
   @JsonProperty("tenantId")
   private String tenantId = null;
