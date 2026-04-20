@@ -4,8 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.math.BigDecimal;
 
-import org.egov.tracer.annotations.CustomSafeHtml;
-
 @Getter
 @Setter
 @ToString
@@ -20,7 +18,7 @@ public class TaxAndPayment {
 	@NotNull
 	private BigDecimal amountPaid;
 
-	@CustomSafeHtml
+	//@SafeHtml
 	@NotNull
 	private String billId;
 }
