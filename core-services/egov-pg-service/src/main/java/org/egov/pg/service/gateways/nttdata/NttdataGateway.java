@@ -367,32 +367,35 @@ public class NttdataGateway implements Gateway {
 			String merchantId = MERCHANT_ID;
 			RefundTransaction refundTxn = enrichmentService.enrichRefundTransaction(refundRequest,merchantId);
 			String refundJson = gson.toJson(refundTxn);
+			log.info("Request json : {}",refundTxn);
+			System.out.println("Request json string:" + refundJson);
+			System.out.println("Request json :" + refundTxn.toString());
 			// Encrypt
 			String encryptedData, decryptedData = "";
 			String decryptResponsee = "";
 			String serverResp = "";
-//			encryptedData = AuthEncryption.getAuthEncrypted(refundJson, "A4476C2062FFA58980DC8F79EB6A799E");
-			decryptedData = "{\n" + " \"payInstrument\": {\n" + " \"refundStatusDetails\": {\n" + " \"refundDetails\": [\n" + " {\n" + " \"prodName\": \"Mangeshtest\",\n" + " \"refundStatus\": [\n" + " {\n" + " \"refundTxnId\": 1519,\n" + " \"refundAmt\": 4000,\n" + " \"refundInitiatedDate\": \"2022-05-16\",\n" + " \"remarks\": \"REFUND INITIATED\",\n" + " \"prodRefundId\": \"189333256\"\n" + " }\n" + " ]\n" + " }\n" + " ]\n" + " },\n" + " \"payDetails\": {\n" + " \"atomTxnId\": 11000000223788\n" + " },\n" + " \"responseDetails\": {\n" + " \"statusCode\": \"OTS0000\",\n" + " \"message\": \"SUCCESS\",\n" + " \"description\": \"FULL REFUND INITIATED SUCCESSFULY\"\n" + " }\n" + " }\n" + "}";
-//			serverResp = AipayService.processRefund(merchantId, encryptedData, REFUND_API);
-//			if ((serverResp != null) && (serverResp.startsWith("encData"))) {
-//				decryptResponsee = serverResp.split("\\&merchId=")[0];
-//				String decryptResponse = decryptResponsee.split("encData=")[1];
-//
-//				System.out.println("serrResp---: " + decryptResponse);
-//
-//				decryptedData = AuthEncryption.getAuthDecrypted(decryptResponse, "75AEF0FA1B94B3C10D4F5B268F757F11");
+			encryptedData = AuthEncryption.getAuthEncrypted(refundJson, "A4476C2062FFA58980DC8F79EB6A799E");
+//			decryptedData = "{\n" + " \"payInstrument\": {\n" + " \"refundStatusDetails\": {\n" + " \"refundDetails\": [\n" + " {\n" + " \"prodName\": \"Mangeshtest\",\n" + " \"refundStatus\": [\n" + " {\n" + " \"refundTxnId\": 1519,\n" + " \"refundAmt\": 4000,\n" + " \"refundInitiatedDate\": \"2022-05-16\",\n" + " \"remarks\": \"REFUND INITIATED\",\n" + " \"prodRefundId\": \"189333256\"\n" + " }\n" + " ]\n" + " }\n" + " ]\n" + " },\n" + " \"payDetails\": {\n" + " \"atomTxnId\": 11000000223788\n" + " },\n" + " \"responseDetails\": {\n" + " \"statusCode\": \"OTS0000\",\n" + " \"message\": \"SUCCESS\",\n" + " \"description\": \"FULL REFUND INITIATED SUCCESSFULY\"\n" + " }\n" + " }\n" + "}";
+			serverResp = AipayService.processRefund(merchantId, encryptedData, REFUND_API);
+			if ((serverResp != null) && (serverResp.startsWith("encData"))) {
+				decryptResponsee = serverResp.split("\\&merchId=")[0];
+				String decryptResponse = decryptResponsee.split("encData=")[1];
+
+				System.out.println("serrResp---: " + decryptResponse);
+
+				decryptedData = AuthEncryption.getAuthDecrypted(decryptResponse, "75AEF0FA1B94B3C10D4F5B268F757F11");
 				System.out.println("DecryptedData------: " + decryptedData);
-				if (!decryptedData.contains("OTS0000"))
-					throw new CustomException(null, "Response from Fetch API is " + decryptedData);
+//				if (!decryptedData.contains("OTS0000"))
+//					throw new CustomException(null, "Response from Fetch API is " + decryptedData);
 				RefundResponseParser resp = objectMapper.readValue(decryptedData, RefundResponseParser.class);
 				return transformRawRefundResponse(resp, refundRequest);
 
-//			} else {
-//				String errorDescription = "Something Went Wrong!";
-//				System.out.println(errorDescription);
-//				throw new CustomException(null, "Auth API response is not Valid!! ");
-//
-//			}
+			} else {
+				String errorDescription = "Something Went Wrong!";
+				System.out.println(errorDescription);
+				throw new CustomException(null, "Auth API response is not Valid!! ");
+
+			}
 
 		} catch (Exception e) {
 			log.error("Refund failed", e);
@@ -418,7 +421,7 @@ public class NttdataGateway implements Gateway {
 						.build();
 			} else {
 				if (resp.getRefundPayInstrument().getResponseDetails().getStatusCode().equals("OTS0551"))
-					status = Refund.RefundStatusEnum.PROCESSING;
+					status = Refund.RefundStatusEnum.PENDING;
 				 else 
 					status = Refund.RefundStatusEnum.FAILURE;
 				return Refund.builder().refundId(refundRequest.getRefundId()).status(status)
@@ -431,7 +434,7 @@ public class NttdataGateway implements Gateway {
 			}
 		} else {
 			log.error("Some Error Occured in Status API Call");
-			throw new CustomException(null, "Some Error Occured in token API Call");
+			throw new CustomException(null, "Response from Gateway is NULL");
 		}
 	}
 	
@@ -447,19 +450,19 @@ public class NttdataGateway implements Gateway {
 			String statusRequestJson = gson.toJson(refundTxn);
 			log.info("Refund Status Request JSON: {}", statusRequestJson);
 
-//			String encryptedData = AuthEncryption.getAuthEncrypted(statusRequestJson,
-//					"A4476C2062FFA58980DC8F79EB6A799E");
-//
-//			String serverResp = AipayService.getTransactionStatus(merchantId, encryptedData, REFUND_STATUS_API);
-//
-//			if (serverResp == null || !serverResp.startsWith("encData")) {
-//				throw new CustomException(null, "Invalid response from Refund Status API");
-//			}
-//
-//			String encData = serverResp.split("\\&merchId=")[0].replace("encData=", "");
+			String encryptedData = AuthEncryption.getAuthEncrypted(statusRequestJson,
+					"A4476C2062FFA58980DC8F79EB6A799E");
 
-//			String decryptedData = AuthEncryption.getAuthDecrypted(encData, "75AEF0FA1B94B3C10D4F5B268F757F11");
-			String decryptedData = "{\n" + " \"payInstrument\": {\n" + " \"refundStatusDetails\": {\n" + " \"refundDetails\": [\n" + " {\n" + " \"prodName\": \"Mangeshtest\",\n" + " \"refundStatus\": [\n" + " {\n" + " \"refundTxnId\": 1519,\n" + " \"refundAmt\": 4000,\n" + " \"refundInitiatedDate\": \"2022-05-16\",\n" + " \"remarks\": \"REFUND INITIATED\",\n" + " \"prodRefundId\": \"189333256\"\n" + " }\n" + " ]\n" + " }\n" + " ]\n" + " },\n" + " \"payDetails\": {\n" + " \"atomTxnId\": 11000000223788\n" + " },\n" + " \"responseDetails\": {\n" + " \"statusCode\": \"OTS0000\",\n" + " \"message\": \"SUCCESS\",\n" + " \"description\": \"REFUND STATUS FETCHED SUCCESSFULLY\"\n" + " }\n" + " }\n" + "}";
+			String serverResp = AipayService.getTransactionStatus(merchantId, encryptedData, REFUND_STATUS_API);
+
+			if (serverResp == null || !serverResp.startsWith("encData")) {
+				throw new CustomException(null, "Invalid response from Refund Status API");
+			}
+
+			String encData = serverResp.split("\\&merchId=")[0].replace("encData=", "");
+
+			String decryptedData = AuthEncryption.getAuthDecrypted(encData, "75AEF0FA1B94B3C10D4F5B268F757F11");
+//			String decryptedData = "{\n" + " \"payInstrument\": {\n" + " \"refundStatusDetails\": {\n" + " \"refundDetails\": [\n" + " {\n" + " \"prodName\": \"Mangeshtest\",\n" + " \"refundStatus\": [\n" + " {\n" + " \"refundTxnId\": 1519,\n" + " \"refundAmt\": 4000,\n" + " \"refundInitiatedDate\": \"2022-05-16\",\n" + " \"remarks\": \"REFUND INITIATED\",\n" + " \"prodRefundId\": \"189333256\"\n" + " }\n" + " ]\n" + " }\n" + " ]\n" + " },\n" + " \"payDetails\": {\n" + " \"atomTxnId\": 11000000223788\n" + " },\n" + " \"responseDetails\": {\n" + " \"statusCode\": \"OTS0000\",\n" + " \"message\": \"SUCCESS\",\n" + " \"description\": \"REFUND STATUS FETCHED SUCCESSFULLY\"\n" + " }\n" + " }\n" + "}";
 
 
 			log.info("Refund Status Decrypted Response: {}", decryptedData);
@@ -492,7 +495,7 @@ public class NttdataGateway implements Gateway {
 
 	    } else if ("OTS0551".equalsIgnoreCase(statusCode)) {
 
-	        status = Refund.RefundStatusEnum.PROCESSING;
+	        status = Refund.RefundStatusEnum.PENDING;
 
 	    } else {
 	        status = Refund.RefundStatusEnum.FAILURE;

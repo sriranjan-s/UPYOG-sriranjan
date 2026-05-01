@@ -163,11 +163,17 @@ public class PaymentWorkflowService {
         	 StringBuilder uri = new StringBuilder();
         	 uri.append(applicationProperties.getPgServiceHost()).append(applicationProperties.getInitiateRefundEndPoint());
         	 PaymentRequest paymentRequest = PaymentRequest.builder().payment(latestPayment).requestInfo(requestInfo).build();
+        	 String errorResponse = null;
         	 try {
         		 paymentResponse = restTemplate.postForObject(uri.toString(), paymentRequest,PaymentRefundResponse.class);
+        		 if("SUCCESS" != paymentResponse.getPaymentRefund().getRefundStatus()){
+        			 errorResponse = paymentResponse.getPaymentRefund().getGatewayStausMsg();
+          			throw new CustomException("INITIATE_REFUND_CODE","Error while initiating Refund");
+        		 }
+        		 
         	 }catch(Exception ex) {
         		 log.error("Error while initiating refund call: ", ex);
-     			throw new CustomException("INITIATE_REFUND_CODE", "Initiatin Refund Call Failed");
+     			throw new CustomException("INITIATE_REFUND_CODE", errorResponse );
         	 }
          }
 		return paymentResponse;

@@ -66,12 +66,12 @@ public class TransactionRowMapper implements RowMapper<Transaction> {
         if (txnResponseObj != null) {
             try {
                 txnResponse = objectMapper.readTree(txnResponseObj.toString());
-                if (txnResponse.has("payInstruments") 
+                if (txnResponse.has("payInstrument") 
                         
-                        && txnResponse.get("payInstruments").size() > 0) {
+                        && txnResponse.get("payInstrument").size() > 0) {
 
                     JsonNode payDetailsNode = txnResponse
-                            .get("payInstruments")
+                            .get("payInstrument")
                             .get(0)
                             .get("payDetails");
 

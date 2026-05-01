@@ -13,8 +13,8 @@ public class RefundTransaction {
 	    this.payInstrument = payInstrument;
 	  }
 
-	  public String toString()
-	  {
-	    return "Test [payInstrument=" + this.payInstrument + "]";
+	  @Override
+	  public String toString() {
+		return "RefundTransaction [payInstrument=" + this.payInstrument + "]";
 	  }
 }

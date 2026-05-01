@@ -27,6 +27,7 @@ public class RefundRepository {
 	public List<Refund> fetchRefundTransactions(@Valid RefundCriteria refundCriteria) {
 		List<Object> params = new ArrayList<>();
 		String query = RefundTransactionQueryBuilder.getRefundSearchQueryByCreatedTimeRange(refundCriteria, params);
+		log.info("QUERY TO FETCH REFUND TXN : {}", query);
 		return jdbcTemplate.query(query, params.toArray(), rowMapper);
 	}
 	
