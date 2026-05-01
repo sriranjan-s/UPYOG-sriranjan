@@ -3,6 +3,7 @@ package org.egov.pg.service;
 import static java.util.Collections.singletonMap;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -139,13 +140,13 @@ public class EnrichmentService {
     }
 
 
-	private void setIdFromIdGen(Refund refund) {
-//		String refundId = idGenService.generateRefundId(refundRequest);
-		int min = 1000;
-		int max = 10000;
-		int randomNum = (int)(Math.random() * (max - min + 1) + min);
-		String refundId = "PG_RF_"+randomNum+"_TEST";
-		refund.setRefundId(refundId);
+	private void setIdFromIdGen(RefundRequest refundRequest) {
+//		int min = 1000;
+//		int max = 10000;
+//		int randomNum = (int)(Math.random() * (max - min + 1) + min);
+//		String refundId = "PG_RF_"+randomNum+"_TEST";
+		String refundId = idGenService.generateRefundId(refundRequest);
+		refundRequest.getRefund().setRefundId(refundId);
 	}
 
 	public void enrichupdateRefundTransaction(Refund currentRefund) {
@@ -172,7 +173,7 @@ public class EnrichmentService {
 		  refundRequest.setRequestInfo(requestInfo);
 		  
 		  refund.setId(UUID.randomUUID().toString());
-		  setIdFromIdGen(refund);
+		  setIdFromIdGen(refundRequest);
 		  
 		  refund.setOriginalTxnId(transaction.getTxnId());
 		  refund.setRefundAmount(transaction.getTxnAmount());
@@ -228,8 +229,10 @@ public class EnrichmentService {
 	    payDetails.setTotalRefundAmount(totalRefundAmount);
 
 	    // Signature 
+	    
+	    String refundAmount = formatAmountSmart(refundRequest.getRefundAmount());
 	    String signature = generateSignature(merchantId, password, merchantTxnId,
-	            refundRequest.getRefundAmount(), currency, api);
+	            refundAmount, currency, api);
 	    payDetails.setSignature(signature);
 
 	    // HeadDetails
@@ -247,6 +250,16 @@ public class EnrichmentService {
 	    refundTxn.setPayInstrument(payInstrument);
 
 	    return refundTxn;
+	}
+	
+	private String formatAmountSmart(String amount) {
+	    BigDecimal bd = new BigDecimal(amount);
+
+	    if (bd.scale() <= 0 || bd.stripTrailingZeros().scale() <= 0) {
+	        return bd.setScale(1, RoundingMode.UNNECESSARY).toPlainString();
+	    }
+
+	    return bd.stripTrailingZeros().toPlainString();
 	}
 	
 	private String generateSignature(String merchantId, String password, String merchantTxnId, String amount,

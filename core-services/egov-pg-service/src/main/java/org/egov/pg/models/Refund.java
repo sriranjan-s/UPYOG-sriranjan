@@ -81,9 +81,7 @@ public class Refund {
 
 		INITIATED("INITIATED"),
 		
-		PENDING("PENDING"),
-		
-	    PROCESSING("PROCESSING");
+		PENDING("PENDING");
 
 		private String value;
 
