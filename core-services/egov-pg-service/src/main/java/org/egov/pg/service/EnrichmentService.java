@@ -170,10 +170,11 @@ public class EnrichmentService {
 		    Transaction transaction = transactions.get(0);
 
 		    Refund refund = new Refund();
+		  refund.setTenantId(transaction.getTenantId());
 		  refundRequest.setRequestInfo(requestInfo);
 		  
 		  refund.setId(UUID.randomUUID().toString());
-		  setIdFromIdGen(refundRequest);
+		  
 		  
 		  refund.setOriginalTxnId(transaction.getTxnId());
 		  refund.setRefundAmount(transaction.getTxnAmount());
@@ -191,6 +192,7 @@ public class EnrichmentService {
 		                .build();
 		        refund.setAuditDetails(auditDetails);
 		  refundRequest.setRefund(refund);
+		  setIdFromIdGen(refundRequest);
 		return refundRequest;
 	}
 
