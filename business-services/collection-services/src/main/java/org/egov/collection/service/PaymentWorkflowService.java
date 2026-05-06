@@ -173,7 +173,7 @@ public class PaymentWorkflowService {
         		 
         	 }catch(Exception ex) {
         		 log.error("Error while initiating refund call: ", ex);
-     			throw new CustomException("INITIATE_REFUND_CODE", errorResponse );
+     			throw new CustomException("INITIATE_REFUND_CODE", errorResponse != null ? errorResponse : "Error while initiating refund" );
         	 }
          }
 		return paymentResponse;
