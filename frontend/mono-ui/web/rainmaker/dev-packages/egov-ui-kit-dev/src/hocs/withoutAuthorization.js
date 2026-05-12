@@ -162,7 +162,7 @@ const withoutAuthorization = (redirectionUrl) => (Component) => {
                     )}
                   </Toolbar>
                   <div className="appbar-right-logo">
-                    <img src={"https://in-egov-assets.s3.ap-south-1.amazonaws.com/nugp.png"} />
+                    <img style={{width:"40px", height:"40px"}} src={"https://in-egov-assets.s3.ap-south-1.amazonaws.com/nugp.png"} />
                   </div>
                 </AppBar>
               </div>
