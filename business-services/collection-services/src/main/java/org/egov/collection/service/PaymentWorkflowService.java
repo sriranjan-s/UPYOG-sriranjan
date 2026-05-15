@@ -164,9 +164,10 @@ public class PaymentWorkflowService {
         	 uri.append(applicationProperties.getPgServiceHost()).append(applicationProperties.getInitiateRefundEndPoint());
         	 PaymentRequest paymentRequest = PaymentRequest.builder().payment(latestPayment).requestInfo(requestInfo).build();
         	 String errorResponse = null;
+        	 String refundStatusCode = "OTS0000";
         	 try {
         		 paymentResponse = restTemplate.postForObject(uri.toString(), paymentRequest,PaymentRefundResponse.class);
-        		 if("SUCCESS" != paymentResponse.getPaymentRefund().getRefundStatus()){
+        		 if(!refundStatusCode.equalsIgnoreCase(paymentResponse.getPaymentRefund().getGatewayStatusCode())){
         			 errorResponse = paymentResponse.getPaymentRefund().getGatewayStausMsg();
           			throw new CustomException("INITIATE_REFUND_CODE","Error while initiating Refund");
         		 }

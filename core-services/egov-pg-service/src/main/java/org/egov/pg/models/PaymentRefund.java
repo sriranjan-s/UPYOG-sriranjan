@@ -22,4 +22,6 @@ public class PaymentRefund {
 	private String refundStatus;
 	
 	private String gatewayStausMsg;
+	
+	private String gatewayStatusCode;
 }
