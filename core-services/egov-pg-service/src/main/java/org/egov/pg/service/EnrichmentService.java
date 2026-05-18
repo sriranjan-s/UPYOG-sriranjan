@@ -340,6 +340,7 @@ public class EnrichmentService {
 		paymentRefund.setRefundStatus(initiateRefund.getStatus().toString());
 		paymentRefund.setTransactionId(initiateRefund.getOriginalTxnId());
 		paymentRefund.setGatewayStausMsg(initiateRefund.getGatewayStatusMsg());
+		paymentRefund.setGatewayStatusCode(initiateRefund.getGatewayStatusCode());
 		
 	}
 
