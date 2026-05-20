@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.pg.config.AppProperties;
+import org.egov.pg.models.AuditDetails;
 import org.egov.pg.models.CollectionPayment;
 import org.egov.pg.models.PaymentRefund;
 import org.egov.pg.models.PaymentRequest;
@@ -66,6 +67,18 @@ public class RefundService {
 
 		producer.push(appProperties.getSaveRefundTxnsTopic(), new RefundRequest(requestInfo, refund));
 		Refund gatewayResponse = gatewayService.initiateRefund(refund);
+		AuditDetails auditDetails = gatewayResponse.getAuditDetails();
+		 
+		if (auditDetails == null) {
+		    auditDetails = new AuditDetails();
+		}		 
+		auditDetails.setLastModifiedBy(
+		        requestInfo.getUserInfo() != null
+		                ? requestInfo.getUserInfo().getUuid()
+		                : null);		 
+		auditDetails.setLastModifiedTime(System.currentTimeMillis());
+		 
+		gatewayResponse.setAuditDetails(auditDetails);
 		log.info("gatewayResponse INSIDE initiateRefund", gatewayResponse.toString() );
 		producer.push(appProperties.getUpdateRefundTxnsTopic(), new RefundRequest(requestInfo, gatewayResponse));
 
