@@ -59,12 +59,14 @@ public class RefundService {
 
 	public Refund initiateRefund(RefundRequest refundRequest) {
 		Refund refund = refundRequest.getRefund();
+		log.info("refund INSIDE initiateRefund", refund.toString() );
 		RequestInfo requestInfo = refundRequest.getRequestInfo();
-
+		log.info("requestInfo INSIDE initiateRefund", requestInfo.toString() );
 //		enrichmentService.enrichInitiateRefundRequest(refundRequest);
 
 		producer.push(appProperties.getSaveRefundTxnsTopic(), new RefundRequest(requestInfo, refund));
 		Refund gatewayResponse = gatewayService.initiateRefund(refund);
+		log.info("gatewayResponse INSIDE initiateRefund", gatewayResponse.toString() );
 		producer.push(appProperties.getUpdateRefundTxnsTopic(), new RefundRequest(requestInfo, gatewayResponse));
 
 		if (gatewayResponse.getStatus().equals(RefundStatusEnum.SUCCESS)) {

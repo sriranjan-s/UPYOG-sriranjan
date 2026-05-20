@@ -59,7 +59,7 @@ public class Refund {
     @Size(min = 1, max = 128)
     private String consumerCode;
 
-	@JsonProperty("refundTxnStatus")
+	@JsonProperty("status")
 	private RefundStatusEnum status;
 	
 	@JsonProperty("atomTxnId")
