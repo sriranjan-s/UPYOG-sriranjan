@@ -183,6 +183,8 @@ public class EnrichmentService {
 		  refund.setConsumerCode(transaction.getConsumerCode());
 		  refund.setGateway(transaction.getGateway());
 		  refund.setGatewayTxnId(transaction.getGatewayTxnId());
+		  refund.setServiceCode(PgConstants.PG_REFUND);
+		  
 		  
 		  refund.setStatus(Refund.RefundStatusEnum.INITIATED);
 			 
