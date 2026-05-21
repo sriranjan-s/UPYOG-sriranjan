@@ -111,7 +111,7 @@ public class RefundValidator {
 
 	public boolean skipGateway(Refund currentRefund) {
 		
-		return new BigDecimal(currentRefund.getRefundAmount()).compareTo(BigDecimal.ZERO) == 0;
+		return currentRefund.getRefundAmount().compareTo(BigDecimal.ZERO) == 0;
 	}
 
 }
