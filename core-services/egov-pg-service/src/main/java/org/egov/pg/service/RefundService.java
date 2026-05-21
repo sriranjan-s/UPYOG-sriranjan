@@ -67,16 +67,13 @@ public class RefundService {
 
 		producer.push(appProperties.getSaveRefundTxnsTopic(), new RefundRequest(requestInfo, refund));
 		Refund gatewayResponse = gatewayService.initiateRefund(refund);
-		AuditDetails auditDetails = gatewayResponse.getAuditDetails();
 		 
-		if (auditDetails == null) {
-		    auditDetails = new AuditDetails();
-		}		 
-		auditDetails.setLastModifiedBy(
-		        requestInfo.getUserInfo() != null
-		                ? requestInfo.getUserInfo().getUuid()
-		                : null);		 
-		auditDetails.setLastModifiedTime(System.currentTimeMillis());
+		
+		
+		AuditDetails auditDetails = AuditDetails.builder()
+                .lastModifiedBy(requestInfo.getUserInfo() != null ? requestInfo.getUserInfo().getUuid() : null)
+                .lastModifiedTime(System.currentTimeMillis())
+                .build();
 		 
 		gatewayResponse.setAuditDetails(auditDetails);
 		log.info("gatewayResponse INSIDE initiateRefund", gatewayResponse.toString() );
@@ -122,6 +119,8 @@ public class RefundService {
 				List<Transaction> status = transactionRepository.fetchTransactions(criteria);
 				TransactionRequest TxnRequest = TransactionRequest.builder().requestInfo(requestInfo)
 						.transaction(status.get(0)).build();
+			    TxnRequest.getTransaction().getAuditDetails().setLastModifiedBy(requestInfo.getUserInfo() != null ? requestInfo.getUserInfo().getUuid() : null);
+			    TxnRequest.getTransaction().getAuditDetails().setLastModifiedTime(System.currentTimeMillis());
 				paymentsService.refundTransaction(TxnRequest);
 			}
 		}
