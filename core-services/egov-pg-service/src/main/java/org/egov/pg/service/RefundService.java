@@ -119,8 +119,23 @@ public class RefundService {
 				List<Transaction> status = transactionRepository.fetchTransactions(criteria);
 				TransactionRequest TxnRequest = TransactionRequest.builder().requestInfo(requestInfo)
 						.transaction(status.get(0)).build();
-			    TxnRequest.getTransaction().getAuditDetails().setLastModifiedBy(requestInfo.getUserInfo() != null ? requestInfo.getUserInfo().getUuid() : null);
-			    TxnRequest.getTransaction().getAuditDetails().setLastModifiedTime(System.currentTimeMillis());
+				
+				Transaction transaction = TxnRequest.getTransaction();
+
+				AuditDetails auditDetails = transaction.getAuditDetails();
+
+				if (auditDetails == null) {
+				    auditDetails = new AuditDetails();
+				}
+
+				auditDetails.setLastModifiedBy(
+				        requestInfo.getUserInfo() != null
+				                ? requestInfo.getUserInfo().getUuid()
+				                : null);
+
+				auditDetails.setLastModifiedTime(System.currentTimeMillis());
+
+				transaction.setAuditDetails(auditDetails);
 				paymentsService.refundTransaction(TxnRequest);
 			}
 		}
