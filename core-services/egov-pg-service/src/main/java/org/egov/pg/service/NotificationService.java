@@ -152,7 +152,7 @@ public class NotificationService {
         }
 
         if (message.contains("{amount}")) {
-            message = message.replace("{amount}", refund.getRefundAmount());
+            message = message.replace("{amount}",String.valueOf(refund.getRefundAmount()));
         }
 
         if (message.contains("{txnId}")) {
