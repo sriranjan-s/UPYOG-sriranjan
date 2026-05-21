@@ -1,5 +1,7 @@
 package org.egov.pg.models;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -34,12 +36,12 @@ public class Refund {
 
 	@JsonProperty("serviceCode")
 	private String serviceCode;
-
+	
 	@JsonProperty("originalAmount")
-	private String originalAmount;
+	private BigDecimal	originalAmount;
 
 	@JsonProperty("refundAmount")
-	private String refundAmount;
+	private BigDecimal refundAmount;
 
 	@JsonProperty("gatewayTxnId")
 	private String gatewayTxnId;

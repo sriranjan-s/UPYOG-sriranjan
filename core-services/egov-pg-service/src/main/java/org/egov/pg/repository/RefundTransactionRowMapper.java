@@ -1,6 +1,7 @@
 package org.egov.pg.repository;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -44,8 +45,8 @@ public class RefundTransactionRowMapper implements RowMapper<Refund> {
                 .refundId(resultSet.getString("refund_id"))
                 .originalTxnId(resultSet.getString("original_txn_id"))
                 .serviceCode(resultSet.getString("service_code"))
-                .originalAmount(resultSet.getString("original_amount"))
-                .refundAmount(resultSet.getString("refund_amount"))
+                .originalAmount(new BigDecimal (resultSet.getString("original_amount")))	
+                .refundAmount(new BigDecimal (resultSet.getString("refund_amount")))
                 .gatewayTxnId(resultSet.getString("gateway_txn_id"))
                 .gateway(resultSet.getString("gateway"))
                 .status(Refund.RefundStatusEnum.fromValue(

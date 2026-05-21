@@ -177,8 +177,8 @@ public class EnrichmentService {
 		  
 		  
 		  refund.setOriginalTxnId(transaction.getTxnId());
-		  refund.setRefundAmount(transaction.getTxnAmount());
-		  refund.setOriginalAmount(transaction.getTxnAmount());
+		  refund.setRefundAmount(new BigDecimal(transaction.getTxnAmount()));
+		  refund.setOriginalAmount(new BigDecimal(transaction.getTxnAmount()));
 		  refund.setAtomTxnId(transaction.getAtomTxnId());
 		  refund.setConsumerCode(transaction.getConsumerCode());
 		  refund.setGateway(transaction.getGateway());
@@ -216,7 +216,7 @@ public class EnrichmentService {
 	    ProdDetails prodDetails = new ProdDetails();
 	    prodDetails.setProdRefundId(refundRequest.getRefundId());
 	    prodDetails.setProdName("NSE");
-	    prodDetails.setProdRefundAmount(Double.valueOf(refundRequest.getRefundAmount()));
+	    prodDetails.setProdRefundAmount(refundRequest.getRefundAmount().doubleValue());
 
 	    List<ProdDetails> prodDetailsList = new ArrayList();
 	    prodDetailsList.add(prodDetails);
@@ -254,8 +254,8 @@ public class EnrichmentService {
 	    return refundTxn;
 	}
 	
-	private String formatAmountSmart(String amount) {
-	    BigDecimal bd = new BigDecimal(amount);
+	private String formatAmountSmart(BigDecimal bd) {
+	    //BigDecimal bd = new BigDecimal(amount);
 
 	    if (bd.scale() <= 0 || bd.stripTrailingZeros().scale() <= 0) {
 	        return bd.setScale(1, RoundingMode.UNNECESSARY).toPlainString();

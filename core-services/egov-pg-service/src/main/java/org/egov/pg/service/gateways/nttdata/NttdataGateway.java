@@ -412,8 +412,7 @@ public class NttdataGateway implements Gateway {
 				status = Refund.RefundStatusEnum.SUCCESS;
 
 				return Refund.builder().refundId(refundRequest.getRefundId()).status(status)
-						.refundAmount(
-								String.valueOf(resp.getRefundPayInstrument().getPayDetails().getTotalRefundAmount()))
+						.refundAmount(BigDecimal.valueOf(resp.getRefundPayInstrument().getPayDetails().getTotalRefundAmount()))
 						.originalTxnId(refundRequest.getOriginalTxnId())
 						.gatewayStatusCode(resp.getRefundPayInstrument().getResponseDetails().getStatusCode())
 						.atomTxnId(resp.getRefundPayInstrument().getPayDetails().getAtomTxnId())
@@ -425,8 +424,7 @@ public class NttdataGateway implements Gateway {
 				 else 
 					status = Refund.RefundStatusEnum.FAILURE;
 				return Refund.builder().refundId(refundRequest.getRefundId()).status(status)
-						.refundAmount(
-								String.valueOf(resp.getRefundPayInstrument().getPayDetails().getTotalRefundAmount()))
+						.refundAmount(BigDecimal.valueOf(resp.getRefundPayInstrument().getPayDetails().getTotalRefundAmount()))
 						.originalTxnId(refundRequest.getOriginalTxnId())
 						.gatewayStatusCode(resp.getRefundPayInstrument().getResponseDetails().getStatusCode())
 						.gatewayStatusMsg(resp.getRefundPayInstrument().getResponseDetails().getDescription())
@@ -519,7 +517,7 @@ public class NttdataGateway implements Gateway {
 	                RefundStatus refundStatus = refundDetails.getRefundStatus().get(0);
 
 	                refundTxnId = String.valueOf(resp.getRefundPayInstrument().getPayDetails().getAtomTxnId());
-	                refundAmt = String.valueOf(refundStatus.getRefundAmt());
+	                refundAmt = refundStatus.getRefundAmt();
 	            }
 	        }
 	    } catch (Exception e) {
@@ -533,7 +531,7 @@ public class NttdataGateway implements Gateway {
 	            .originalTxnId(currentRefund.getOriginalTxnId())
 	            .serviceCode(currentRefund.getServiceCode())
 	            .originalAmount(currentRefund.getOriginalAmount())
-	            .refundAmount(refundAmt != null ? refundAmt : currentRefund.getRefundAmount())
+	            .refundAmount(refundAmt != null ? new BigDecimal(refundAmt) : currentRefund.getRefundAmount())
 	            .gateway(currentRefund.getGateway())
 	            .consumerCode(currentRefund.getConsumerCode())
 	            .gatewayTxnId(refundTxnId)
