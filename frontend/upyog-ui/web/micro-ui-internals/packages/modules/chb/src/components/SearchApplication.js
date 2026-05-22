@@ -70,6 +70,17 @@
       const [bookingDetails,setBookingDetails]=useState("");
       const [showModal,setShowModal] = useState(false)
       const mutation = Digit.Hooks.chb.useChbCreateAPI(tenantId, false);
+
+      const { data: recieptData } = Digit.Hooks.useRecieptSearch(
+        {
+          tenantId: tenantId,
+          businessService: "chb-services",
+          consumerCodes: bookingDetails?.bookingNo,
+          isEmployee: false,
+        },
+        { enabled: bookingDetails?.bookingNo ? true : false }
+      );
+      const paymentMode = recieptData?.Payments?.[0]?.paymentMode;
       // const { data: Menu } = Digit.Hooks.chb.useChbCommunityHalls(tenantId, "CHB", "CommunityHalls");
 
     const { data: Menu } = Digit.Hooks.useEnabledMDMS(tenantId, "CHB", [{ name: "CommunityHalls" }],
@@ -89,11 +100,15 @@
       menu.push({ i18nKey: `${one.code}`, code: `${one.code}`, value: `${one.name}` });
     });
       const GetCell = (value) => <span className="cell-text">{value}</span>;
-      const handleCancelBooking=async()=>{
+      const handleCancelBooking=async(data)=>{
         setShowModal(false)
         const updatedApplication = {
           ...bookingDetails,
-          bookingStatus: "CANCELLED"
+          bookingStatus: "CANCELLED",
+          additionalDetails: {
+            ...bookingDetails?.additionalDetails,
+            cancellationReason: data?.cancelReason || ""
+          }
         };
         await mutation.mutateAsync({
           hallsBookingApplication: updatedApplication
@@ -471,6 +486,7 @@
                 actionSaveLabel={"CHB_CANCEL"}
                 actionSaveOnSubmit={handleCancelBooking}   
                 onSubmit={handleCancelBooking} 
+                paymentMode={paymentMode}
                 >
             </CHBCancelBooking> }
           </React.Fragment>
