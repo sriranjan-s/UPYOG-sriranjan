@@ -43,6 +43,9 @@ const ApplicationDetails = () => {
     id: applicationDetails?.applicationData?.applicationData?.bookingNo,
     moduleCode: businessService,
     role: ["CHB_CEMP"],
+    config: {
+      enabled: !!(applicationDetails?.applicationData?.applicationData?.bookingNo),
+    },
   });
 
   const mutation = Digit.Hooks.chb.useChbCreateAPI(tenantId, false);
@@ -114,7 +117,7 @@ const ApplicationDetails = () => {
   useEffect(() => {
     if (refund && appDetailsToShow?.applicationData?.applicationDetails) {
       const refundSection = {
-        title: t("CHB_REFUND_DETAILS"),
+        title: "CHB_REFUND_DETAILS",
         asSectionHeader: true,
         values: [
           { title: t("CHB_REFUND_ID"), value: refund?.refundId || t("CS_NA") },
@@ -218,11 +221,11 @@ const ApplicationDetails = () => {
         hallsBookingApplication: updatedApplication
       });
       if (refundFailed) {
-        setShowToast({ 
-          key: "warning", 
-          error: { 
-            message: `${t("CHB_CANCELLATION_SUCCESS_BUT_REFUND_FAILED") || "Booking cancelled, but refund initiation failed"}${refundErrorMessage ? `: ${refundErrorMessage}` : ""}` 
-          } 
+        setShowToast({
+          key: "warning",
+          error: {
+            message: `${t("CHB_CANCELLATION_SUCCESS_BUT_REFUND_FAILED") || "Booking cancelled, but refund initiation failed"}${refundErrorMessage ? `: ${refundErrorMessage}` : ""}`
+          }
         });
       } else {
         setShowToast({ key: "success", action: { action: "CANCEL" } });
