@@ -15,7 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * ICICI Gateway implementation
  */
-@Component
+@Service
 @Slf4j
 public class ICICIGateway implements Gateway {
 
