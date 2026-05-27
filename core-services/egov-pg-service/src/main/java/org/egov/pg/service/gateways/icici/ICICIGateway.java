@@ -78,7 +78,9 @@ public class ICICIGateway implements Gateway {
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-
+			
+			log.info("ICICI request : {}", request);
+			
 			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(request, headers);
 
 			ResponseEntity<Map> response = restTemplate.exchange(INITIATE_SALE_URL, HttpMethod.POST, entity, Map.class);
@@ -93,7 +95,9 @@ public class ICICIGateway implements Gateway {
 			}
 
 			String responseCode = (String) responseBody.get("responseCode");
-
+			
+			log.info("responseCode : {}", responseCode);
+			
 			if (!"R1000".equals(responseCode)) {
 
 				throw new RuntimeException("ICICI payment initiation failed : " + responseBody);
@@ -107,7 +111,7 @@ public class ICICIGateway implements Gateway {
 
 		} catch (Exception ex) {
 
-			log.error("Error while generating ICICI redirect URI", ex);
+			log.info("Error while generating ICICI redirect URI", ex);
 
 			throw new RuntimeException("ICICI payment initiation failed", ex);
 		}
@@ -168,7 +172,7 @@ public class ICICIGateway implements Gateway {
 
 		} catch (Exception ex) {
 
-			log.error("Error while fetching ICICI payment status", ex);
+			log.info("Error while fetching ICICI payment status", ex);
 
 			throw new RuntimeException("ICICI payment status fetch failed", ex);
 		}
@@ -220,7 +224,7 @@ public class ICICIGateway implements Gateway {
 		request.put("merchantId", MERCHANT_ID);
 		request.put("merchantTxnNo", transaction.getTxnId());
 
-		request.put("amount", transaction.getTxnAmount());
+		request.put("amount", String.format("%.2f", transaction.getTxnAmount()));
 
 		request.put("currencyCode", CURRENCY_CODE);
 
@@ -230,7 +234,7 @@ public class ICICIGateway implements Gateway {
 
 		request.put("transactionType", "SALE");
 
-		request.put("returnURL", REDIRECT_URL);
+		request.put("returnURL", transaction.getCallbackUrl());
 
 		request.put("txnDate", ICICIUtils.getCurrentTxnDate());
 
@@ -240,7 +244,7 @@ public class ICICIGateway implements Gateway {
 
 		request.put("addlParam1", transaction.getProductInfo());
 		request.put("addlParam2", transaction.getModule());
-
+		log.info("request", request);
 		return request;
 	}
 
