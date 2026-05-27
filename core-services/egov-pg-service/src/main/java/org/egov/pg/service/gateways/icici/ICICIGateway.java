@@ -1,5 +1,7 @@
 package org.egov.pg.service.gateways.icici;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +71,8 @@ public class ICICIGateway implements Gateway {
 	public URI generateRedirectURI(Transaction transaction) {
 
 		try {
-
+			log.info("ICICI request transaction: {}", transaction);
+			
 			Map<String, Object> request = buildInitiateSaleRequest(transaction);
 
 			String secureHash = ICICIUtils.generateSecureHash(request, SECURE_SECRET);
@@ -77,6 +80,7 @@ public class ICICIGateway implements Gateway {
 			request.put("secureHash", secureHash);
 
 			HttpHeaders headers = new HttpHeaders();
+			
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			
 			log.info("ICICI request : {}", request);
@@ -172,7 +176,7 @@ public class ICICIGateway implements Gateway {
 
 		} catch (Exception ex) {
 
-			log.info("Error while fetching ICICI payment status", ex);
+			log.info("Error while fetching ICICI payment status:{}", ex);
 
 			throw new RuntimeException("ICICI payment status fetch failed", ex);
 		}
@@ -218,13 +222,13 @@ public class ICICIGateway implements Gateway {
 	 * =============================================
 	 */
 	private Map<String, Object> buildInitiateSaleRequest(Transaction transaction) {
-
+		log.info("request transaction :{}", transaction);
 		Map<String, Object> request = new HashMap<>();
 
 		request.put("merchantId", MERCHANT_ID);
 		request.put("merchantTxnNo", transaction.getTxnId());
 
-		request.put("amount", String.format("%.2f", transaction.getTxnAmount()));
+		request.put("amount", new BigDecimal(transaction.getTxnAmount()).setScale(2, RoundingMode.HALF_UP).toString());
 
 		request.put("currencyCode", CURRENCY_CODE);
 
@@ -244,7 +248,7 @@ public class ICICIGateway implements Gateway {
 
 		request.put("addlParam1", transaction.getProductInfo());
 		request.put("addlParam2", transaction.getModule());
-		log.info("request", request);
+		log.info("request :{}", request);
 		return request;
 	}
 
