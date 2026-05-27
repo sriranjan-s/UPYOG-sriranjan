@@ -90,7 +90,9 @@ const ApplicationDetails = () => {
 
   const isCancelled = appDetailsToShow?.applicationData?.applicationData?.bookingStatus === "CANCELLED";
   const isOnline = reciept_data?.Payments?.[0]?.paymentMode === "ONLINE";
-  const isRefunded = reciept_data?.Payments?.[0]?.instrumentStatus === "REFUNDED";
+  // instrumentStatus is the authoritative final state from the payment gateway
+  const instrumentStatus = reciept_data?.Payments?.[0]?.instrumentStatus;
+  const isRefunded = instrumentStatus === "REFUNDED";
   const originalTxnId = reciept_data?.Payments?.[0]?.transactionNumber;
 
   const { data: refundData } = Digit.Hooks.useCustomAPIHook(
@@ -107,12 +109,23 @@ const ApplicationDetails = () => {
   );
 
   const refund = refundData?.Refund?.[0] || refundData?.Refunds?.[0] || refundData?.[0];
+  // Show the exact refund pipeline status from the API (INITIATED, SUCCESS, etc.)
   const refundStatus = refund?.status || refund?.refundStatus;
-  const isRefundInProgress = refundStatus && (
+
+  const isRefundSuccess = refundStatus?.toUpperCase() === "REFUNDED" ||
+    refundStatus?.toUpperCase() === "SUCCESS" ||
+    refundStatus?.toUpperCase() === "SUCCESSFUL" ||
+    refundStatus?.toUpperCase() === "COMPLETED";
+  const isRefundInProgress = !isRefundSuccess && refundStatus && (
     refundStatus.toUpperCase() === "IN_PROGRESS" ||
     refundStatus.toUpperCase() === "INPROGRESS" ||
     refundStatus.toUpperCase() === "INITIATED"
   );
+  const refundBannerStyle = isRefundSuccess
+    ? { backgroundColor: "#D4EDDA", border: "1px solid #C3E6CB", color: "#155724" }
+    : isRefundInProgress
+    ? { backgroundColor: "#FFF3CD", border: "1px solid #FFEBAA", color: "#856404" }
+    : { backgroundColor: "#E2E3E5", border: "1px solid #D6D8DB", color: "#383D41" };
 
   useEffect(() => {
     if (refund && appDetailsToShow?.applicationData?.applicationDetails) {
@@ -270,9 +283,9 @@ const ApplicationDetails = () => {
           )}
         </div>
       </div>
-      {isRefundInProgress && (
-        <div style={{ padding: "10px 16px", backgroundColor: "#FFF3CD", border: "1px solid #FFEBAA", color: "#856404", borderRadius: "4px", marginBottom: "16px", fontWeight: "bold", fontSize: "16px" }}>
-          Refund status  -  {refundStatus}
+      {(isRefundInProgress || refundStatus || isRefunded) && (
+        <div style={{ padding: "10px 16px", borderRadius: "4px", marginBottom: "16px", fontWeight: "bold", fontSize: "16px", ...refundBannerStyle }}>
+          {t("CHB_REFUND_STATUS") || "Refund Status"} &mdash; {refundStatus || (isRefunded ? "REFUNDED" : "")}
         </div>
       )}
       <ApplicationDetailsTemplate
