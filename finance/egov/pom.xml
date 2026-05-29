@@ -125,7 +125,8 @@
         </repository>
         <repository>
 			<id>javaxt.com</id>
-			<url>https://www.javaxt.com/maven</url>
+			<!--<url>https://www.javaxt.com/maven</url>-->
+            <url>https://upyog-nexus.niua.org/nexus/content/repositories/thirdparty/javaxt/</url>
 		</repository>
     </repositories>
 
