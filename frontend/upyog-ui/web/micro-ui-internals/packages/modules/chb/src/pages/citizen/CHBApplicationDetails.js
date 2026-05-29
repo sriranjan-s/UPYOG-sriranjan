@@ -68,7 +68,7 @@ const CHBApplicationDetails = () => {
   const { data: storeData } = Digit.Hooks.useStore.getInitData();
   const { tenants } = storeData || {};
 
-  const { isLoading, isError, error, data,refetch } = Digit.Hooks.chb.useChbSearch({
+  const { isLoading, isError, error, data, refetch } = Digit.Hooks.chb.useChbSearch({
     tenantId,
     filters: { bookingNo: acknowledgementIds },
   });
@@ -117,6 +117,45 @@ const CHBApplicationDetails = () => {
     },
     { enabled: acknowledgementIds ? true : false }
   );
+
+  const isCancelled = chb_details?.bookingStatus === "CANCELLED";
+  const isOnline = reciept_data?.Payments?.[0]?.paymentMode === "ONLINE";
+  const originalTxnId = reciept_data?.Payments?.[0]?.transactionNumber;
+  // instrumentStatus is the authoritative final state from the payment gateway
+  const instrumentStatus = reciept_data?.Payments?.[0]?.instrumentStatus;
+  const isRefunded = instrumentStatus === "REFUNDED";
+
+  const { data: refundData } = Digit.Hooks.useCustomAPIHook(
+    "/pg-service/refund/v1/_search",
+    {
+      originalTxnId: originalTxnId,
+      tenantId: reciept_data?.Payments?.[0]?.tenantId || tenantId,
+    },
+    {},
+    {},
+    {
+      enabled: !!(isCancelled && isOnline && originalTxnId),
+    }
+  );
+
+  const refund = refundData?.Refund?.[0] || refundData?.Refunds?.[0] || refundData?.[0];
+  // Show the exact refund pipeline status from the API (INITIATED, SUCCESS, etc.)
+  const refundStatus = refund?.status || refund?.refundStatus;
+
+  const isRefundSuccess = refundStatus?.toUpperCase() === "REFUNDED" ||
+    refundStatus?.toUpperCase() === "SUCCESS" ||
+    refundStatus?.toUpperCase() === "SUCCESSFUL" ||
+    refundStatus?.toUpperCase() === "COMPLETED";
+  const isRefundInProgress = !isRefundSuccess && refundStatus && (
+    refundStatus.toUpperCase() === "IN_PROGRESS" ||
+    refundStatus.toUpperCase() === "INPROGRESS" ||
+    refundStatus.toUpperCase() === "INITIATED"
+  );
+  const refundBannerStyle = isRefundSuccess
+    ? { backgroundColor: "#D4EDDA", border: "1px solid #C3E6CB", color: "#155724" }
+    : isRefundInProgress
+    ? { backgroundColor: "#FFF3CD", border: "1px solid #FFEBAA", color: "#856404" }
+    : { backgroundColor: "#E2E3E5", border: "1px solid #D6D8DB", color: "#383D41" };
   //WorkFlow
   // if (!chb_details.workflow) {
   //   let workflow = {
@@ -159,17 +198,17 @@ const CHBApplicationDetails = () => {
     let application = data?.hallsBookingApplication?.[0];
     let fileStoreId = application?.paymentReceiptFilestoreId
     if (!fileStoreId) {
-    let response = { filestoreIds: [payments?.fileStoreId] };
-    response = await Digit.PaymentService.generatePdf(tenantId, { Payments: [{ ...payments }] }, "chbservice-receipt");
-    const updatedApplication = {
-      ...application,
-      paymentReceiptFilestoreId: response?.filestoreIds[0]
-    };
-    await mutation.mutateAsync({
-      hallsBookingApplication: updatedApplication
-    });
-    fileStoreId = response?.filestoreIds[0];
-    refetch();
+      let response = { filestoreIds: [payments?.fileStoreId] };
+      response = await Digit.PaymentService.generatePdf(tenantId, { Payments: [{ ...payments }] }, "chbservice-receipt");
+      const updatedApplication = {
+        ...application,
+        paymentReceiptFilestoreId: response?.filestoreIds[0]
+      };
+      await mutation.mutateAsync({
+        hallsBookingApplication: updatedApplication
+      });
+      fileStoreId = response?.filestoreIds[0];
+      refetch();
     }
     const fileStore = await Digit.PaymentService.printReciept(tenantId, { fileStoreIds: fileStoreId });
     window.open(fileStore[fileStoreId], "_blank");
@@ -180,7 +219,7 @@ const CHBApplicationDetails = () => {
     if (!fileStoreId) {
       const response = await Digit.PaymentService.generatePdf(
         tenantId,
-        { hallsBookingApplication: [application] }, 
+        { hallsBookingApplication: [application] },
         "chbpermissionletter"
       );
       const updatedApplication = {
@@ -230,7 +269,7 @@ const CHBApplicationDetails = () => {
   //     label: t("CHB_CERTIFICATE"),
   //     onClick: () => printCertificate(),
   //   });
-    
+
   //   const getBookingDateRange = (bookingSlotDetails) => {
   //     if (!bookingSlotDetails || bookingSlotDetails.length === 0) {
   //       return t("CS_NA");
@@ -260,20 +299,20 @@ const CHBApplicationDetails = () => {
   //     // Return formatted time range
   //     return startTime ? `${startTime} - ${defaultEndTime}` : t("CS_NA");
   //   };
-    const columns = [
-      { Header: `${t("CHB_HALL_NAME")}` + "/" + `${t("CHB_PARK")}`, accessor: "communityHallCode" },
-      { Header: `${t("CHB_HALL_CODE")}`, accessor: "hallCode" },
-      { Header: `${t("CHB_BOOKING_DATE")}`, accessor: "bookingDate" },
-      { Header: `${t("PT_COMMON_TABLE_COL_STATUS_LABEL")}`, accessor: "bookingStatus" }
-    ];
-    const slotlistRows = chb_details?.bookingSlotDetails?.map((slot) => (
-      {
-        communityHallCode: `${t(chb_details?.communityHallCode)}`,
-        hallCode:slot.hallCode + " - " + slot.capacity,
-        bookingDate:slot.bookingDate + " (" + slot.bookingFromTime + " - " + slot.bookingToTime + ")",
-        bookingStatus:`${t(slot.status)}`
-      }
-    )) || [];
+  const columns = [
+    { Header: `${t("CHB_HALL_NAME")}` + "/" + `${t("CHB_PARK")}`, accessor: "communityHallCode" },
+    { Header: `${t("CHB_HALL_CODE")}`, accessor: "hallCode" },
+    { Header: `${t("CHB_BOOKING_DATE")}`, accessor: "bookingDate" },
+    { Header: `${t("PT_COMMON_TABLE_COL_STATUS_LABEL")}`, accessor: "bookingStatus" }
+  ];
+  const slotlistRows = chb_details?.bookingSlotDetails?.map((slot) => (
+    {
+      communityHallCode: `${t(chb_details?.communityHallCode)}`,
+      hallCode: slot.hallCode + " - " + slot.capacity,
+      bookingDate: slot.bookingDate + " (" + slot.bookingFromTime + " - " + slot.bookingToTime + ")",
+      bookingStatus: `${t(slot.status)}`
+    }
+  )) || [];
   return (
     <React.Fragment>
       <div>
@@ -289,6 +328,11 @@ const CHBApplicationDetails = () => {
           )}
         </div>
         <Card>
+          {(isRefundInProgress || refundStatus || isRefunded) && (
+            <div style={{ padding: "10px 16px", borderRadius: "4px", marginBottom: "16px", fontWeight: "bold", fontSize: "16px", ...refundBannerStyle }}>
+              {t("CHB_REFUND_STATUS") || "Refund Status"} &mdash; {refundStatus || (isRefunded ? "REFUNDED" : "")}
+            </div>
+          )}
           <StatusTable>
             <Row className="border-none" label={t("CHB_BOOKING_NO")} text={chb_details?.bookingNo} />
           </StatusTable>
@@ -348,13 +392,25 @@ const CHBApplicationDetails = () => {
               {docs.map((doc, index) => (
                 <div key={`doc-${index}`} className="chb-doc-item">
                   <div>
-                    <CardSectionHeader>{t("CHB_" + (doc?.documentType?.split('.').slice(0,2).join('_')))}</CardSectionHeader>
+                    <CardSectionHeader>{t("CHB_" + (doc?.documentType?.split('.').slice(0, 2).join('_')))}</CardSectionHeader>
                     <CHBDocument value={docs} Code={doc?.documentType} index={index} />
                   </div>
                 </div>
               ))}
             </Card>
-         </StatusTable>
+          </StatusTable>
+
+          {refund && (
+            <React.Fragment>
+              <CardSubHeader style={{ fontSize: "24px" }}>{t("CHB_REFUND_DETAILS")}</CardSubHeader>
+              <StatusTable>
+                <Row className="border-none" label={t("CHB_REFUND_ID")} text={refund?.refundId || t("CS_NA")} />
+                <Row className="border-none" label={t("CHB_REFUND_AMOUNT")} text={refund?.refundAmount ? `₹${refund.refundAmount}` : t("CS_NA")} />
+                <Row className="border-none" label={t("CHB_REFUND_STATUS")} text={refundStatus || t("CS_NA")} />
+                {/* <Row className="border-none" label={t("CHB_REFUND_TXN_ID")} text={refund?.txnId || t("CS_NA")} /> */}
+              </StatusTable>
+            </React.Fragment>
+          )}
 
           <CHBWFApplicationTimeline application={application} id={application?.bookingNo} userType={"citizen"} />
           {showToast && (

@@ -166,10 +166,13 @@ public class ElasticService implements IESService {
 
         try {
 			ResponseEntity<Object> response = retryTemplate.postForEntity(url,requestEntity);
-
+			LOGGER.error("--response inside search: " , response);
             Map responseNode = new ObjectMapper().convertValue(response.getBody(), Map.class);
+            LOGGER.error("--responseNode inside search: " , responseNode);
 			Map hits = (Map)responseNode.get("hits");
-            if((Integer)hits.get("total") >=1)
+			LOGGER.error("--hits inside search : " , hits);
+			Map hitsTotalMap = (Map)hits.get("total");
+            if((Integer)hitsTotalMap.get("value") >=1)
                 return (Map)((ArrayList)hits.get("hits")).get(0);
 
         } catch (HttpClientErrorException e) {
@@ -177,11 +180,15 @@ public class ElasticService implements IESService {
             LOGGER.error("client error while searching ES : " + e.getMessage());
 
         }
+         catch (Exception e) {
+        	 LOGGER.error("EXCEPTION on ES search : " , e.getMessage());
+         }
         return null;
     }
 	
 	@Override
 	public Boolean push(Map requestBody) throws Exception {
+		LOGGER.info("----INSIDE push of ElasticService----  collectionIndexName: "+collectionIndexName);
 
 		Object id = requestBody.get(Constants.IDENTIFIER);
 		Object trxid = ((Map)requestBody.get(Constants.DATA_OBJECT)).get(Constants.TRANSACTION_ID);
@@ -224,7 +231,7 @@ public class ElasticService implements IESService {
 
 	@Override
 	public Boolean push(TargetData requestBody) throws Exception {
-
+		LOGGER.info("----INSIDE push of ElasticService(TargetData)----targetIndexName: " +targetIndexName );
 		Long currentDateTime = new Date().getTime();
 		String url = indexerServiceHost + targetIndexName + DOC_TYPE + requestBody.getId();
 
@@ -312,10 +319,13 @@ public class ElasticService implements IESService {
 	
 	@Override
     public List searchMultiple(String index, String searchQuery) throws Exception {
-
+		LOGGER.info("searchMultiple ES for query: " + searchQuery + " on " + index);
         String url = indexServiceHost + index + indexServiceHostSearch;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpHeaders headers = getHttpHeaders();
+        LOGGER.info("headers inside searchMultiple" +headers);
+        
 
         LOGGER.info("searching searchMultiple ES for query::" + searchQuery + "::on::" + index + "::ON URL::" + url);
 
@@ -323,11 +333,17 @@ public class ElasticService implements IESService {
 
         try {
 			ResponseEntity<Object> response = retryTemplate.postForEntity(url,requestEntity);
-
+			LOGGER.error("--response inside searchMultiple : " , response);
             Map responseNode = new ObjectMapper().convertValue(response.getBody(), Map.class);
+            LOGGER.error("--responseNode inside searchMultiple : " , responseNode);
 			Map hits = (Map)responseNode.get("hits");
-            if((Integer)hits.get("total") >=1)
-                return (List) ((ArrayList)hits.get("hits"));
+			LOGGER.error("--hits inside searchMultiple : " , hits);
+			Map hitsTotalMap = (Map)hits.get("total");
+            if((Integer)hitsTotalMap.get("value") >=1)
+            	return (List) hits.get("hits");
+            
+//            if((Integer)hits.get("total") >=1)
+//                return (List) ((ArrayList)hits.get("hits"));
 
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
