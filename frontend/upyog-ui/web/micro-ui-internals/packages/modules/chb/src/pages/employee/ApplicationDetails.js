@@ -5,6 +5,7 @@
     import { useParams } from "react-router-dom";
     import ApplicationDetailsTemplate from "../../../../templates/ApplicationDetails";
     import getChbAcknowledgementData from "../../getChbAcknowledgementData";
+    import "../../css/chb-inline.css";
 
 /*
     The ApplicationDetails component fetches and displays details of a community hall booking 
@@ -141,9 +142,9 @@
 
       return (
         <div>
-        <div className={"employee-application-details"} style={{ marginBottom: "15px" }}>
-          <Header styles={{ marginLeft: "0px", paddingTop: "10px", fontSize: "32px" }}>{t("CHB_BOOKING_DETAILS")}</Header>
-          <div style={{zIndex: "10",display:"flex",flexDirection:"row-reverse",alignItems:"center",marginTop:"-25px"}}>
+        <div className={"employee-application-details chb-employee-app-details-wrapper"}>
+          <Header className="chb-employee-header">{t("CHB_BOOKING_DETAILS")}</Header>
+          <div className="chb-download-options-row">
             {dowloadOptions && dowloadOptions.length > 0 && (
               <MultiLink
                 className="multilinkWrapper employee-mulitlink-main-div"
