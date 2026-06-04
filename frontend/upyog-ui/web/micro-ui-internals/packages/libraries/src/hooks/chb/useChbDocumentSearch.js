@@ -35,7 +35,13 @@ const useChbDocumentSearch = ({ application }, config = {}, Code, index) => {
     newDocs.push(ob);
   })
   const filesArray = newDocs.map((value) => value?.fileStoreId);
-  const { isLoading, error, data } = useQuery([`chbDocuments-${bookingId}`, filesArray], () => Digit.UploadServices.Filefetch(filesArray, tenant));
+  const { isLoading, error, data } = useQuery(
+    [`chbDocuments-${bookingId}`, filesArray],
+    () => Digit.UploadServices.Filefetch(filesArray, tenant),
+    {
+      enabled: filesArray && filesArray.length > 0 && !!bookingId,
+    }
+  );
   return { isLoading, error, data: { pdfFiles: data?.data }, revalidate: () => client.invalidateQueries([`chbDocuments-${bookingId}`, filesArray]) };
   
 };

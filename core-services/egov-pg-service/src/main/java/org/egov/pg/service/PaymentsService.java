@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.egov.pg.config.AppProperties;
+
+import org.egov.pg.models.AuditDetails;
+import org.egov.pg.models.Bill;
+
 import org.egov.pg.models.CollectionPayment;
 import org.egov.pg.models.CollectionPaymentDetail;
 import org.egov.pg.models.CollectionPaymentRequest;
@@ -115,6 +119,69 @@ public class PaymentsService {
 				.transactionNumber("PROV_PAYMENT_VALIDATION")
 				.payerName(request.getTransaction().getUser().getName())
 				.build();
+	}
+
+
+
+	public void refundTransaction(TransactionRequest request) {
+
+	    CollectionPayment payment = getPaymentFromTransaction(request);
+
+	    AuditDetails txnAudit = request.getTransaction().getAuditDetails();
+
+	    // Null safety
+	    if (txnAudit == null) {
+
+	        Long currentTime = System.currentTimeMillis();
+
+	        txnAudit = AuditDetails.builder().createdBy(request.getRequestInfo().getUserInfo() != null
+	                        ? request.getRequestInfo().getUserInfo().getUuid(): null).createdTime(currentTime)
+	                .lastModifiedBy(request.getRequestInfo().getUserInfo() != null
+	                        ? request.getRequestInfo().getUserInfo().getUuid()
+	                        : null)
+	                .lastModifiedTime(currentTime)
+	                .build();
+	    }
+
+	    log.info("txnAudit before refundTransaction :: {}", txnAudit);
+
+	    // Create fresh audit object
+	    AuditDetails auditDetails = AuditDetails.builder()
+	            .createdBy(txnAudit.getCreatedBy())
+	            .createdTime(txnAudit.getCreatedTime())
+	            .lastModifiedBy(txnAudit.getLastModifiedBy())
+	            .lastModifiedTime(txnAudit.getLastModifiedTime())
+	            .build();
+
+	    payment.setInstrumentDate(auditDetails.getCreatedTime());
+	    payment.setInstrumentNumber(request.getTransaction().getTxnId());
+	    payment.setTransactionNumber(request.getTransaction().getTxnId());
+	    payment.setAdditionalDetails(
+	            (JsonNode) request.getTransaction().getAdditionalDetails());
+
+	    // Set audit details
+	    payment.setAuditDetails(auditDetails);
+
+	    if (payment.getPaymentDetails() != null
+	            && !payment.getPaymentDetails().isEmpty()) {
+
+	        payment.getPaymentDetails().get(0).setAuditDetails(auditDetails);
+
+	        Bill bill = new Bill();
+	        bill.setAuditDetails(auditDetails);
+
+	        payment.getPaymentDetails().get(0).setBill(bill);
+	    }
+
+	    CollectionPaymentRequest paymentRequest =
+	            CollectionPaymentRequest.builder()
+	                    .requestInfo(request.getRequestInfo())
+	                    .payment(payment)
+	                    .build();
+
+	    log.info("Refund Audit Details :: {}", auditDetails);
+
+	    producer.push(props.getPaymentRefundTopic(), paymentRequest);
 	}
 
 }

@@ -45,5 +45,17 @@ public class IdGenService {
     }
 
 
+	public String generateRefundId(RefundRequest refundRequest) {
+		Refund refund = refundRequest.getRefund();
+		IdGenerationResponse response = idGenRepository.getId(refundRequest.getRequestInfo(), refund.getTenantId(),
+                appProperties.getIdGenRefundName(), appProperties.getIdGenRefundFormat(), 1);
+		
+		String refundId = response.getIdResponses().get(0).getId();
+        log.info("Refund ID Generated: " + refundId); 
+		return refundId;
+	}
+
+
+
 }
 
