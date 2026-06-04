@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.egov.pg.config.AppProperties;
-
 import org.egov.pg.models.AuditDetails;
 import org.egov.pg.models.Bill;
-
 import org.egov.pg.models.CollectionPayment;
 import org.egov.pg.models.CollectionPaymentDetail;
 import org.egov.pg.models.CollectionPaymentRequest;
 import org.egov.pg.models.CollectionPaymentResponse;
 import org.egov.pg.models.TaxAndPayment;
 import org.egov.pg.models.enums.CollectionPaymentModeEnum;
+import org.egov.pg.producer.Producer;
 import org.egov.pg.repository.ServiceCallRepository;
 import org.egov.pg.web.models.TransactionRequest;
 import org.egov.tracer.model.CustomException;
@@ -24,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +39,9 @@ public class PaymentsService {
 	
 	@Autowired
 	private ObjectMapper mapper;
+	
+	@Autowired
+	private Producer producer;
 	
 	public CollectionPayment registerPayment(TransactionRequest request) {
 		CollectionPayment payment = getPaymentFromTransaction(request);
@@ -122,7 +124,6 @@ public class PaymentsService {
 	}
 
 
-
 	public void refundTransaction(TransactionRequest request) {
 
 	    CollectionPayment payment = getPaymentFromTransaction(request);
@@ -183,5 +184,4 @@ public class PaymentsService {
 
 	    producer.push(props.getPaymentRefundTopic(), paymentRequest);
 	}
-
 }

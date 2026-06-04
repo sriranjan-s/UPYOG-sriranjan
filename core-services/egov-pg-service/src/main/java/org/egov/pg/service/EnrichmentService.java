@@ -4,21 +4,39 @@ import static java.util.Collections.singletonMap;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.pg.constants.PgConstants;
 import org.egov.pg.constants.TransactionAdditionalFields;
 import org.egov.pg.models.AuditDetails;
 import org.egov.pg.models.BankAccount;
+import org.egov.pg.models.CollectionPayment;
+import org.egov.pg.models.PaymentRefund;
+import org.egov.pg.models.Refund;
+import org.egov.pg.models.Refund.RefundStatusEnum;
+import org.egov.pg.models.RefundRequest;
 import org.egov.pg.models.Transaction;
 import org.egov.pg.repository.BankAccountRepository;
+import org.egov.pg.repository.TransactionRepository;
+import org.egov.pg.service.gateways.nttdata.AtomSignature;
+import org.egov.pg.service.gateways.nttdata.HeadDetails;
+import org.egov.pg.service.gateways.nttdata.MerchDetails;
+import org.egov.pg.service.gateways.nttdata.PayDetails;
+import org.egov.pg.service.gateways.nttdata.PayInstrument;
+import org.egov.pg.service.gateways.nttdata.ProdDetails;
+import org.egov.pg.service.gateways.nttdata.RefundTransaction;
+import org.egov.pg.web.models.TransactionCriteria;
 import org.egov.pg.web.models.TransactionRequest;
+import org.egov.tracer.model.CustomException;
 import org.egov.pg.web.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +45,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import jakarta.validation.Valid;
 
 import java.util.Collections;
 import java.util.Map;
@@ -42,13 +62,15 @@ public class EnrichmentService {
     private BankAccountRepository bankAccountRepository;
     private ObjectMapper objectMapper;
     private UserService userService;
+    private TransactionRepository transactionRepository;
 
     @Autowired
-    EnrichmentService(IdGenService idGenService, BankAccountRepository bankAccountRepository, ObjectMapper objectMapper, UserService userService) {
+    EnrichmentService(IdGenService idGenService, BankAccountRepository bankAccountRepository, ObjectMapper objectMapper, UserService userService,TransactionRepository transactionRepository) {
         this.idGenService = idGenService;
         this.bankAccountRepository = bankAccountRepository;
         this.objectMapper = objectMapper;
         this.userService = userService;
+        this.transactionRepository=transactionRepository;
     }
 
     void enrichCreateTransaction(TransactionRequest transactionRequest) {
@@ -116,7 +138,6 @@ public class EnrichmentService {
         newTxn.setReceipt(currentTxnStatus.getReceipt());
 
     }
-
 
 
 	private void setIdFromIdGen(RefundRequest refundRequest) {
@@ -324,6 +345,5 @@ public class EnrichmentService {
 		paymentRefund.setGatewayStatusCode(initiateRefund.getGatewayStatusCode());
 		
 	}
-
 
 }

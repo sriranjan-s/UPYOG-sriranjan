@@ -1,11 +1,17 @@
 package org.egov.pg.service.gateways.nttdata;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 import java.util.Map;
 
+import org.egov.pg.models.Refund;
 import org.egov.pg.models.Transaction;
+import org.egov.pg.service.EnrichmentService;
 import org.egov.pg.service.Gateway;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +45,16 @@ public class NttdataGateway implements Gateway {
 
     private final String ORIGINAL_RETURN_URL_KEY;
     private final String REDIRECT_URL;
+    private final String REFUND_API;
+    private final String REFUND_STATUS_API;
+    private final EnrichmentService enrichmentService;
     private RestTemplate restTemplate;
 
     @Autowired
-    public NttdataGateway(RestTemplate restTemplate, ObjectMapper objectMapper, Environment environment) {
+    public NttdataGateway(RestTemplate restTemplate, ObjectMapper objectMapper, Environment environment,EnrichmentService enrichmentService) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.enrichmentService = enrichmentService;
 
         ACTIVE = Boolean.valueOf(environment.getRequiredProperty("nttdata.active"));
         MERCHANT_ID =  environment.getRequiredProperty("nttdata.merchant.id");
@@ -53,7 +63,8 @@ public class NttdataGateway implements Gateway {
         MERCHANT_PATH_STATUS = environment.getRequiredProperty("nttdata.gateway.url.status");
         REDIRECT_URL = environment.getRequiredProperty("nttdata.redirect.url");
         ORIGINAL_RETURN_URL_KEY = environment.getRequiredProperty("nttdata.original.return.url.key");
-        
+        REFUND_API = environment.getRequiredProperty("nttdata.refund.url");
+        REFUND_STATUS_API=environment.getRequiredProperty("nttdata.refund.url.status");
     }
 
     public ResponseParser decryptData(String encData)
@@ -348,7 +359,6 @@ public class NttdataGateway implements Gateway {
         return null;
     }
 
-
     
     @Override
 	public Refund initiateRefund(Refund refundRequest) {
@@ -536,7 +546,6 @@ public class NttdataGateway implements Gateway {
 	
 
 	
-
 
 
 
