@@ -18,9 +18,12 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.egov.collection.config.ApplicationProperties;
+import org.egov.collection.consumer.PaymentRefundConsumer;
 import org.egov.collection.model.Payment;
+import org.egov.collection.model.PaymentRefund;
 import org.egov.collection.model.PaymentRefundResponse;
 import org.egov.collection.model.PaymentRequest;
+import org.egov.collection.model.PaymentResponse;
 import org.egov.collection.model.PaymentSearchCriteria;
 import org.egov.collection.model.enums.InstrumentStatusEnum;
 import org.egov.collection.model.enums.PaymentModeEnum;
@@ -31,11 +34,13 @@ import org.egov.collection.util.PaymentWorkflowValidator;
 import org.egov.collection.web.contract.Bill;
 import org.egov.collection.web.contract.PaymentWorkflow;
 import org.egov.collection.web.contract.PaymentWorkflowRequest;
+import org.egov.collection.web.contract.factory.ResponseInfoFactory;
 import org.egov.common.contract.request.RequestInfo;
 import org.egov.tracer.model.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -77,7 +82,7 @@ public class PaymentWorkflowService {
      * @return updated receipts
      */
     @Transactional
-    public List<Payment> performWorkflow(PaymentWorkflowRequest paymentWorkflowRequest){
+    public Object performWorkflow(PaymentWorkflowRequest paymentWorkflowRequest){
 
         // Basic validations
 
@@ -128,6 +133,9 @@ public class PaymentWorkflowService {
                 processedPayments = remit(workflowRequestByPaymentId, consumerCodes,
                         paymentWorkflowRequest.getRequestInfo(), tenantId);
                 break;
+        case REFUND:
+        	return refund(workflowRequestByPaymentId, consumerCodes,
+        			paymentWorkflowRequest.getRequestInfo(), tenantId);
         }
 
         return processedPayments;
