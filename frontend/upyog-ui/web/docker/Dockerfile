@@ -5,6 +5,34 @@ RUN apk add --no-cache git>2.30.0
 
 RUN yarn config set ignore-engines true
 
+RUN yarn add @upyog/digit-ui-libraries@3.10.0
+RUN yarn add @upyog/digit-ui-module-bills@3.10.0
+RUN yarn add @upyog/digit-ui-module-common@3.10.0
+RUN yarn add @upyog/digit-ui-module-commonpt@3.10.0
+RUN yarn add @upyog/digit-ui-module-core@3.10.0
+RUN yarn add @upyog/digit-ui-module-dss@3.10.0
+RUN yarn add @upyog/digit-ui-module-engagement@3.10.0
+RUN yarn add @upyog/digit-ui-module-fsm@3.10.1
+RUN yarn add @upyog/digit-ui-module-hrms@3.10.0
+RUN yarn add @upyog/digit-ui-module-mcollect@3.10.0
+RUN yarn add @upyog/digit-ui-module-noc@3.10.0
+RUN yarn add @upyog/digit-ui-module-obps@3.10.3
+RUN yarn add @upyog/digit-ui-module-pgr@3.10.0
+RUN yarn add @upyog/digit-ui-module-pt@3.10.1
+RUN yarn add @upyog/digit-ui-module-receipts@3.0.1
+RUN yarn add @upyog/digit-ui-module-tl@3.10.3
+RUN yarn add @upyog/digit-ui-module-ws@3.10.0
+RUN yarn add @upyog/digit-ui-react-components@3.10.0
+RUN yarn add @upyog/upyog-ui-module-ads@3.10.0
+RUN yarn add @upyog/upyog-ui-module-asset@3.10.2
+RUN yarn add @upyog/upyog-ui-module-chb@3.10.0
+RUN yarn add @upyog/upyog-ui-module-ew@3.10.0
+RUN yarn add @upyog/upyog-ui-module-ptr@3.10.2
+RUN yarn add @upyog/upyog-ui-module-sv@3.10.0
+RUN yarn add @upyog/upyog-ui-module-wt@3.10.1
+RUN yarn add @upyog/upyog-ui-module-vendor@3.10.1
+RUN yarn add @upyog/upyog-ui-module-pgrai@3.10.0
+
 ARG WORK_DIR
 WORKDIR /app
 ENV NODE_OPTIONS "--max-old-space-size=20480"
@@ -19,12 +47,10 @@ RUN yarn config set ignore-engines true
 RUN cd web/ \
     && node envs.js \
     && node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(20480*20480))' \
-    && ./install-deps.sh \
-    && yarn install --force \
-    && echo "=== Checking PT Module ===" \
-    && yarn why @upyog/digit-ui-module-pt || true \
-    && ls -la node_modules/@upyog || true \
-    && yarn build
+    &&  ./install-deps.sh \
+    && yarn install \
+    && yarn build 
+    
 
 FROM nginx:mainline-alpine
 #FROM ghcr.io/egovernments/nginx:mainline-alpine
