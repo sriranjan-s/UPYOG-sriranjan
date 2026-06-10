@@ -106,6 +106,7 @@ public class TransactionRowMapper implements RowMapper<Transaction> {
                 .consumerCode(resultSet.getString("consumer_code"))
                 .additionalDetails(additionalDetails)
                 .taxAndPayments(taxAndPayments)
+                .atomTxnId(atomTxnId)
                 .auditDetails(auditDetails)
                 .build();
     }
