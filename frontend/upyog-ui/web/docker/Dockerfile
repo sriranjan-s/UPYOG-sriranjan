@@ -5,7 +5,7 @@ RUN apk add --no-cache git>2.30.0
 
 RUN yarn config set ignore-engines true
 
-RUN yarn install --force
+RUN cd.. && yarn install --force
 
 ARG WORK_DIR
 WORKDIR /app
