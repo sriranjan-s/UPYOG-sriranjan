@@ -18,6 +18,7 @@
     "node": ">=14"
   },
   "dependencies": {
+    "@craco/craco": "6.4.3",
     "@upyog-niua/upyog-css": "3.10.0",
     "@upyog/digit-ui-libraries": "3.10.0",
     "@upyog/digit-ui-module-bills": "3.10.0",
@@ -71,8 +72,8 @@
     "minimatch": "3.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "start": "craco start",
+    "build": "GENERATE_SOURCEMAP=false SKIP_PREFLIGHT_CHECK=true craco build",
     "build:prepare": "./build.sh"
   },
   "eslintConfig": {
