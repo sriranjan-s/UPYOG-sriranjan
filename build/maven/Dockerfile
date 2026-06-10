@@ -1,34 +1,38 @@
-#FROM egovio/alpine-maven-builder-jdk-8:1-master-NA-6036091e AS build
+# Build Stage
 FROM amazoncorretto:17-alpine AS build
 
 ARG WORK_DIR
 WORKDIR /app
 
-# Install Maven
 RUN apk add --no-cache maven
 
-# copy the project files
+# Copy pom first for layer caching
 COPY ${WORK_DIR}/pom.xml ./pom.xml
-COPY build/maven/start.sh ./start.sh
 
-# not useful for stateless builds
-# RUN mvn -B dependency:go-offline
-
+# Copy source code
 COPY ${WORK_DIR}/src ./src
-RUN mvn -B -f /app/pom.xml package
 
+# Build application
+RUN mvn -B clean package
 
-# Create runtime image
-#FROM egovio/8-openjdk-alpine
-#FROM egovio/amazoncorretto:17-alpine3.19
-#FROM egovio/amazoncorretto:17-alpine
-
+# Runtime Stage
 FROM amazoncorretto:17-alpine
 
 WORKDIR /opt/egov
 
-COPY --from=build /app/target/*.jar /app/start.sh /opt/egov/
+# Copy generated JAR
+COPY --from=build /app/target/*.jar /opt/egov/requester-services-dx.jar
 
-RUN chmod +x /opt/egov/start.sh
+# Copy required files
+COPY Test-Class3DocumentSigner2014.pfx /tmp/esign-configs/
+COPY PRENIOUA.lic /tmp/esign-configs/
+COPY start.sh /usr/bin/start.sh
 
-CMD ["/opt/egov/start.sh"]
+# Create required directories
+RUN mkdir -p /tmp/esign-tmp \
+    && chmod 777 /tmp/esign-tmp \
+    && mkdir -p /tmp/esign-output \
+    && chmod 777 /tmp/esign-output \
+    && chmod +x /usr/bin/start.sh
+
+CMD ["/usr/bin/start.sh"]
