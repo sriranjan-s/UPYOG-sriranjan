@@ -5,6 +5,9 @@ WORKDIR /app
 # copy the project files
 
 COPY ${WORK_DIR} ./${WORK_DIR}
+RUN java -version && \
+    keytool -list -cacerts -storepass changeit | grep -i sectigo || true
+    
 RUN cd ${WORK_DIR} \
     && mvn clean package -DskipTests
                                  
