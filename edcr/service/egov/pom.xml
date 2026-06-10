@@ -1097,7 +1097,11 @@
 			<artifactId>aspose-cad</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.upyog.project</groupId>
+			<artifactId>kabeja</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<!-- SERVLET SPEC JBOSS DEPENDENCIES START -->
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
