@@ -240,45 +240,25 @@ const ApplicationDetails = () => {
             message: `${t("CHB_CANCELLATION_SUCCESS_BUT_REFUND_FAILED") || "Booking cancelled, but refund initiation failed"}${refundErrorMessage ? `: ${refundErrorMessage}` : ""}`
           }
         });
-    
+      }
+    } catch (error) {
+      setShowToast({ key: "error", error: { message: error?.response?.data?.Errors?.[0]?.message || error?.message || "Something went wrong" } });
+    }
+  };
 
-      return (
-        <div>
-        <div className={"employee-application-details chb-employee-app-details-wrapper"}>
-          <Header className="chb-employee-header">{t("CHB_BOOKING_DETAILS")}</Header>
-          <div className="chb-download-options-row">
-            {dowloadOptions && dowloadOptions.length > 0 && (
-              <MultiLink
-                className="multilinkWrapper employee-mulitlink-main-div"
-                onHeadClick={() => setShowOptions(!showOptions)}
-                displayOptions={showOptions}
-                options={dowloadOptions}
-                downloadBtnClassName={"employee-download-btn-className"}
-                optionsClassName={"employee-options-btn-className"}
-              // ref={menuRef}
-              />
-            )}
-          </div>      
-          </div>
-          <ApplicationDetailsTemplate
-            applicationDetails={appDetailsToShow?.applicationData}
-            isLoading={isLoading}
-            isDataLoading={isLoading}
-            applicationData={appDetailsToShow?.applicationData?.applicationData}
-            mutate={mutate}
-            workflowDetails={workflowDetails}
-            businessService={businessService}
-            moduleCode="chb-services"
-            showToast={showToast}
-            setShowToast={setShowToast}
-            closeToast={closeToast}
-            timelineStatusPrefix={""}
-            forcedActionPrefix={"CHB"}
-            statusAttribute={"state"}
-            MenuStyle={{ color: "#FFFFFF", fontSize: "18px" }}
-          />
-          
-
+  const dowloadOptions =
+    data?.hallsBookingApplication?.[0]?.paymentReceiptFilestoreId || data?.hallsBookingApplication?.[0]?.permissionLetterFilestoreId
+      ? [
+          data?.hallsBookingApplication?.[0]?.paymentReceiptFilestoreId && {
+            label: t("CHB_RECEIPT"),
+            onClick: () => getRecieptSearch({ tenantId: tenantId }),
+          },
+          data?.hallsBookingApplication?.[0]?.permissionLetterFilestoreId && {
+            label: t("CHB_PERMISSION_LETTER"),
+            onClick: () => getPermissionLetter({ tenantId: tenantId }),
+          },
+        ].filter(Boolean)
+      : [];
 
   return (
     <div>
