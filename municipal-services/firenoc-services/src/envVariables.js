@@ -99,7 +99,7 @@ const envVariables = {
 
   //mdms service configurations
   EGOV_MDMS_HOST:
-    process.env.EGOV_MDMS_HOST || "https://dev.digit.org/",
+    process.env.EGOV_MDMS_HOST || "http://egov-mdms-service:8080/",
   EGOV_MDMS_CONTEXT_PATH:
     process.env.EGOV_MDMS_CONTEXT_PATH || "egov-mdms-service/v1/",
   EGOV_MDMS_SEARCH_ENPOINT: process.env.EGOV_MDMS_SEARCH_ENPOINT || "_search",
@@ -133,9 +133,9 @@ const envVariables = {
   //localization service configurations
   EGOV_LOCALIZATION_HOST:
     process.env.EGOV_LOCALIZATION_HOST ||
-    "http://egov-localization:8080/",
+    "http://egov-localization:8080",
   EGOV_LOCALIZATION_CONTEXT_PATH:
-    process.env.EGOV_LOCALIZATION_CONTEXT_PATH || "localization/messages/v1/",
+    process.env.EGOV_LOCALIZATION_CONTEXT_PATH || "/localization/messages/v1/",
   EGOV_LOCALIZATION_SEARCH_ENPOINT:
     process.env.EGOV_LOCALIZATION_SEARCH_ENPOINT || "_search",
   EGOV_LOCALIZATION_STATE_LEVEL:
