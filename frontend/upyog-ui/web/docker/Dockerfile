@@ -5,8 +5,6 @@ RUN apk add --no-cache git>2.30.0
 
 RUN yarn config set ignore-engines true
 
-RUN cd.. && yarn install --force
-
 ARG WORK_DIR
 WORKDIR /app
 ENV NODE_OPTIONS "--max-old-space-size=20480"
@@ -21,10 +19,12 @@ RUN yarn config set ignore-engines true
 RUN cd web/ \
     && node envs.js \
     && node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(20480*20480))' \
-    &&  ./install-deps.sh \
-    && yarn install \
-    && yarn build 
-    
+    && ./install-deps.sh \
+    && yarn install --force \
+    && echo "=== Checking PT Module ===" \
+    && yarn why @upyog/digit-ui-module-pt || true \
+    && ls -la node_modules/@upyog || true \
+    && yarn build
 
 FROM nginx:mainline-alpine
 #FROM ghcr.io/egovernments/nginx:mainline-alpine
