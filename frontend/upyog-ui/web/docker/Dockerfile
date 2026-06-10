@@ -3,6 +3,9 @@ FROM upyogio/alpine-node-builder-14:yarn AS build
 RUN apk update && apk upgrade
 RUN apk add --no-cache git>2.30.0
 
+RUN yarn config set ignore-engines true
+
+RUN cd web && yarn install --force
 
 ARG WORK_DIR
 WORKDIR /app
