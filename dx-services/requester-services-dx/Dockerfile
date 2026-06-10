@@ -1,9 +1,17 @@
 FROM egovio/apline-jre:8u121
 MAINTAINER Senthil<senthil.kalimuthu@tarento.com>
-# INSTRUCTIONS ON HOW TO BUILD JAR:
-# Move to the location where pom.xml is exist in project and build project using below command
-# "mvn clean package"
-COPY /target/requester-services-dx-1.1.6-SNAPSHOT.jar /opt/egov/requester-services-dx.jar
+
+COPY ${WORK_DIR}/pom.xml ./pom.xml
+COPY build/maven/start.sh ./start.sh
+
+COPY ${WORK_DIR}/src ./src
+RUN mvn -B -f /app/pom.xml package
+
+
+FROM amazoncorretto:17-alpine
+
+WORKDIR /opt/egov
+
 COPY Test-Class3DocumentSigner2014.pfx /tmp/esign-configs/
 RUN mkdir -p /tmp/esign-tmp/
 RUN chmod 777 /tmp/esign-tmp/
@@ -11,7 +19,8 @@ RUN mkdir -p /tmp/esign-output/
 RUN chmod 777 /tmp/esign-output/
 #copy /ds /etc/
 COPY PRENIOUA.lic /tmp/esign-configs/
-COPY /start.sh /usr/bin/start.sh
+
+COPY --from=build /app/target/*.jar /app/start.sh /opt/egov/
 RUN chmod +x /usr/bin/start.sh
 CMD ["/usr/bin/start.sh"]
 # NOTE: the two 'RUN' commands can probably be combined inside of a single
