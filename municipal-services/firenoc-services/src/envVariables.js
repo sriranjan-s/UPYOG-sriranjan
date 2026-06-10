@@ -47,14 +47,14 @@ const envVariables = {
     process.env.TRACER_ENABLE_REQUEST_LOGGING || false,
 
   //default host configurations
-  HOST_URL: process.env.HOST_URL || "https://dev.digit.org/",
+  HOST_URL: process.env.HOST_URL || "https://upyog.niua.org/",
 
   //logger configurations
   HTTP_CLIENT_DETAILED_LOGGING_ENABLED:
     process.env.HTTP_CLIENT_DETAILED_LOGGING_ENABLED || false,
 
   //workflow service configurations
-  EGOV_WORKFLOW_HOST: process.env.EGOV_WORKFLOW_HOST || "http://localhost:8089/",
+  EGOV_WORKFLOW_HOST: process.env.EGOV_WORKFLOW_HOST || "http://egov-workflow-v2:8080/",
   // "https://dev.digit.org",
   EGOV_WORKFLOW_TRANSITION_ENDPOINT:
     process.env.EGOV_WORKFLOW_TRANSITION_PATH ||
@@ -62,7 +62,7 @@ const envVariables = {
   BUSINESS_SERVICE: process.env.BUSINESS_SERVICE || "FIRENOC",
 
   //location service configurations
-  EGOV_LOCATION_HOST: process.env.EGOV_LOCATION_HOST || "http://localhost:8090/",
+  EGOV_LOCATION_HOST: process.env.EGOV_LOCATION_HOST || "http://egov-location:8080/",
   EGOV_LOCATION_CONTEXT_PATH:
     process.env.EGOV_LOCATION_CONTEXT_PATH || "egov-location/location/v11/",
   EGOV_LOCATION_SEARCH_ENDPOINT:
@@ -71,7 +71,7 @@ const envVariables = {
   EGOV_LOCATION_BOUNDARY_TYPE_CODE: process.env.EGOV_BOUNDARY || "Locality",
 
   //user service configurations
-  EGOV_USER_HOST: process.env.EGOV_USER_HOST || "http://localhost:8081/",
+  EGOV_USER_HOST: process.env.EGOV_USER_HOST || "http://egov-user:8080/",
   //"https://dev.digit.org",
   EGOV_USER_CONTEXT_PATH: process.env.EGOV_USER_CONTEXT_PATH || "user/",
   EGOV_USER_CREATE_ENDPOINT:
@@ -83,7 +83,7 @@ const envVariables = {
   EGOV_USER_USERNAME_PREFIX: process.env.EGOV_USER_USERNAME_PREFIX || "FN-",
 
   //idgen service configurations
-  EGOV_IDGEN_HOST: process.env.EGOV_IDGEN_HOST || "http://localhost:8087/",
+  EGOV_IDGEN_HOST: process.env.EGOV_IDGEN_HOST || "http://egov-idgen:8080/",
   EGOV_IDGEN_CONTEXT_PATH: process.env.EGOV_IDGEN_CONTEXT_PATH || "egov-idgen/",
   EGOV_IDGEN_GENERATE_ENPOINT:
     process.env.EGOV_IDGEN_GENERATE_ENPOINT || "id/_generate",
@@ -106,7 +106,7 @@ const envVariables = {
 
   //event service configurations
   EGOV_EVENT_HOST:
-    process.env.EGOV_EVENT_HOST || "https://dev.digit.org/",
+    process.env.EGOV_EVENT_HOST || "https://upyog.niua.org/",
   EGOV_EVENT_CONTEXT_PATH:
     process.env.EGOV_EVENT_CONTEXT_PATH || "egov-user-event/v1/events/",
   EGOV_EVENT_CREATE_ENPOINT:
@@ -114,7 +114,7 @@ const envVariables = {
 
   //firenoc calcultor service configurations
   EGOV_FN_CALCULATOR_HOST:
-    process.env.EGOV_FN_CALCULATOR_HOST || "http://localhost:8083/",
+    process.env.EGOV_FN_CALCULATOR_HOST || "http://firenoc-calculator:8080/",
   EGOV_FN_CALCULATOR_CONTEXT_PATH:
     process.env.EGOV_FN_CALCULATOR_CONTEXT_PATH || "firenoc-calculator/v1/",
   EGOV_FN_CALCULATOR_CALCULATOR_ENPOINT:
@@ -124,7 +124,7 @@ const envVariables = {
 
   //property service configurations
   EGOV_PROPERTY_HOST:
-    process.env.EGOV_PROPERTY_HOST || "https://dev.digit.org/",
+    process.env.EGOV_PROPERTY_HOST || "http://property-services.egov:8080/",
   EGOV_PROPERTY_CONTEXT_PATH:
     process.env.EGOV_PROPERTY_CONTEXT_PATH || "pt-services-v2/property/",
   EGOV_PROPERTY_SEARCH_ENPOINT:
@@ -133,7 +133,7 @@ const envVariables = {
   //localization service configurations
   EGOV_LOCALIZATION_HOST:
     process.env.EGOV_LOCALIZATION_HOST ||
-    "https://dev.digit.org/",
+    "http://egov-localization:8080/",
   EGOV_LOCALIZATION_CONTEXT_PATH:
     process.env.EGOV_LOCALIZATION_CONTEXT_PATH || "localization/messages/v1/",
   EGOV_LOCALIZATION_SEARCH_ENPOINT:
@@ -150,7 +150,7 @@ const envVariables = {
   EGOV_FN_DEFAULT_OFFSET: process.env.EGOV_FN_DEFAULT_OFFSET || 0,
   EGOV_FN_DEFAULT_LIMIT: process.env.EGOV_FN_DEFAULT_OFFSET || 10,
   EGOV_FN_MAX_OFFSET: process.env.EGOV_FN_DEFAULT_OFFSET || 100,
-  EGOV_HOST_BASE_URL:process.env.EGOV_HOST_BASE_URL|| "https://dev.digit.org/",
+  EGOV_HOST_BASE_URL:process.env.EGOV_HOST_BASE_URL|| "https://upyog.niua.org/",
   EGOV_RECEIPT_URL:process.EGOV_RECEIPT_URL||"citizen/fire-noc/search-preview",
   ACTION_PAY: "PAY",
   SENDBACK:"SENDBACK",
