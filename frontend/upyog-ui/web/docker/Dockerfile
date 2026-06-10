@@ -3,6 +3,8 @@ FROM upyogio/alpine-node-builder-14:yarn AS build
 RUN apk update && apk upgrade
 RUN apk add --no-cache git>2.30.0
 
+RUN yarn config set ignore-engines true
+
 RUN yarn add @upyog/digit-ui-libraries
 
 ARG WORK_DIR
