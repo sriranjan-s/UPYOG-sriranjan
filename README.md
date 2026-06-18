@@ -37,7 +37,7 @@ To provide a scalable, secure, and interoperable digital public infrastructure t
 
 | Resource | Link |
 |-----------|------|
-| Documentation | https://upyog-docs.gitbook.io/upyog-v-1.0 |
+| Documentation | https://upyog-docs.gitbook.io/upyog-v-2.0 |
 | Community Discussions | https://github.com/orgs/upyog/discussions |
 | Issue Reporting | https://github.com/upyog/UPYOG/issues |
 | NIUA | https://niua.in |
@@ -133,7 +133,7 @@ UPYOG offers a wide range of municipal, departmental, and governance services.
 
 # Architecture
 
-UPYOG is India's largest open-source platform for digital governance. Built on OpenAPI (OAS 2.0), it enables state governments and urban local bodies to rapidly deploy digital citizen services while integrating existing systems into a unified governance ecosystem.
+UPYOG is India's open-source platform for digital governance. Built on OpenAPI (OAS 2.0), it enables state governments and urban local bodies to rapidly deploy digital citizen services while integrating existing systems into a unified governance ecosystem.
 
 The platform can be deployed on:
 
