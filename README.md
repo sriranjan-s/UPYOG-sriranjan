@@ -148,7 +148,7 @@ The platform can be deployed on:
 ## Platform Architecture
 
 <p align="center">
-  <img src="docs/images/upyog-platform-architecture.png" alt="UPYOG Platform Architecture" width="100%">
+  <img src="docs/images/upyog-platform-architecture1.png" alt="UPYOG Platform Architecture" width="100%">
 </p>
 
 ### Architecture Highlights
