@@ -1,7 +1,7 @@
 # UPYOG (Urban Platform for deliverY of Online Governance)
 
 <p align="center">
-  <img src="docs/images/upyog-logo.png" alt="UPYOG Logo" width="300"/>
+  <img src="https://nugp-assets.s3.ap-south-1.amazonaws.com/nugp+asset/Banner+UPYOG+%281920x500%29B+%282%29.jpg" alt="UPYOG Logo" width="300"/>
 </p>
 
 ## Overview
